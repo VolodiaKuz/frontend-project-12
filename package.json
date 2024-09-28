@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/VolodiaKuz/frontend-project-12/issues"
   },
-  "homepage": "https://github.com/VolodiaKuz/frontend-project-12#readme"
+  "homepage": "https://github.com/VolodiaKuz/frontend-project-12#readme",
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4"
+  }
 }
