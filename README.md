@@ -4,4 +4,4 @@
 ## About
 
 <br>
-<a href="https://frontend-project-12-1r96.onrender.com" target="_blank">Link to the deployed project on Render</a>
+<a href="https://frontend-project-12-1r96.onrender.com" target="_blank" rel="noopener noreferrer">Link to the deployed project on Render</a>
