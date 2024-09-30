@@ -3,6 +3,5 @@
 
 ## About
 
-Link to the deployed project on Render:
 <br>
-https://frontend-project-12-1r96.onrender.com
+<a href="https://frontend-project-12-1r96.onrender.com" target="_blank">Link to the deployed project on Render</a>
