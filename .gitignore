@@ -7,3 +7,5 @@
 # production
 /build
 /dist
+
+index.html
