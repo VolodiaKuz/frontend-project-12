@@ -21,6 +21,7 @@
   "homepage": "https://github.com/VolodiaKuz/frontend-project-12#readme",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "react-router-dom": "^6.26.2"
   }
 }
