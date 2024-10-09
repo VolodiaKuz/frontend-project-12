@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 function HomePage() {
   const navigate = useNavigate();
+  // localStorage.clear();
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('userId'));

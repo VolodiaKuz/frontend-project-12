@@ -1,13 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.css';
-// import axios from 'axios';
+import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   // axios
   //   .post('/api/v1/login', { username: 'admin', password: 'admin' })
   //   .then(console.log)
   //   .catch(console.error);
+  const navigate = useNavigate();
 
   const f = useFormik({
     initialValues: {
@@ -15,8 +17,28 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      console.log(values);
-      console.log('submit works');
+      // console.log(values);
+      // console.log('submit works');
+
+      try {
+        const response = await axios.post('/api/v1/login', values);
+        // console.log(response)
+        console.log('response.data=', response.data);
+        console.log('response.data.token=', response.data.token);
+        localStorage.setItem('userId', JSON.stringify(response.data));
+        // auth.logIn(response.data.token, values.username);
+        const userId = JSON.parse(localStorage.getItem('userId'));
+        console.log('userId=', userId);
+
+        navigate('/');
+      } catch (err) {
+        f.setSubmitting(false);
+        if (err.response.status === 401) {
+          console.log('401 error');
+          return;
+        }
+        return;
+      }
     },
   });
 
