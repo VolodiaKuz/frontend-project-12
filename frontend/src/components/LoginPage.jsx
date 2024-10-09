@@ -1,5 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 // import axios from 'axios';
+import { useFormik } from 'formik';
+import { Button, Form } from 'react-bootstrap';
 
 function LoginPage() {
   // axios
@@ -7,77 +9,84 @@ function LoginPage() {
   //   .then(console.log)
   //   .catch(console.error);
 
+  const f = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      console.log('submit works');
+    },
+  });
+
   return (
     <>
-      <div class='h-100 bg-light'>
-        <div class='h-100'>
-          <div class='h-100' id='chat'>
-            <div class='d-flex flex-column h-100'>
-              <nav class='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-                <div class='container'>
-                  <a class='navbar-brand' href='/'>
+      <div className='h-100 bg-light'>
+        <div className='h-100'>
+          <div className='h-100' id='chat'>
+            <div className='d-flex flex-column h-100'>
+              <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
+                <div className='container'>
+                  <a className='navbar-brand' href='/'>
                     Hexlet Chat
                   </a>
-                  <button type='button' class='btn btn-primary'>
+                  <button type='button' className='btn btn-primary'>
                     Войти
                   </button>
                 </div>
               </nav>
-              <div class='container-fluid h-100'>
-                <div class='row justify-content-center align-content-center h-100'>
-                  <div class='col-12 col-md-8 col-xxl-6'>
-                    <div class='card shadow-sm'>
-                      <div class='card-body row p-5'>
-                        <div class='col-12 col-md-6 d-flex align-items-center justify-content-center'>
+              <div className='container-fluid h-100'>
+                <div className='row justify-content-center align-content-center h-100'>
+                  <div className='col-12 col-md-8 col-xxl-6'>
+                    <div className='card shadow-sm'>
+                      <div className='card-body row p-5'>
+                        <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
                           <img
                             src='auth_logo.jpeg'
-                            class='rounded-circle'
+                            className='rounded-circle'
                             alt='Войти'
                           />
                         </div>
-                        <form class='col-12 col-md-6 mt-3 mt-md-0'>
-                          <h1 class='text-center mb-4'>Войти</h1>
-                          <div class='form-floating mb-3'>
-                            <input
+                        <Form
+                          className='col-12 col-md-6 mt-3 mt-md-0'
+                          onSubmit={f.handleSubmit}
+                        >
+                          <Form.Group className='mb-3' controlId='username'>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
+                              // type="username"
+                              placeholder='username'
                               name='username'
-                              autocomplete='username'
-                              required=''
-                              placeholder='Ваш ник'
-                              id='username'
-                              class='form-control'
-                              value=''
+                              required
+                              onChange={f.handleChange}
+                              // ref={inputEl}
                             />
-                            <label for='username'>Ваш ник</label>
-                          </div>
-                          <div class='form-floating mb-4'>
-                            <input
+                          </Form.Group>
+                          <Form.Group className='mb-3' controlId='password'>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                              // type="password"
                               name='password'
-                              autocomplete='current-password'
-                              required=''
-                              placeholder='Пароль'
-                              type='password'
-                              id='password'
-                              class='form-control'
-                              value=''
+                              placeholder='password'
+                              required
+                              onChange={f.handleChange}
                             />
-                            <label class='form-label' for='password'>
-                              Пароль
-                            </label>
-                          </div>
-                          <button
-                            type='submit'
-                            class='w-100 mb-3 btn btn-outline-primary'
-                          >
-                            Войти
-                          </button>
-                        </form>
+                            <Form.Control.Feedback type='invalid'>
+                              the username or password is incorrect
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          <Button variant='primary' type='submit'>
+                            Submit
+                          </Button>
+                        </Form>
                       </div>
-                      <div class='card-footer p-4'>
-                        <div class='text-center'>
+                      <div className='card-footer p-4'>
+                        <div className='text-center'>
                           <span>Нет аккаунта?</span>
                           <a href='/signup'>Регистрация</a>
                         </div>
-                        <div class='text-center'>
+                        <div className='text-center'>
                           <a href='/not_existing_path'>404 Page</a>
                         </div>
                       </div>
@@ -86,7 +95,7 @@ function LoginPage() {
                 </div>
               </div>
             </div>
-            <div class='Toastify'></div>
+            <div className='Toastify'></div>
           </div>
         </div>
       </div>
