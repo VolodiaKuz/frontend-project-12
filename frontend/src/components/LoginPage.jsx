@@ -1,6 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css';
+// import axios from 'axios';
 
 function LoginPage() {
+  // axios
+  //   .post('/api/v1/login', { username: 'admin', password: 'admin' })
+  //   .then(console.log)
+  //   .catch(console.error);
+
   return (
     <>
       <div class='h-100 bg-light'>
@@ -13,7 +19,7 @@ function LoginPage() {
                     Hexlet Chat
                   </a>
                   <button type='button' class='btn btn-primary'>
-                    Выйти
+                    Войти
                   </button>
                 </div>
               </nav>
@@ -70,6 +76,9 @@ function LoginPage() {
                         <div class='text-center'>
                           <span>Нет аккаунта?</span>
                           <a href='/signup'>Регистрация</a>
+                        </div>
+                        <div class='text-center'>
+                          <a href='/not_existing_path'>404 Page</a>
                         </div>
                       </div>
                     </div>
