@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';

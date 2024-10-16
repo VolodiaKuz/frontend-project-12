@@ -1,8 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import LoginPage from './Pages/LoginPage';
-import HomePage from './Pages/HomePage';
-import NotFoundPage from './Pages/NotFoundPage';
+import LoginPage from '../Pages/LoginPage';
+import HomePage from '../Pages/HomePage';
+import NotFoundPage from '../Pages/NotFoundPage';
 
 function App() {
   return (
