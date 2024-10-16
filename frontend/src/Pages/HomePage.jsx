@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import Chat from '../components/Chat';
 
 function HomePage() {
   const navigate = useNavigate();
-  // localStorage.clear();
-  const channels = useSelector((state) => state.channelsStore.channels);
-  console.log('tasks in HomePage', channels);
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('userId'));
@@ -18,11 +15,7 @@ function HomePage() {
   });
 
   return (
-    <>
-      <div className='h-100 bg-light'>
-        <h1>Test route to Home Page '/'</h1>
-      </div>
-    </>
+    <Chat />
   );
 }
 
