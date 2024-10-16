@@ -4,10 +4,6 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
-  // axios
-  //   .post('/api/v1/login', { username: 'admin', password: 'admin' })
-  //   .then(console.log)
-  //   .catch(console.error);
   const navigate = useNavigate();
 
   const f = useFormik({
@@ -16,8 +12,6 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
-      // console.log(values);
-      // console.log('submit works');
 
       try {
         const response = await axios.post('/api/v1/login', values);
@@ -82,7 +76,7 @@ function LoginPage() {
                               name='username'
                               required
                               onChange={f.handleChange}
-                              // ref={inputEl}
+                              // ref={inputEl}  -----------------> добавить фокус на инпут
                             />
                           </Form.Group>
                           <Form.Group className='mb-3' controlId='password'>

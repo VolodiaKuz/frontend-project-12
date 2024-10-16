@@ -1,15 +1,17 @@
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 
-// const messageHtml = <div class="text-break mb-2"><b>admin</b>: test mes</div>;
-
-const renderChannels = (channels) => {
+const renderChannels = (channels, activeChannel, setActiveChannel) => {
   const channelsHtml = channels.map((channel) => {
-    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.active ? 'btn-secondary' : ''}`;
+    // const buttonClasses = `w-100 rounded-0 text-start btn ${channel.active ? 'btn-secondary' : ''}`;
+    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.channelName === activeChannel ? 'btn-secondary' : ''}`;
     const channelHtml =
       <li key={channel.channelId}>
         <button
           type='button'
           className={buttonClasses}
+          onClick={() => setActiveChannel(channel.channelName)}
         >
           <span className='me-1'>#</span>{channel.channelName}
         </button>
@@ -20,7 +22,7 @@ const renderChannels = (channels) => {
 }
 
 const renderMessages = (messages, activeChannel) => {
-  const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel)
+  const currentChannelMessages = messages.filter((message) => message.channelName === activeChannel)
   const messagesHtml = currentChannelMessages.map((message) => {
     const messageHtml = <div className="text-break mb-2" key={message.messageId}><b>{message.userName}</b>: {message.text}</div>;
     return messageHtml;
@@ -28,18 +30,29 @@ const renderMessages = (messages, activeChannel) => {
   return messagesHtml;
 }
 
-const exitButton = () => {
+const exitButton = (navigate) => () => {
   console.log('exit works');
   localStorage.clear();
+  navigate('/login');
   //доюавить навигацию на страницу LoginPage
 }
 
+
 function Chat() {
-  const currentChannel = 'general';
+  // const currentChannel = 'general';
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
   console.log('tasks in HomePage', channels);
   console.log('messages in HomePage', messages);
+  const navigate = useNavigate();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const [activeChannel, setActiveChannel] = useState('general');
+
 
   return (
     <div className='h-100 bg-light'>
@@ -51,7 +64,7 @@ function Chat() {
                 <a className='navbar-brand' href='/'>
                   Hexlet Chat
                 </a>
-                <button type='button' className='btn btn-primary' onClick={exitButton}>
+                <button type='button' className='btn btn-primary' onClick={exitButton(navigate)}>
                   Выйти
                 </button>
               </div>
@@ -82,14 +95,14 @@ function Chat() {
                     id='channels-box'
                     className='nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block'
                   >
-                    {renderChannels(channels)}
+                    {renderChannels(channels, activeChannel, setActiveChannel)}
                   </ul>
                 </div>
                 <div className='col p-0 h-100'>
                   <div className='d-flex flex-column h-100'>
                     <div className='bg-light mb-4 p-3 shadow-sm small'>
                       <p className='m-0'>
-                        <b># {currentChannel}</b>
+                        <b># {activeChannel}</b>
                       </p>
                       <span className='text-muted'>0 сообщений</span>
                     </div>
@@ -97,7 +110,7 @@ function Chat() {
                       id='messages-box'
                       className='chat-messages overflow-auto px-5'
                     >
-                      {renderMessages(messages, 1)}
+                      {renderMessages(messages, activeChannel)}
                     </div>
                     <div className='mt-auto px-5 py-3'>
                       <form noValidate='' className='py-1 border rounded-2'>
@@ -107,6 +120,7 @@ function Chat() {
                             aria-label='Новое сообщение'
                             placeholder='Введите сообщение...'
                             className='border-0 p-0 ps-2 form-control'
+                            ref={inputRef}
                           />
                           <button
                             type='submit'
