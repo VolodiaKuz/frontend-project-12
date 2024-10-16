@@ -1,10 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function HomePage() {
   const navigate = useNavigate();
   // localStorage.clear();
+  const tasks = useSelector((state) => state.tasksStore.tasks);
+  console.log('tasks in HomePage', tasks);
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('userId'));
