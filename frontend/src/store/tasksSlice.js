@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  tasks: [{ taskId: 1, text: 'testing work of store' }],
+  channels: [{ channelId: 1, text: 'testing work of store', channelName: 'test channel' }],
 };
 
 const tasksSlice = createSlice({
-  name: 'tasks',
+  name: 'channels',
   initialState,
   reducers: {
     addTask: (state, { payload: { task } }) => {

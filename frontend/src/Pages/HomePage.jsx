@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 function HomePage() {
   const navigate = useNavigate();
   // localStorage.clear();
-  const tasks = useSelector((state) => state.tasksStore.tasks);
-  console.log('tasks in HomePage', tasks);
+  const channels = useSelector((state) => state.channelsStore.channels);
+  console.log('tasks in HomePage', channels);
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('userId'));
