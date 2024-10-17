@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import Chat from '../components/Chat';
 
-function HomePage() {
+const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {

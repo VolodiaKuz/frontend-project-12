@@ -2,9 +2,16 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import React, { useEffect, useRef } from 'react';
 
-function LoginPage() {
+const LoginPage = () => {
   const navigate = useNavigate();
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+    });
 
   const f = useFormik({
     initialValues: {
@@ -16,10 +23,9 @@ function LoginPage() {
       try {
         const response = await axios.post('/api/v1/login', values);
         // console.log(response)
-        console.log('response.data=', response.data);
-        console.log('response.data.token=', response.data.token);
+        // console.log('response.data=', response.data);
+        // console.log('response.data.token=', response.data.token);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        // auth.logIn(response.data.token, values.username);
         const userId = JSON.parse(localStorage.getItem('userId'));
         console.log('userId=', userId);
 
@@ -42,16 +48,7 @@ function LoginPage() {
         <div className='h-100'>
           <div className='h-100' id='chat'>
             <div className='d-flex flex-column h-100'>
-              <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-                <div className='container'>
-                  <a className='navbar-brand' href='/'>
-                    Hexlet Chat
-                  </a>
-                  <button type='button' className='btn btn-primary'>
-                    Войти
-                  </button>
-                </div>
-              </nav>
+              <Navbar navigate={navigate} homePage={false} />
               <div className='container-fluid h-100'>
                 <div className='row justify-content-center align-content-center h-100'>
                   <div className='col-12 col-md-8 col-xxl-6'>
@@ -76,7 +73,7 @@ function LoginPage() {
                               name='username'
                               required
                               onChange={f.handleChange}
-                              // ref={inputEl}  -----------------> добавить фокус на инпут
+                              ref={inputRef}
                             />
                           </Form.Group>
                           <Form.Group className='mb-3' controlId='password'>
