@@ -1,6 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
+import { PlusSquare, ArrowRight } from 'react-bootstrap-icons';
+// import 'bootstrap-icons';
+import axios from 'axios';
 
 const renderChannels = (channels, activeChannel, setActiveChannel) => {
   const channelsHtml = channels.map((channel) => {
@@ -34,43 +37,62 @@ const exitButton = (navigate) => () => {
   console.log('exit works');
   localStorage.clear();
   navigate('/login');
-  //доюавить навигацию на страницу LoginPage
 }
+
+const Navbar = ({ navigate }) => {
+  return (
+    <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
+      <div className='container'>
+        <a className='navbar-brand' href='/'>
+          Hexlet Chat
+        </a>
+        <button type='button' className='btn btn-primary' onClick={exitButton(navigate)}>
+          Выйти
+        </button>
+      </div>
+    </nav>
+  )
+};
 
 
 function Chat() {
-  // const currentChannel = 'general';
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
-  console.log('tasks in HomePage', channels);
-  console.log('messages in HomePage', messages);
+  // console.log('tasks in HomePage', channels);
+  // console.log('messages in HomePage', messages);
   const navigate = useNavigate();
   const inputRef = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
+    const token = JSON.parse(localStorage.getItem('userId')).token;
+
+    const newMessage = {
+      body: 'new message', channelId: '1', username: 'admin'
+    }
+
+    axios.post('/api/v1/messages', newMessage, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((response) => {
+      console.log(response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
+    })
+
   }, []);
 
   const [activeChannel, setActiveChannel] = useState('general');
-
 
   return (
     <div className='h-100 bg-light'>
       <div className='h-100'>
         <div className='h-100' id='chat'>
           <div className='d-flex flex-column h-100'>
-            <nav className='shadow-sm navbar navbar-expand-lg navbar-light bg-white'>
-              <div className='container'>
-                <a className='navbar-brand' href='/'>
-                  Hexlet Chat
-                </a>
-                <button type='button' className='btn btn-primary' onClick={exitButton(navigate)}>
-                  Выйти
-                </button>
-              </div>
-            </nav>
+            <Navbar navigate={navigate} />
             <div className='container h-100 my-4 overflow-hidden rounded shadow'>
               <div className='row h-100 bg-white flex-md-row'>
+                {/* <Channels />
+                <Messages /> */}
                 <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
                   <div className='d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4'>
                     <b>Каналы</b>
@@ -78,16 +100,7 @@ function Chat() {
                       type='button'
                       className='p-0 text-primary btn btn-group-vertical'
                     >
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 16 16'
-                        width='20'
-                        height='20'
-                        fill='currentColor'
-                      >
-                        <path d='M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z'></path>
-                        <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4'></path>
-                      </svg>
+                      <PlusSquare />
                       <span className='visually-hidden'>+</span>
                     </button>
                   </div>
@@ -127,18 +140,7 @@ function Chat() {
                             className='btn btn-group-vertical'
                             disabled=''
                           >
-                            <svg
-                              xmlns='http://www.w3.org/2000/svg'
-                              viewBox='0 0 16 16'
-                              width='20'
-                              height='20'
-                              fill='currentColor'
-                            >
-                              <path
-                                fillRule='evenodd'
-                                d='M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z'
-                              ></path>
-                            </svg>
+                            <ArrowRight />
                             <span className='visually-hidden'>Отправить</span>
                           </button>
                         </div>
