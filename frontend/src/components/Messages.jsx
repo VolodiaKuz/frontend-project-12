@@ -1,5 +1,7 @@
 import { ArrowRight } from 'react-bootstrap-icons';
 import { useEffect, useRef } from 'react';
+import { useFormik } from 'formik';
+import { Button, Form, InputGroup  } from 'react-bootstrap';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelName === activeChannel)
@@ -12,8 +14,19 @@ const renderMessages = (messages, activeChannel) => {
 
 const Messages = ({ messages, activeChannel }) => {
   const inputRef = useRef();
+
   useEffect(() => {
-    inputRef.current.focus();
+    // inputRef.current.focus();
+  });
+
+  const f = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: async (values) => {
+      console.log('submit works');
+    },
   });
 
   return (
@@ -51,6 +64,35 @@ const Messages = ({ messages, activeChannel }) => {
               </button>
             </div>
           </form>
+          <Form
+              className='py-1 rounded-2'
+              onSubmit={f.handleSubmit}
+            >
+            <InputGroup className="mb-3">
+              <Form.Control
+                placeholder="Введите сообщение..."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+              />
+              <Button id="button-addon2">
+                <ArrowRight />
+                <span className='visually-hidden'>Отправить</span>
+              </Button>
+            </InputGroup>
+            {/* <Form.Group className='mb-3' controlId='username'>
+              <Form.Control
+                // type="username"
+                placeholder='username'
+                name='username'
+                required
+                onChange={f.handleChange}
+                ref={inputRef}
+              />
+            </Form.Group>
+            <Button variant='primary' type='submit'>
+              Submit
+            </Button> */}
+          </Form>
         </div>
       </div>
     </div>
