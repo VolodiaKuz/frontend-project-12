@@ -2,16 +2,15 @@ import { PlusSquare } from 'react-bootstrap-icons';
 
 const renderChannels = (channels, activeChannel, setActiveChannel) => {
   const channelsHtml = channels.map((channel) => {
-    // const buttonClasses = `w-100 rounded-0 text-start btn ${channel.active ? 'btn-secondary' : ''}`;
-    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.channelName === activeChannel ? 'btn-secondary' : ''}`;
+    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.name === activeChannel ? 'btn-secondary' : ''}`;
     const channelHtml =
-      <li key={channel.channelId}>
+      <li key={channel.id}>
         <button
           type='button'
           className={buttonClasses}
-          onClick={() => setActiveChannel(channel.channelName)}
+          onClick={() => setActiveChannel(channel.id)}
         >
-          <span className='me-1'>#</span>{channel.channelName}
+          <span className='me-1'>#</span>{channel.name}
         </button>
       </li>
     return channelHtml;

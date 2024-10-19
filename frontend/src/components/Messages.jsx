@@ -2,30 +2,55 @@ import { ArrowRight } from 'react-bootstrap-icons';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, InputGroup  } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const renderMessages = (messages, activeChannel) => {
-  const currentChannelMessages = messages.filter((message) => message.channelName === activeChannel)
+  // console.log(messages);
+  // console.log(activeChannel);
+  const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel)
+  // console.log('currentChannelMessages ==>', currentChannelMessages);
   const messagesHtml = currentChannelMessages.map((message) => {
-    const messageHtml = <div className="text-break mb-2" key={message.messageId}><b>{message.userName}</b>: {message.text}</div>;
+    const messageHtml = <div className="text-break mb-2" key={message.id}><b>{message.username}</b>: {message.body}</div>;
     return messageHtml;
   })
   return messagesHtml;
 }
 
-const Messages = ({ messages, activeChannel }) => {
+const Messages = ({ activeChannel }) => {
   const inputRef = useRef();
+  // Добавить Yup для отключения кнопки если сооьщение не введено
+  // disabled={!formik.isValid}
+
+  const messages = useSelector((state) => state.messagesStore.messages);
 
   useEffect(() => {
-    // inputRef.current.focus();
+    inputRef.current.focus();
+
   });
 
   const f = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      message: ''
     },
-    onSubmit: async (values) => {
-      console.log('submit works');
+    onSubmit: (values) => {
+      // console.log('values in submit =>', values);
+      // console.log('activeChannel => ', activeChannel);
+      // console.log('messages ==> ',messages);
+
+      const token = JSON.parse(localStorage.getItem('userId')).token;
+
+      const newMessage = {
+        body: values.message, channelId: 1, username: 'admin'
+      }
+
+      axios.post('/api/v1/messages', newMessage, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => {
+        // console.log('response.data post /api/v1/messages in Messages =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
+      })
     },
   });
 
@@ -45,53 +70,24 @@ const Messages = ({ messages, activeChannel }) => {
           {renderMessages(messages, activeChannel)}
         </div>
         <div className='mt-auto px-5 py-3'>
-          <form noValidate='' className='py-1 border rounded-2'>
-            <div className='input-group has-validation'>
-              <input
-                name='body'
-                aria-label='Новое сообщение'
-                placeholder='Введите сообщение...'
-                className='border-0 p-0 ps-2 form-control'
-                ref={inputRef}
-              />
-              <button
-                type='submit'
-                className='btn btn-group-vertical'
-                disabled=''
-              >
-                <ArrowRight />
-                <span className='visually-hidden'>Отправить</span>
-              </button>
-            </div>
-          </form>
           <Form
               className='py-1 rounded-2'
               onSubmit={f.handleSubmit}
             >
             <InputGroup className="mb-3">
               <Form.Control
+                name='message'
                 placeholder="Введите сообщение..."
-                aria-label="Recipient's username"
+                aria-label='Новое сообщение'
                 aria-describedby="basic-addon2"
+                onChange={f.handleChange}
+                ref={inputRef}
               />
-              <Button id="button-addon2">
+              <Button id="button-addon2" type='submit'>
                 <ArrowRight />
                 <span className='visually-hidden'>Отправить</span>
               </Button>
             </InputGroup>
-            {/* <Form.Group className='mb-3' controlId='username'>
-              <Form.Control
-                // type="username"
-                placeholder='username'
-                name='username'
-                required
-                onChange={f.handleChange}
-                ref={inputRef}
-              />
-            </Form.Group>
-            <Button variant='primary' type='submit'>
-              Submit
-            </Button> */}
           </Form>
         </div>
       </div>

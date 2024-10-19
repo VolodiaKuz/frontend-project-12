@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   messages: [
-    { channelName: 'general', messageId: 1, text: '1st message', userName: 'admin' },
-    { channelName: 'general', messageId: 2, text: '2nd message', userName: 'admin' },
-    { channelName: 'general', messageId: 3, text: 'one more message', userName: 'admin' },
-    { channelName: 'general', messageId: 4, text: 'some message', userName: 'admin' }
+    { id: '1', body: 'text message', channelId: 1, username: 'admin' },
+    { id: '2', body: 'text 2', channelId: 1, username: 'admin' },
+    { id: '3', body: 'text 3', channelId: 1, username: 'admin' },
+    { id: '4', body: 'text 4', channelId: 1, username: 'admin' },
   ],
 };
 
@@ -15,6 +15,7 @@ const tasksSlice = createSlice({
   reducers: {
     addMessage: (state, { payload: { message } }) => {
       state.messages = [...state.messages, message];
+      console.log('state.messages in messageSlice ==>', state.messages);
     },
   },
 });

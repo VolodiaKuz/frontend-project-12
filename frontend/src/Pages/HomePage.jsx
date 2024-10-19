@@ -13,13 +13,15 @@ const HomePage = () => {
       console.log('!userId - it works');
       navigate('/login');
     }
+
     axios.get('/api/v1/channels', {
       headers: {
         Authorization: `Bearer ${userId.token}`,
       },
     }).then((response) => {
-      console.log('response.data in HomePage axios.get(/api/v1/channels) ==',response.data); // =>[{ id: '1', name: 'general', removable: false }, ...]
+      console.log('response.data in HomePage axios.get(/api/v1/channels) ==>',response.data); // =>[{ id: '1', name: 'general', removable: false }, ...]
     });
+
   });
 
   return (

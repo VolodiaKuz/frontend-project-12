@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   channels: [
-    { channelId: 1, text: 'testing work of store', channelName: 'general', active: true },
-    { channelId: 2, text: 'testing work of store', channelName: 'random', active: false }
+    { id: 1, name: 'general', removable: false },
+    { id: 2, name: 'random', removable: false }
   ],
 };
 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Channels from './Channels'
 import Messages from './Messages'
-import axios from 'axios';
+// import axios from 'axios';
 
 const Chat = () => {
   const channels = useSelector((state) => state.channelsStore.channels);
@@ -15,23 +15,31 @@ const Chat = () => {
 
   useEffect(() => {
     // inputRef.current.focus();
-    const token = JSON.parse(localStorage.getItem('userId')).token;
+    // const token = JSON.parse(localStorage.getItem('userId')).token;
 
-    const newMessage = {
-      body: 'new message', channelId: '1', username: 'admin'
-    }
+    // const newMessage = {
+    //   body: 'new message', channelId: '1', username: 'admin'
+    // }
 
-    axios.post('/api/v1/messages', newMessage, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((response) => {
-      console.log(response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
-    })
+    // axios.post('/api/v1/messages', newMessage, {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // }).then((response) => {
+    //   console.log('response.data post /api/v1/messages in Chat =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
+    // })
+
+    // axios.get('/api/v1/messages', {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // }).then((response) => {
+    //   console.log('response.data get /api/v1/messages in Chat =>',response.data); // =>[{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
+    // });
 
   }, []);
 
-  const [activeChannel, setActiveChannel] = useState('general');
+  const [activeChannel, setActiveChannel] = useState(1);
 
   return (
     <div className='h-100 bg-light'>
