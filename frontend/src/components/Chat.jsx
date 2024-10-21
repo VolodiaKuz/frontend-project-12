@@ -4,38 +4,11 @@ import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Channels from './Channels'
 import Messages from './Messages'
-import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
-// import axios from 'axios';
+// import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
+import AddChannelModal from './AddChannelModal.jsx';
+import RemoveChannelModal from './RemoveChannelModal.jsx';
+import RenameChannelModal from './RenameChannelModal.jsx';
 
-const ModalAdd = ({ hideModal }) => {
-  return (
-    <>
-      <Modal show={true} onHide={hideModal} animation={false} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Добавить канал</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <FormGroup>
-              <FormControl
-                required
-                data-testid="input-body"
-                name="body"
-              />
-            </FormGroup>
-            <br />
-            <Button variant="secondary" onClick={hideModal}>
-              Отменить
-            </Button>
-            <Button variant="primary" onClick={hideModal}>
-              Добавить канал
-            </Button>
-          </form>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-}
 
 const renderModal = ({ modalInfo, hideModal }) => {
   if (!modalInfo.type) {
@@ -44,7 +17,11 @@ const renderModal = ({ modalInfo, hideModal }) => {
 
   switch (modalInfo.type) {
     case 'add':
-      return <ModalAdd hideModal={hideModal}/>;
+      return <AddChannelModal hideModal={hideModal}/>;
+    case 'remove':
+      return <RemoveChannelModal hideModal={hideModal}/>;
+    case 'rename':
+      return <RenameChannelModal hideModal={hideModal}/>;
     default:
       return;
   }

@@ -26,7 +26,6 @@ const Messages = ({ activeChannel, activeChannelName }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-
   });
 
   const f = useFormik({
@@ -34,10 +33,6 @@ const Messages = ({ activeChannel, activeChannelName }) => {
       message: ''
     },
     onSubmit: (values) => {
-      // console.log('values in submit =>', values);
-      // console.log('activeChannel => ', activeChannel);
-      // console.log('messages ==> ',messages);
-
       const token = JSON.parse(localStorage.getItem('userId')).token;
 
       const newMessage = {
@@ -48,19 +43,11 @@ const Messages = ({ activeChannel, activeChannelName }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }).then((response) => {
-        // console.log('response.data post /api/v1/messages in Messages =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
-      })
+      });
 
-      // const newChannel = { name: 'new channel' };
-
-      // axios.post('/api/v1/channels', newChannel, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // }).then((response) => {
-      //   // console.log('response.data post /api/v1/messages in Messages =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
-      // })
+      inputRef.current.value='';
+      inputRef.current.focus();
+    
 
     },
   });
