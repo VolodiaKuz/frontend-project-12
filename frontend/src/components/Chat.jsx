@@ -1,63 +1,92 @@
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from './Navbar';
 import Channels from './Channels'
 import Messages from './Messages'
+import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
 // import axios from 'axios';
+
+const ModalAdd = ({ hideModal }) => {
+  return (
+    <>
+      <Modal show={true} onHide={hideModal} animation={false} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Добавить канал</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <form>
+            <FormGroup>
+              <FormControl
+                required
+                data-testid="input-body"
+                name="body"
+              />
+            </FormGroup>
+            <br />
+            <Button variant="secondary" onClick={hideModal}>
+              Отменить
+            </Button>
+            <Button variant="primary" onClick={hideModal}>
+              Добавить канал
+            </Button>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+const renderModal = ({ modalInfo, hideModal }) => {
+  if (!modalInfo.type) {
+    return null;
+  }
+
+  switch (modalInfo.type) {
+    case 'add':
+      return <ModalAdd hideModal={hideModal}/>;
+    default:
+      return;
+  }
+};
 
 const Chat = () => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
-  // console.log('tasks in HomePage', channels);
-  // console.log('messages in HomePage', messages);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // inputRef.current.focus();
-    // const token = JSON.parse(localStorage.getItem('userId')).token;
-
-    // const newMessage = {
-    //   body: 'new message', channelId: '1', username: 'admin'
-    // }
-
-    // axios.post('/api/v1/messages', newMessage, {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // }).then((response) => {
-    //   console.log('response.data post /api/v1/messages in Chat =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
-    // })
-
-    // axios.get('/api/v1/messages', {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // }).then((response) => {
-    //   console.log('response.data get /api/v1/messages in Chat =>',response.data); // =>[{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
-    // });
-
-  }, []);
+  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
+  const hideModal = () => setModalInfo({ type: null, item: null });
 
   const [activeChannel, setActiveChannel] = useState(1);
+  const [activeChannelName, setactiveChannelName] = useState('general');
 
   return (
-    <div className='h-100 bg-light'>
+    <>
+      {renderModal({ modalInfo, hideModal })}
+      <div className='h-100 bg-light'>
       <div className='h-100'>
         <div className='h-100' id='chat'>
           <div className='d-flex flex-column h-100'>
             <Navbar navigate={navigate} homePage={true} />
             <div className='container h-100 my-4 overflow-hidden rounded shadow'>
               <div className='row h-100 bg-white flex-md-row'>
-                <Channels channels={channels} activeChannel={activeChannel} setActiveChannel={setActiveChannel} />
-                <Messages messages={messages} activeChannel={activeChannel} />
+                <Channels 
+                  channels={channels} 
+                  activeChannel={activeChannel} 
+                  setActiveChannel={setActiveChannel}
+                  setactiveChannelName={setactiveChannelName}
+                  setModalInfo={setModalInfo}
+                />
+                <Messages messages={messages} activeChannel={activeChannel} activeChannelName={activeChannelName} />
               </div>
             </div>
           </div>
           <div className='Toastify'></div>
         </div>
       </div>
-    </div>
+    </div></>
+
   )
 }
 

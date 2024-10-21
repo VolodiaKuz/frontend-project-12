@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import { addMessage } from '../store/messagesSlice.js';
+import { addChannel } from '../store/channelsSlice.js';
 
 const init = (dispatch) => {
   // const dispatch = useDispatch();
@@ -11,6 +12,17 @@ const init = (dispatch) => {
     const message = payload;
     dispatch(addMessage({ message }))
   });
+  socket.on('newChannel', (payload) => {
+    console.log(`test socket.on('newChannel') ===>`, payload); // => { id: 6, name: "new channel", removable: true }
+    const channel = payload;
+    dispatch(addChannel({ channel }))
+  });
+  // socket.on('removeChannel', (payload) => {
+  //   console.log(payload); // { id: 6 };
+  // });
+  // socket.on('renameChannel', (payload) => {
+  //   console.log(payload); // { id: 7, name: "new name channel", removable: true }
+  // });
 };
 
 export default init;

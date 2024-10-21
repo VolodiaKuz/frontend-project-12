@@ -17,7 +17,7 @@ const renderMessages = (messages, activeChannel) => {
   return messagesHtml;
 }
 
-const Messages = ({ activeChannel }) => {
+const Messages = ({ activeChannel, activeChannelName }) => {
   const inputRef = useRef();
   // Добавить Yup для отключения кнопки если сооьщение не введено
   // disabled={!formik.isValid}
@@ -41,7 +41,7 @@ const Messages = ({ activeChannel }) => {
       const token = JSON.parse(localStorage.getItem('userId')).token;
 
       const newMessage = {
-        body: values.message, channelId: 1, username: 'admin'
+        body: values.message, channelId: activeChannel, username: 'admin'
       }
 
       axios.post('/api/v1/messages', newMessage, {
@@ -51,6 +51,17 @@ const Messages = ({ activeChannel }) => {
       }).then((response) => {
         // console.log('response.data post /api/v1/messages in Messages =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
       })
+
+      // const newChannel = { name: 'new channel' };
+
+      // axios.post('/api/v1/channels', newChannel, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }).then((response) => {
+      //   // console.log('response.data post /api/v1/messages in Messages =>',response.data); // => { id: '1', body: 'new message', channelId: '1', username: 'admin }
+      // })
+
     },
   });
 
@@ -59,9 +70,9 @@ const Messages = ({ activeChannel }) => {
       <div className='d-flex flex-column h-100'>
         <div className='bg-light mb-4 p-3 shadow-sm small'>
           <p className='m-0'>
-            <b># {activeChannel}</b>
+            <b># {activeChannelName}</b>
           </p>
-          <span className='text-muted'>0 сообщений</span>
+          <span className='text-muted'>? сообщений</span>
         </div>
         <div
           id='messages-box'
