@@ -2,6 +2,7 @@ import { io } from "socket.io-client";
 import { addMessage } from '../store/messagesSlice.js';
 import { addChannel } from '../store/channelsSlice.js';
 import { removeChannel } from '../store/channelsSlice.js';
+import { renameChannel } from '../store/channelsSlice.js';
 
 const init = (dispatch) => {
   // const dispatch = useDispatch();
@@ -22,11 +23,12 @@ const init = (dispatch) => {
     console.log(`test socket.on('removeChannel') ===>`, payload); // { id: 6 };
     const channel = payload;
     dispatch(removeChannel({ channel }))
-
   });
-  // socket.on('renameChannel', (payload) => {
-  //   console.log(payload); // { id: 7, name: "new name channel", removable: true }
-  // });
+  socket.on('renameChannel', (payload) => {
+    console.log(`test socket.on('renameChannel') ===>`, payload); // { id: 7, name: "new name channel", removable: true }
+    const channel = payload;
+    dispatch(renameChannel({ channel }))
+  });
 };
 
 export default init;

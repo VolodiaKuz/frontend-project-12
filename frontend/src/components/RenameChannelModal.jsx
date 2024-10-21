@@ -3,8 +3,12 @@ import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 
-const ModalRemove = ({ hideModal }) => {
+const ModalRemove = ({ hideModal, modalInfo }) => {
+  console.log('modalInfo =======>',modalInfo);
+
   const inputRef = useRef();
+  const channelId = modalInfo.item.id;
+  console.log('channelId', channelId);
 
   useEffect(() => {
     inputRef.current.focus(); // фокус почему-тто не работает
@@ -15,18 +19,16 @@ const ModalRemove = ({ hideModal }) => {
       channel: ''
     },
     onSubmit: (values) => {
-      console.log(values);
-      console.log('test');
-      hideModal();
       const token = JSON.parse(localStorage.getItem('userId')).token;
 
-      const newChannel = { name: values.channel };
-
-      axios.post('/api/v1/channels', newChannel, {
+      const editedChannel = { name: values.channel };
+      axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
+
+      hideModal();
     },
   });
 

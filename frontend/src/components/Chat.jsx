@@ -21,7 +21,7 @@ const renderModal = ({ modalInfo, hideModal }) => {
     case 'remove':
       return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo}/>;
     case 'rename':
-      return <RenameChannelModal hideModal={hideModal}/>;
+      return <RenameChannelModal hideModal={hideModal} modalInfo={modalInfo}/>;
     default:
       return;
   }
