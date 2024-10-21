@@ -19,7 +19,7 @@ const renderModal = ({ modalInfo, hideModal }) => {
     case 'add':
       return <AddChannelModal hideModal={hideModal}/>;
     case 'remove':
-      return <RemoveChannelModal hideModal={hideModal}/>;
+      return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo}/>;
     case 'rename':
       return <RenameChannelModal hideModal={hideModal}/>;
     default:
@@ -39,9 +39,8 @@ const Chat = () => {
   const [activeChannelName, setactiveChannelName] = useState('general');
 
   return (
-    <>
+    <div className='h-100 bg-light'>
       {renderModal({ modalInfo, hideModal })}
-      <div className='h-100 bg-light'>
       <div className='h-100'>
         <div className='h-100' id='chat'>
           <div className='d-flex flex-column h-100'>
@@ -62,7 +61,7 @@ const Chat = () => {
           <div className='Toastify'></div>
         </div>
       </div>
-    </div></>
+    </div>
 
   )
 }

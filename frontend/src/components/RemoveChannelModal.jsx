@@ -1,34 +1,55 @@
 import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
-import { useFormik } from 'formik';
 
-const ModalRemove = ({ hideModal }) => {
-  const inputRef = useRef();
+const sendRemoveResponse = (channel, hideModal) => {
+  const token = JSON.parse(localStorage.getItem('userId')).token;
 
-  useEffect(() => {
-    inputRef.current.focus(); // фокус почему-тто не работает
-  });
+  // const newChannel = { name: values.channel };
 
-  const f = useFormik({
-    initialValues: {
-      channel: ''
+  // axios.post('/api/v1/channels', newChannel, {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // })
+  axios.delete(`/api/v1/channels/${channel.id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-    onSubmit: (values) => {
-      console.log(values);
-      console.log('test');
-      hideModal();
-      const token = JSON.parse(localStorage.getItem('userId')).token;
+  })
+  
+  console.log(channel);
 
-      const newChannel = { name: values.channel };
+  hideModal();
+}
 
-      axios.post('/api/v1/channels', newChannel, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    },
-  });
+const ModalRemove = ({ hideModal, modalInfo }) => {
+
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
+
+
+  // const f = useFormik({
+  //   initialValues: {
+  //     channel: ''
+  //   },
+  //   onSubmit: (values) => {
+  //     console.log(values);
+  //     console.log('test');
+  //     hideModal();
+  //     const token = JSON.parse(localStorage.getItem('userId')).token;
+
+  //     const newChannel = { name: values.channel };
+
+  //     axios.post('/api/v1/channels', newChannel, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //   },
+  // });
+  const channel = 4;
 
   return (
     <>
@@ -37,24 +58,12 @@ const ModalRemove = ({ hideModal }) => {
           <Modal.Title>Удалить канал</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={f.handleSubmit}>
-            <FormGroup>
-              <FormControl
-                required
-                data-testid="input-body"
-                name="channel"
-                onChange={f.handleChange}
-                ref={inputRef}
-              />
-            </FormGroup>
-            <br />
             <Button variant="secondary" onClick={hideModal}>
               Отменить
             </Button>
-            <Button type='submit' variant="primary">
-              Добавить канал
+            <Button type='submit' onClick={() => sendRemoveResponse(modalInfo.item, hideModal)} variant="primary">
+              Удалить канал
             </Button>
-          </Form>
         </Modal.Body>
       </Modal>
     </>

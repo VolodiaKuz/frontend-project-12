@@ -52,7 +52,7 @@ const ModalRemove = ({ hideModal }) => {
               Отменить
             </Button>
             <Button type='submit' variant="primary">
-              Добавить канал
+              Переименовать канал
             </Button>
           </Form>
         </Modal.Body>
