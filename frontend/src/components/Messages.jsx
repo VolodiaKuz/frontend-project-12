@@ -5,8 +5,8 @@ import { Button, Form, InputGroup  } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import axios from 'axios';
-
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 
 
 const renderMessages = (messages, activeChannel) => {
@@ -39,8 +39,10 @@ const Messages = ({ activeChannel, activeChannelName }) => {
     onSubmit: (values) => {
       const token = JSON.parse(localStorage.getItem('userId')).token;
 
+      // console.log(('I have boob, etc.'));
+
       const newMessage = {
-        body: values.message, channelId: activeChannel, username: 'admin'
+        body: filter.clean(values.message), channelId: activeChannel, username: 'admin'
       }
 
       axios.post('/api/v1/messages', newMessage, {
