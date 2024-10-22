@@ -1,27 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Chat from '../components/Chat';
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(`JSON.parse(localStorage.getItem('userId')) =======>`, JSON.parse(localStorage.getItem('userId')));
     const userId = JSON.parse(localStorage.getItem('userId'));
     console.log('userId=', userId);
     if (!userId) {
-      console.log('!userId - it works');
+      console.log('!userId in HomePage - it works');
       navigate('/login');
     }
-
-    axios.get('/api/v1/channels', {
-      headers: {
-        Authorization: `Bearer ${userId.token}`,
-      },
-    }).then((response) => {
-      console.log('response.data in HomePage axios.get(/api/v1/channels) ==>',response.data); // =>[{ id: '1', name: 'general', removable: false }, ...]
-    });
-
   });
 
   return (
