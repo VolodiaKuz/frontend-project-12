@@ -6,13 +6,13 @@ import { useFormik } from 'formik';
 const ModalRemove = ({ hideModal, modalInfo }) => {
   console.log('modalInfo =======>',modalInfo);
 
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
   console.log('channelId', channelId);
 
   useEffect(() => {
     inputRef.current.focus(); // фокус почему-тто не работает
-  });
+  }, [inputRef]);
 
   const f = useFormik({
     initialValues: {
