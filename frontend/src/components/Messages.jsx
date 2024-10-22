@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
+
+
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel)
   // console.log('currentChannelMessages ==>', currentChannelMessages);
@@ -21,6 +24,7 @@ const Messages = ({ activeChannel, activeChannelName }) => {
   const { t } = useTranslation();
   // Добавить Yup для отключения кнопки если сооьщение не введено
   // disabled={!formik.isValid}
+  const notify = () => toast.success("сообщение отправлено");
 
   const messages = useSelector((state) => state.messagesStore.messages);
 
@@ -44,6 +48,8 @@ const Messages = ({ activeChannel, activeChannelName }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      notify()
 
       inputRef.current.value='';
       inputRef.current.focus();

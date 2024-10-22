@@ -8,6 +8,7 @@ import Messages from './Messages'
 import AddChannelModal from './AddChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
 import RenameChannelModal from './RenameChannelModal.jsx';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const renderModal = ({ modalInfo, hideModal }) => {
@@ -17,7 +18,7 @@ const renderModal = ({ modalInfo, hideModal }) => {
 
   switch (modalInfo.type) {
     case 'add':
-      return <AddChannelModal hideModal={hideModal}/>;
+      return <AddChannelModal hideModal={hideModal} modalInfo={modalInfo}/>;
     case 'remove':
       return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo}/>;
     case 'rename':
@@ -41,6 +42,7 @@ const Chat = () => {
   return (
     <div className='h-100 bg-light'>
       {renderModal({ modalInfo, hideModal })}
+      <ToastContainer />
       <div className='h-100'>
         <div className='h-100' id='chat'>
           <div className='d-flex flex-column h-100'>

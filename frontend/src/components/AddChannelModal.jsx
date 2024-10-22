@@ -2,9 +2,11 @@ import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 
-const ModalAdd = ({ hideModal }) => {
+const ModalAdd = ({ hideModal, modalInfo }) => {
   const inputRef = useRef();
+  const notify = () => toast.success("Канал добавлен");
 
   useEffect(() => {
     inputRef.current.focus(); // фокус почему-тто не работает
@@ -17,7 +19,6 @@ const ModalAdd = ({ hideModal }) => {
     onSubmit: (values) => {
       console.log(values);
       console.log('test');
-      hideModal();
       const token = JSON.parse(localStorage.getItem('userId')).token;
 
       const newChannel = { name: values.channel };
@@ -27,6 +28,10 @@ const ModalAdd = ({ hideModal }) => {
           Authorization: `Bearer ${token}`,
         },
       })
+      // modalInfo.toast();
+      hideModal();
+      notify();
+      
     },
   });
 

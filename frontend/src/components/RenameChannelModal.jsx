@@ -2,9 +2,10 @@ import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
-  console.log('modalInfo =======>',modalInfo);
+  const notify = () => toast.success("Канал переименован");
 
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
@@ -29,6 +30,8 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
       })
 
       hideModal();
+      notify();
+
     },
   });
 

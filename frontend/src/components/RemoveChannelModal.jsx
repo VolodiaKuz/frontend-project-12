@@ -1,8 +1,11 @@
 import { Button, Modal } from 'react-bootstrap';
 // import { useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const sendRemoveResponse = (channel, hideModal) => {
+  const notify = () => toast.success("Канал удален");
+
   const token = JSON.parse(localStorage.getItem('userId')).token;
 
   axios.delete(`/api/v1/channels/${channel.id}`, {
@@ -11,11 +14,13 @@ const sendRemoveResponse = (channel, hideModal) => {
     },
   })
   hideModal();
+  notify();
   // navigateOtherUsers(); // добавить редирект остальных пользователей и удаление всех сообщений канала
   // deleteChannelMessages(channel);
 }
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
+
 
   return (
     <>

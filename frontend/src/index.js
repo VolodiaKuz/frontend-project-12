@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import init from './utils/initI18next.js';
+import 'react-toastify/dist/ReactToastify.css';
 // import initSockets from './utils/initSockets.js'
 
 

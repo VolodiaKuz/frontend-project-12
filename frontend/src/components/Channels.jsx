@@ -1,9 +1,10 @@
 import { PlusSquare } from 'react-bootstrap-icons';
 import { Button, Dropdown } from 'react-bootstrap';
 // import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-const openModalWindow = (setModalInfo) => {
-  setModalInfo({ type: 'add', item: true})
+const openModalWindow = (setModalInfo, toast) => {
+  setModalInfo({ type: 'add', item: true, toast})
 }
 
 const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) => {
@@ -14,6 +15,7 @@ const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) =>
 const renderRemovableChannel = (channel, activeChannel, setActiveChannel, setactiveChannelName, setModalInfo) => {
   const buttonClasses = `w-100 rounded-0 text-start`;
   const buttonVariant = `${channel.id === activeChannel ? 'secondary' : 'light'}`;
+  // const notify = () => toast.success("тостер");
 
   return (
     <li key={channel.id}>
@@ -46,6 +48,7 @@ const renderChannels = (channels, activeChannel, setActiveChannel, setactiveChan
 }
 
 const Channels = ({ channels, activeChannel, setActiveChannel, setactiveChannelName, setModalInfo }) => {
+  const notify = () => toast.success("Канал создан");
 
   return (
     <div className='col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex'>
@@ -55,7 +58,7 @@ const Channels = ({ channels, activeChannel, setActiveChannel, setactiveChannelN
           type='button'
           className='p-0 text-primary btn btn-group-vertical'
         >
-          <PlusSquare onClick={() => openModalWindow(setModalInfo)}/>
+          <PlusSquare onClick={() => openModalWindow(setModalInfo, notify)}/>
           <span className='visually-hidden'>+</span>
         </button>
       </div>
