@@ -6,7 +6,7 @@ import NotFoundPage from '../Pages/NotFoundPage';
 import initSockets from '../utils/initSockets.js'
 import { useDispatch } from 'react-redux';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   initSockets(dispatch);
   return (

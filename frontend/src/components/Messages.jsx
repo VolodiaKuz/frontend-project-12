@@ -3,11 +3,10 @@ import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, InputGroup  } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from "react-i18next";
 import axios from 'axios';
 
 const renderMessages = (messages, activeChannel) => {
-  // console.log(messages);
-  // console.log(activeChannel);
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel)
   // console.log('currentChannelMessages ==>', currentChannelMessages);
   const messagesHtml = currentChannelMessages.map((message) => {
@@ -19,6 +18,7 @@ const renderMessages = (messages, activeChannel) => {
 
 const Messages = ({ activeChannel, activeChannelName }) => {
   const inputRef = useRef();
+  const { t } = useTranslation();
   // Добавить Yup для отключения кнопки если сооьщение не введено
   // disabled={!formik.isValid}
 
@@ -52,6 +52,8 @@ const Messages = ({ activeChannel, activeChannelName }) => {
     },
   });
 
+  const count = 0;
+
   return (
     <div className='col p-0 h-100'>
       <div className='d-flex flex-column h-100'>
@@ -59,7 +61,7 @@ const Messages = ({ activeChannel, activeChannelName }) => {
           <p className='m-0'>
             <b># {activeChannelName}</b>
           </p>
-          <span className='text-muted'>? сообщений</span>
+          <span className='text-muted'>{t('chatBox.messages', { count })}</span>
         </div>
         <div
           id='messages-box'
