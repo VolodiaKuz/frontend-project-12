@@ -65,11 +65,10 @@ const LoginPage = () => {
                           className='col-12 col-md-6 mt-3 mt-md-0'
                           onSubmit={f.handleSubmit}
                         >
-                          <h1 class="text-center mb-4">Войти</h1>
                           <Form.Group className='mb-3' controlId='username'>
                             <Form.Control
                               // type="username"
-                              placeholder='Ваш ник'
+                              placeholder='Имя'
                               name='username'
                               required
                               onChange={f.handleChange}
@@ -88,16 +87,22 @@ const LoginPage = () => {
                               the username or password is incorrect
                             </Form.Control.Feedback>
                           </Form.Group>
-                          <Button variant='primary' type='submit'>
-                            Войти
+                          <Form.Group className='mb-3' controlId='repeatPassword'>
+                            <Form.Control
+                              // type="password"
+                              name='repeatPassword'
+                              placeholder='Подтвердите пароль'
+                              required
+                              onChange={f.handleChange}
+                            />
+                            <Form.Control.Feedback type='invalid'>
+                              the username or password is incorrect
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          <Button type='submit' variant='primary' className='w-100'>
+                            Зарегистрироваться
                           </Button>
                         </Form>
-                      </div>
-                      <div className='card-footer p-4'>
-                        <div className='text-center'>
-                          <span>Нет аккаунта?</span>
-                          <a href='/signup'>Регистрация</a>
-                        </div>
                       </div>
                     </div>
                   </div>

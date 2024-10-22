@@ -1,5 +1,5 @@
 import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import axios from 'axios';
 
 const sendRemoveResponse = (channel, hideModal) => {
@@ -10,10 +10,9 @@ const sendRemoveResponse = (channel, hideModal) => {
       Authorization: `Bearer ${token}`,
     },
   })
-  
-  console.log(channel);
-
   hideModal();
+  // navigateOtherUsers(); // добавить редирект остальных пользователей и удаление всех сообщений канала
+  // deleteChannelMessages(channel);
 }
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
