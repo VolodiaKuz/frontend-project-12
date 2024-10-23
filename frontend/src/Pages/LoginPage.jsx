@@ -73,7 +73,7 @@ const LoginPage = () => {
                         onSubmit={f.handleSubmit}
                       >
                         <h1 className="text-center mb-4">Войти</h1>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3" controlId="username">
                           <Form.Label htmlFor="username">Ваш ник</Form.Label>
                           <Form.Control
                             type="text"
@@ -84,7 +84,7 @@ const LoginPage = () => {
                             ref={inputRef}
                           />
                         </Form.Group>
-                        <Form.Group className="mb-3">
+                        <Form.Group className="mb-3" controlId="password">
                           <Form.Label htmlFor="password">Пароль</Form.Label>
                           <Form.Control
                             type="password"
