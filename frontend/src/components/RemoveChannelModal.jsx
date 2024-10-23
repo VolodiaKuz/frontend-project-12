@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const sendRemoveResponse = (channel, hideModal) => {
-  const notify = () => toast.success('Канал удален');
+  const notify = () => toast.success('Канал удалён');
 
   const { token } = JSON.parse(localStorage.getItem('userId'));
 

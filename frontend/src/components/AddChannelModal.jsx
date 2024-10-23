@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 const ModalAdd = ({ hideModal }) => {
   const inputRef = useRef();
-  const notify = () => toast.success('Канал добавлен');
+  const notify = () => toast.success('Канал создан');
 
   useEffect(() => {
     inputRef.current.focus(); // фокус почему-тто не работает
