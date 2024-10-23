@@ -75,8 +75,9 @@ const LoginPage = () => {
                       >
                         <h1 className="text-center mb-4">Войти</h1>
                         <Form.Group className="mb-3" controlId="username">
+                          <Form.Label htmlFor="username">Ваш ник</Form.Label>
                           <Form.Control
-                            // type="username"
+                            type="text"
                             placeholder="Ваш ник"
                             name="username"
                             required
@@ -85,8 +86,9 @@ const LoginPage = () => {
                           />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="password">
+                          <Form.Label htmlFor="password">Пароль</Form.Label>
                           <Form.Control
-                            // type="password"
+                            type="password"
                             name="password"
                             placeholder="Пароль"
                             required
@@ -103,7 +105,7 @@ const LoginPage = () => {
                     </div>
                     <div className="card-footer p-4">
                       <div className="text-center">
-                        <span>Нет аккаунта?</span>
+                        <span>Нет аккаунта? </span>
                         <a href="/signup">Регистрация</a>
                       </div>
                     </div>
