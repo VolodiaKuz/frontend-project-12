@@ -33,6 +33,7 @@ const renderRemovableChannel = (
           onClick={() => handleActiveChannel(channel, setActiveChannel, setactiveChannelName)}
         >
           #
+          {' '}
           {filter.clean(channel.name)}
         </Button>
 
@@ -74,6 +75,7 @@ const renderChannels = (
           onClick={() => handleActiveChannel(channel, setActiveChannel, setactiveChannelName)}
         >
           #
+          {' '}
           {channel.name}
         </Button>
       </li>
