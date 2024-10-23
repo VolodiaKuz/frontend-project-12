@@ -14,7 +14,7 @@ const signupSchema = Yup.object().shape({
   password: Yup.string()
     .min(6, 'Не менее 6 символов')
     .required('Обязательное поле'),
-  repeatPassword: Yup.string().required('Обязательное поле').oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
+  confirmPassword: Yup.string().required('Обязательное поле').oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
 });
 
 const LoginPage = () => {
@@ -30,7 +30,7 @@ const LoginPage = () => {
     initialValues: {
       username: '',
       password: '',
-      repeatPassword: '',
+      confirmPassword: '',
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
@@ -79,7 +79,7 @@ const LoginPage = () => {
                         <Form.Group className="mb-3" controlId="username">
                           <Form.Control
                             type="text"
-                            placeholder="Имя"
+                            placeholder="Имя пользователя"
                             name="username"
                             required
                             onChange={f.handleChange}
@@ -103,17 +103,17 @@ const LoginPage = () => {
                             {f.errors.password}
                           </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="repeatPassword">
+                        <Form.Group className="mb-3" controlId="confirmPassword">
                           <Form.Control
                             type="password"
-                            name="repeatPassword"
+                            name="confirmPassword"
                             placeholder="Подтвердите пароль"
                             required
                             onChange={f.handleChange}
-                            isInvalid={!!f.errors.repeatPassword && f.touched.repeatPassword}
+                            isInvalid={!!f.errors.confirmPassword && f.touched.confirmPassword}
                           />
                           <Form.Control.Feedback type="invalid">
-                            {f.errors.repeatPassword}
+                            {f.errors.confirmPassword}
                           </Form.Control.Feedback>
                           {usernameExist ? <Alert variant="danger">Такой пользователь уже существует</Alert> : null}
                         </Form.Group>
