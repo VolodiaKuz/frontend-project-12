@@ -44,6 +44,7 @@ const ModalAdd = ({ hideModal }) => {
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
+            <Form.Label htmlFor="channel">Имя канала</Form.Label>
             <FormControl
               required
               data-testid="input-body"

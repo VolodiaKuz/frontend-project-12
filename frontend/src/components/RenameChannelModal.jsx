@@ -11,11 +11,12 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
-  console.log('channelId', channelId);
+  console.log('channelId', modalInfo);
 
   useEffect(() => {
-    inputRef.current.focus(); // фокус почему-тто не работает
-  }, [inputRef]);
+    inputRef.current.value = modalInfo.item.name;
+    inputRef.current.focus();
+  }, [inputRef, modalInfo.item.name]);
 
   const f = useFormik({
     initialValues: {
@@ -44,11 +45,11 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
-            <Form.Label htmlFor="channelName">Имя канала</Form.Label>
+            <Form.Label htmlFor="channel">Имя канала</Form.Label>
             <FormControl
               required
               data-testid="input-body"
-              name="channelName"
+              name="channel"
               onChange={f.handleChange}
               ref={inputRef}
             />
