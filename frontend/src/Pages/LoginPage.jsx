@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
 
 // const signupSchema = Yup.object().shape({
@@ -19,11 +19,12 @@ import Navbar from '../components/Navbar';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const inputRef = useRef();
+  const inputRef = useRef(null);
+  const [authError, setAuthError] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, [inputRef]);
 
   const f = useFormik({
     initialValues: {
@@ -33,9 +34,6 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post('/api/v1/login', values);
-        // console.log(response)
-        // console.log('response.data=', response.data);
-        // console.log('response.data.token=', response.data.token);
         localStorage.setItem('userId', JSON.stringify(response.data));
         const userId = JSON.parse(localStorage.getItem('userId'));
         console.log('userId=', userId);
@@ -47,6 +45,7 @@ const LoginPage = () => {
         if (err.response.status === 401) {
           console.log('401 error');
         }
+        setAuthError(true);
       }
     },
   });
@@ -94,9 +93,10 @@ const LoginPage = () => {
                             required
                             onChange={f.handleChange}
                           />
-                          <Form.Control.Feedback type="invalid">
+                          {/* <Form.Control.Feedback type="invalid">
                             the username or password is incorrect
-                          </Form.Control.Feedback>
+                          </Form.Control.Feedback> */}
+                          {authError ? <Alert variant="danger">Неверные имя пользователя или пароль</Alert> : null}
                         </Form.Group>
                         <Button variant="primary" type="submit">
                           Войти
