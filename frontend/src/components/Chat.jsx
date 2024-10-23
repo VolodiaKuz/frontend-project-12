@@ -6,41 +6,41 @@ import Navbar from './Navbar';
 import Channels from './Channels';
 import Messages from './Messages';
 // import { Button, Modal, FormGroup, FormControl } from 'react-bootstrap';
-import AddChannelModal from './AddChannelModal.jsx';
-import RemoveChannelModal from './RemoveChannelModal.jsx';
-import RenameChannelModal from './RenameChannelModal.jsx';
+// import AddChannelModal from './AddChannelModal.jsx';
+// import RemoveChannelModal from './RemoveChannelModal.jsx';
+// import RenameChannelModal from './RenameChannelModal.jsx';
 
-const renderModal = ({ modalInfo, hideModal }) => {
-  if (!modalInfo.type) {
-    return null;
-  }
+// const renderModal = ({ modalInfo, hideModal }) => {
+//   if (!modalInfo.type) {
+//     return null;
+//   }
 
-  switch (modalInfo.type) {
-    case 'add':
-      return <AddChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    case 'remove':
-      return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    case 'rename':
-      return <RenameChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    default:
-      return null;
-  }
-};
+//   switch (modalInfo.type) {
+//     case 'add':
+//       return <AddChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+//     case 'remove':
+//       return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+//     case 'rename':
+//       return <RenameChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+//     default:
+//       return null;
+//   }
+// };
 
 const Chat = () => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
   const navigate = useNavigate();
 
-  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  const hideModal = () => setModalInfo({ type: null, item: null });
+  // const [modalInfo, setModalInfo] = useState({ type: null, item: null });
+  // const hideModal = () => setModalInfo({ type: null, item: null });
 
   const [activeChannel, setActiveChannel] = useState(1);
   const [activeChannelName, setactiveChannelName] = useState('general');
 
   return (
     <div className="h-100 bg-light">
-      {renderModal({ modalInfo, hideModal })}
+      {/* {renderModal({ modalInfo, hideModal })} */}
       <ToastContainer />
       <div className="h-100">
         <div className="h-100" id="chat">
@@ -53,7 +53,6 @@ const Chat = () => {
                   activeChannel={activeChannel}
                   setActiveChannel={setActiveChannel}
                   setactiveChannelName={setactiveChannelName}
-                  setModalInfo={setModalInfo}
                 />
                 <Messages
                   messages={messages}

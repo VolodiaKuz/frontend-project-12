@@ -26,13 +26,16 @@ const ModalRemove = ({ hideModal, modalInfo }) => (
       <Modal.Title>Удалить канал</Modal.Title>
     </Modal.Header>
     <Modal.Body>
+      <p className="lead">Уверены?</p>
+    </Modal.Body>
+    <Modal.Footer>
       <Button variant="secondary" onClick={hideModal}>
         Отменить
       </Button>
       <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal)} variant="primary">
         Удалить канал
       </Button>
-    </Modal.Body>
+    </Modal.Footer>
   </Modal>
 );
 

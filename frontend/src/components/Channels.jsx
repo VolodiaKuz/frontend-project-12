@@ -1,12 +1,12 @@
 import { PlusSquare } from 'react-bootstrap-icons';
 import { Button, Dropdown } from 'react-bootstrap';
-// import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { useState } from 'react';
+// import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 
-const openModalWindow = (setModalInfo) => {
-  setModalInfo({ type: 'add', item: true });
-};
+import AddChannelModal from './AddChannelModal.jsx';
+import RemoveChannelModal from './RemoveChannelModal.jsx';
+import RenameChannelModal from './RenameChannelModal.jsx';
 
 const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) => {
   setActiveChannel(channel.id);
@@ -85,10 +85,29 @@ const renderChannels = (
   return channelsHtml;
 };
 
+const renderModal = ({ modalInfo, hideModal }) => {
+  console.log('it works');
+  if (!modalInfo.type) {
+    return null;
+  }
+
+  switch (modalInfo.type) {
+    case 'add':
+      return <AddChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+    case 'remove':
+      return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+    case 'rename':
+      return <RenameChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
+    default:
+      return null;
+  }
+};
+
 const Channels = ({
-  channels, activeChannel, setActiveChannel, setactiveChannelName, setModalInfo,
+  channels, activeChannel, setActiveChannel, setactiveChannelName,
 }) => {
-  const notify = () => toast.success('Канал создан');
+  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
+  const hideModal = () => setModalInfo({ type: null, item: null });
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
@@ -98,7 +117,7 @@ const Channels = ({
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
         >
-          <PlusSquare onClick={() => openModalWindow(setModalInfo, notify)} />
+          <PlusSquare onClick={() => setModalInfo({ type: 'add', item: true })} />
           <span className="visually-hidden">+</span>
         </button>
       </div>
@@ -114,6 +133,7 @@ const Channels = ({
           setModalInfo,
         )}
       </ul>
+      {renderModal({ modalInfo, hideModal })}
     </div>
   );
 };
