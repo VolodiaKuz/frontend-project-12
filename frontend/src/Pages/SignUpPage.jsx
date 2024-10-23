@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
+import Navbar from '../components/Navbar';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string()
@@ -24,7 +24,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-    }, [inputRef]);
+  }, [inputRef]);
 
   const f = useFormik({
     initialValues: {
@@ -35,7 +35,7 @@ const LoginPage = () => {
     validationSchema: signupSchema,
     onSubmit: async (values) => {
       console.log('values ===> ', values);
-      console.log('f.errors ===> ',f.errors);
+      console.log('f.errors ===> ', f.errors);
 
       try {
         const response = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
@@ -48,94 +48,90 @@ const LoginPage = () => {
         // f.isSubmitting
         if (err.response.status === 409) {
           console.log('409 error');
-          setUsernameExist(true)
-          return;
+          setUsernameExist(true);
         }
-        return;
       }
-    }
+    },
   });
 
   return (
-    <>
-      <div className='h-100 bg-light'>
-        <div className='h-100'>
-          <div className='h-100' id='chat'>
-            <div className='d-flex flex-column h-100'>
-              <Navbar navigate={navigate} homePage={false} />
-              <div className='container-fluid h-100'>
-                <div className='row justify-content-center align-content-center h-100'>
-                  <div className='col-12 col-md-8 col-xxl-6'>
-                    <div className='card shadow-sm'>
-                      <div className='card-body row p-5'>
-                        <div className='col-12 col-md-6 d-flex align-items-center justify-content-center'>
-                          <img
-                            src='auth_logo.jpeg'
-                            className='rounded-circle'
-                            alt='Войти'
-                          />
-                        </div>
-                        <Form
-                          className='col-12 col-md-6 mt-3 mt-md-0'
-                          onSubmit={f.handleSubmit}
-                        >
-                          <Form.Group className='mb-3' controlId='username'>
-                            <Form.Control
-                              type="text"
-                              placeholder='Имя'
-                              name='username'
-                              required
-                              onChange={f.handleChange}
-                              ref={inputRef}
-                              isInvalid={!!f.errors.username && f.touched.username}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              {f.errors.username}
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                          <Form.Group className='mb-3' controlId='password'>
-                            <Form.Control
-                              type="password"
-                              name='password'
-                              placeholder='Пароль'
-                              required
-                              onChange={f.handleChange}
-                              isInvalid={!!f.errors.password && f.touched.password}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              {f.errors.password}
-                            </Form.Control.Feedback> 
-                          </Form.Group>
-                          <Form.Group className='mb-3' controlId='repeatPassword'>
-                            <Form.Control
-                              type="password"
-                              name='repeatPassword'
-                              placeholder='Подтвердите пароль'
-                              required
-                              onChange={f.handleChange}
-                              isInvalid={!!f.errors.repeatPassword && f.touched.repeatPassword}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                              {f.errors.repeatPassword}
-                            </Form.Control.Feedback>
-                            {usernameExist ? <Alert variant='danger'>Такой пользователь уже существует</Alert> : null}
-                          </Form.Group>
-                          <Button type='submit' variant='primary' className='w-100'>
-                            Зарегистрироваться
-                          </Button>
-                        </Form>
+    <div className="h-100 bg-light">
+      <div className="h-100">
+        <div className="h-100" id="chat">
+          <div className="d-flex flex-column h-100">
+            <Navbar navigate={navigate} homePage={false} />
+            <div className="container-fluid h-100">
+              <div className="row justify-content-center align-content-center h-100">
+                <div className="col-12 col-md-8 col-xxl-6">
+                  <div className="card shadow-sm">
+                    <div className="card-body row p-5">
+                      <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                        <img
+                          src="auth_logo.jpeg"
+                          className="rounded-circle"
+                          alt="Войти"
+                        />
                       </div>
+                      <Form
+                        className="col-12 col-md-6 mt-3 mt-md-0"
+                        onSubmit={f.handleSubmit}
+                      >
+                        <Form.Group className="mb-3" controlId="username">
+                          <Form.Control
+                            type="text"
+                            placeholder="Имя"
+                            name="username"
+                            required
+                            onChange={f.handleChange}
+                            ref={inputRef}
+                            isInvalid={!!f.errors.username && f.touched.username}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {f.errors.username}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="password">
+                          <Form.Control
+                            type="password"
+                            name="password"
+                            placeholder="Пароль"
+                            required
+                            onChange={f.handleChange}
+                            isInvalid={!!f.errors.password && f.touched.password}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {f.errors.password}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="repeatPassword">
+                          <Form.Control
+                            type="password"
+                            name="repeatPassword"
+                            placeholder="Подтвердите пароль"
+                            required
+                            onChange={f.handleChange}
+                            isInvalid={!!f.errors.repeatPassword && f.touched.repeatPassword}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {f.errors.repeatPassword}
+                          </Form.Control.Feedback>
+                          {usernameExist ? <Alert variant="danger">Такой пользователь уже существует</Alert> : null}
+                        </Form.Group>
+                        <Button type="submit" variant="primary" className="w-100">
+                          Зарегистрироваться
+                        </Button>
+                      </Form>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='Toastify'></div>
           </div>
+          <div className="Toastify" />
         </div>
       </div>
-    </>
+    </div>
   );
-}
+};
 
 export default LoginPage;

@@ -12,16 +12,18 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     addChannel: (state, { payload: { channel } }) => {
-      state.channels = [...state.channels, channel];
+      const channelsState = state;
+      channelsState.channels = [...state.channels, channel];
     },
     removeChannel: (state, { payload: { channel } }) => {
-      const newChannelsList = state.channels.filter((ch) => ch.id !== channel.id)
-      state.channels = [...newChannelsList];
+      const channelsState = state;
+      const newChannelsList = state.channels.filter((ch) => ch.id !== channel.id);
+      channelsState.channels = [...newChannelsList];
     },
     renameChannel: (state, { payload: { channel } }) => {
-      const otherChannels = state.channels.filter((ch) => ch.id !== channel.id)
-      // const renamedChannel = state.channels.filter((ch) => ch.id === channel.id)
-      state.channels = [...otherChannels, channel];
+      const channelsState = state;
+      const otherChannels = state.channels.filter((ch) => ch.id !== channel.id);
+      channelsState.channels = [...otherChannels, channel];
     },
   },
 });

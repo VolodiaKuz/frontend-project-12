@@ -7,7 +7,6 @@ import init from './utils/initI18next.js';
 import 'react-toastify/dist/ReactToastify.css';
 // import initSockets from './utils/initSockets.js'
 
-
 // import App from './components/App';
 import store from './store/index.js';
 
@@ -18,5 +17,5 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     {vdom}
-  </Provider>
+  </Provider>,
 );

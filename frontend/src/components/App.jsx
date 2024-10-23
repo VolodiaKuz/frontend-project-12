@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import LoginPage from '../Pages/LoginPage';
 import SignUpPage from '../Pages/SignUpPage.jsx';
 import HomePage from '../Pages/HomePage';
 import NotFoundPage from '../Pages/NotFoundPage';
-import initSockets from '../utils/initSockets.js'
-import { useDispatch } from 'react-redux';
+import initSockets from '../utils/initSockets.js';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,6 @@ const App = () => {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

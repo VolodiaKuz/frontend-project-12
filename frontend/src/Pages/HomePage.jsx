@@ -7,7 +7,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(`JSON.parse(localStorage.getItem('userId')) =======>`, JSON.parse(localStorage.getItem('userId')));
+    console.log('JSON.parse(localStorage.getItem(\'userId\')) =======>', JSON.parse(localStorage.getItem('userId')));
     const userId = JSON.parse(localStorage.getItem('userId'));
     console.log('userId=', userId);
     if (!userId) {
@@ -19,6 +19,6 @@ const HomePage = () => {
   return (
     <Chat />
   );
-}
+};
 
 export default HomePage;

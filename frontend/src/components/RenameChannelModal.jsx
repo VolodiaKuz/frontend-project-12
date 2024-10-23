@@ -1,11 +1,13 @@
-import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
+import {
+  Button, Modal, FormGroup, FormControl, Form,
+} from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
-  const notify = () => toast.success("Канал переименован");
+  const notify = () => toast.success('Канал переименован');
 
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
@@ -17,53 +19,50 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
   const f = useFormik({
     initialValues: {
-      channel: ''
+      channel: '',
     },
     onSubmit: (values) => {
-      const token = JSON.parse(localStorage.getItem('userId')).token;
+      const { token } = JSON.parse(localStorage.getItem('userId'));
 
       const editedChannel = { name: values.channel };
       axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
 
       hideModal();
       notify();
-
     },
   });
 
   return (
-    <>
-      <Modal show={true} onHide={hideModal} animation={false} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Переименовать канал</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={f.handleSubmit}>
-            <FormGroup>
-              <FormControl
-                required
-                data-testid="input-body"
-                name="channel"
-                onChange={f.handleChange}
-                ref={inputRef}
-              />
-            </FormGroup>
-            <br />
-            <Button variant="secondary" onClick={hideModal}>
-              Отменить
-            </Button>
-            <Button type='submit' variant="primary">
-              Переименовать канал
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
+    <Modal show onHide={hideModal} animation={false} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Переименовать канал</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={f.handleSubmit}>
+          <FormGroup>
+            <FormControl
+              required
+              data-testid="input-body"
+              name="channel"
+              onChange={f.handleChange}
+              ref={inputRef}
+            />
+          </FormGroup>
+          <br />
+          <Button variant="secondary" onClick={hideModal}>
+            Отменить
+          </Button>
+          <Button type="submit" variant="primary">
+            Переименовать канал
+          </Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
-}
+};
 
 export default ModalRemove;

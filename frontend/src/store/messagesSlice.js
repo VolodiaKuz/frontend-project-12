@@ -14,8 +14,9 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, { payload: { message } }) => {
-      state.messages = [...state.messages, message];
-      console.log('state.messages in messageSlice ==>', state.messages);
+      // state.messages = [...state.messages, message];
+      const messagesState = state;
+      messagesState.messages = [...state.messages, message];
     },
   },
 });

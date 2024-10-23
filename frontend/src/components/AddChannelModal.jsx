@@ -1,12 +1,14 @@
-import { Button, Modal, FormGroup, FormControl, Form } from 'react-bootstrap';
+import {
+  Button, Modal, FormGroup, FormControl, Form,
+} from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
-const ModalAdd = ({ hideModal, modalInfo }) => {
+const ModalAdd = ({ hideModal }) => {
   const inputRef = useRef();
-  const notify = () => toast.success("Канал добавлен");
+  const notify = () => toast.success('Канал добавлен');
 
   useEffect(() => {
     inputRef.current.focus(); // фокус почему-тто не работает
@@ -14,12 +16,12 @@ const ModalAdd = ({ hideModal, modalInfo }) => {
 
   const f = useFormik({
     initialValues: {
-      channel: ''
+      channel: '',
     },
     onSubmit: (values) => {
       console.log(values);
       console.log('test');
-      const token = JSON.parse(localStorage.getItem('userId')).token;
+      const { token } = JSON.parse(localStorage.getItem('userId'));
 
       const newChannel = { name: values.channel };
 
@@ -27,43 +29,40 @@ const ModalAdd = ({ hideModal, modalInfo }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
+      });
       // modalInfo.toast();
       hideModal();
       notify();
-      
     },
   });
 
   return (
-    <>
-      <Modal show={true} onHide={hideModal} animation={false} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Добавить канал</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={f.handleSubmit}>
-            <FormGroup>
-              <FormControl
-                required
-                data-testid="input-body"
-                name="channel"
-                onChange={f.handleChange}
-                ref={inputRef}
-              />
-            </FormGroup>
-            <br />
-            <Button variant="secondary" onClick={hideModal}>
-              Отменить
-            </Button>
-            <Button type='submit' variant="primary">
-              Добавить канал
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
+    <Modal show onHide={hideModal} animation={false} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Добавить канал</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={f.handleSubmit}>
+          <FormGroup>
+            <FormControl
+              required
+              data-testid="input-body"
+              name="channel"
+              onChange={f.handleChange}
+              ref={inputRef}
+            />
+          </FormGroup>
+          <br />
+          <Button variant="secondary" onClick={hideModal}>
+            Отменить
+          </Button>
+          <Button type="submit" variant="primary">
+            Добавить канал
+          </Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
-}
+};
 
 export default ModalAdd;
