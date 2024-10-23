@@ -2,6 +2,7 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { Button, Dropdown } from 'react-bootstrap';
 // import { useState } from 'react';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 
 const openModalWindow = (setModalInfo) => {
   setModalInfo({ type: 'add', item: true });
@@ -22,6 +23,7 @@ const renderRemovableChannel = (
   const buttonClasses = 'w-100 rounded-0 text-start';
   const buttonVariant = `${channel.id === activeChannel ? 'secondary' : 'light'}`;
   // const notify = () => toast.success("тостер");
+  // Добавить проверку плохих слов
 
   return (
     <li key={channel.id}>
@@ -31,7 +33,7 @@ const renderRemovableChannel = (
           onClick={() => handleActiveChannel(channel, setActiveChannel, setactiveChannelName)}
         >
           #
-          {channel.name}
+          {filter.clean(channel.name)}
         </Button>
 
         <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
