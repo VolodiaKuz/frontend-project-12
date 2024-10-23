@@ -5,12 +5,10 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-// import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
-  // console.log('currentChannelMessages ==>', currentChannelMessages);
   const messagesHtml = currentChannelMessages.map((message) => {
     const messageHtml = (
       <div className="text-break mb-2" key={message.id}>
@@ -30,7 +28,6 @@ const Messages = ({ activeChannel, activeChannelName }) => {
   const { t } = useTranslation();
   // Добавить Yup для отключения кнопки если сооьщение не введено
   // disabled={!formik.isValid}
-  // const notify = () => toast.success('сообщение отправлено');
 
   const messages = useSelector((state) => state.messagesStore.messages);
 
@@ -56,6 +53,14 @@ const Messages = ({ activeChannel, activeChannelName }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      // axios.get('/api/v1/channels', {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }).then((response) => {
+      //   console.log('test =>>>>>>>>>>>>>', response.data);
+      // });
 
       inputRef.current.value = '';
       inputRef.current.focus();
