@@ -22,8 +22,6 @@ const renderRemovableChannel = (
 ) => {
   const buttonClasses = 'w-100 rounded-0 text-start';
   const buttonVariant = `${channel.id === activeChannel ? 'secondary' : 'light'}`;
-  // const notify = () => toast.success("тостер");
-  // Добавить проверку плохих слов
 
   return (
     <li key={channel.id}>
