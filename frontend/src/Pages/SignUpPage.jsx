@@ -77,7 +77,9 @@ const LoginPage = () => {
                         onSubmit={f.handleSubmit}
                       >
                         <Form.Group className="mb-3" controlId="username">
+                          <Form.Label htmlFor="username">Имя пользователя</Form.Label>
                           <Form.Control
+                            id="username"
                             type="text"
                             placeholder="Имя пользователя"
                             name="username"
@@ -91,6 +93,7 @@ const LoginPage = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="password">
+                          <Form.Label htmlFor="password">Пароль</Form.Label>
                           <Form.Control
                             type="password"
                             name="password"
@@ -104,6 +107,7 @@ const LoginPage = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="confirmPassword">
+                          <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
                           <Form.Control
                             type="password"
                             name="confirmPassword"
