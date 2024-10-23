@@ -5,6 +5,14 @@ import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+
+const signupSchema = Yup.object().shape({
+  channel: Yup.string()
+    .min(3, 'От 3 до 20 символов')
+    .max(20, 'От 3 до 20 символов')
+    .required('Обязательное поле'),
+});
 
 const ModalAdd = ({ hideModal }) => {
   const inputRef = useRef();
@@ -18,6 +26,7 @@ const ModalAdd = ({ hideModal }) => {
     initialValues: {
       channel: '',
     },
+    validationSchema: signupSchema,
     onSubmit: (values) => {
       console.log(values);
       console.log('test');
@@ -51,7 +60,11 @@ const ModalAdd = ({ hideModal }) => {
               name="channel"
               onChange={f.handleChange}
               ref={inputRef}
+              isInvalid={!!f.errors.channel && f.touched.channel}
             />
+            <Form.Control.Feedback type="invalid">
+              {f.errors.channel}
+            </Form.Control.Feedback>
           </FormGroup>
           <br />
           <Button variant="secondary" onClick={hideModal}>
