@@ -46,10 +46,9 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
           <FormGroup>
             <Form.Label htmlFor="channelName" hidden>Имя канала</Form.Label>
             <FormControl
-              id="channelName"
               required
               data-testid="input-body"
-              name="channel"
+              name="channelName"
               onChange={f.handleChange}
               ref={inputRef}
             />
