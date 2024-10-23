@@ -33,6 +33,7 @@ const LoginPage = () => {
       confirmPassword: '',
     },
     validationSchema: signupSchema,
+    validateOnChange: true,
     onSubmit: async (values) => {
       console.log('values ===> ', values);
       console.log('f.errors ===> ', f.errors);
@@ -85,6 +86,7 @@ const LoginPage = () => {
                             name="username"
                             required
                             onChange={f.handleChange}
+                            onBlur={f.handleBlur}
                             ref={inputRef}
                             isInvalid={!!f.errors.username && f.touched.username}
                           />
@@ -100,6 +102,7 @@ const LoginPage = () => {
                             placeholder="Пароль"
                             required
                             onChange={f.handleChange}
+                            onBlur={f.handleBlur}
                             isInvalid={!!f.errors.password && f.touched.password}
                           />
                           <Form.Control.Feedback type="invalid">
@@ -114,6 +117,7 @@ const LoginPage = () => {
                             placeholder="Подтвердите пароль"
                             required
                             onChange={f.handleChange}
+                            onBlur={f.handleBlur}
                             isInvalid={!!f.errors.confirmPassword && f.touched.confirmPassword}
                           />
                           <Form.Control.Feedback type="invalid">
