@@ -43,6 +43,7 @@ const renderRemovableChannel = (
           <Dropdown.Item onClick={() => setModalInfo(({ type: 'remove', item: channel }))}>Удалить</Dropdown.Item>
           <Dropdown.Item onClick={() => setModalInfo(({ type: 'rename', item: channel }))}>Переименовать</Dropdown.Item>
         </Dropdown.Menu>
+        <span className="visually-hidden">Управление каналом</span>
       </Dropdown>
     </li>
   );
