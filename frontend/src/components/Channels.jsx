@@ -37,13 +37,14 @@ const renderRemovableChannel = (
           {filter.clean(channel.name)}
         </Button>
 
-        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic" />
+        <Dropdown.Toggle split variant={buttonVariant} id="dropdown-split-basic">
+          <span className="visually-hidden">Управление каналом</span>
+        </Dropdown.Toggle>
 
         <Dropdown.Menu>
           <Dropdown.Item onClick={() => setModalInfo(({ type: 'remove', item: channel }))}>Удалить</Dropdown.Item>
           <Dropdown.Item onClick={() => setModalInfo(({ type: 'rename', item: channel }))}>Переименовать</Dropdown.Item>
         </Dropdown.Menu>
-        <span className="visually-hidden">Управление каналом</span>
       </Dropdown>
     </li>
   );
