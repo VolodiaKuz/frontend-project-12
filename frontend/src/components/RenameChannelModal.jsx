@@ -44,7 +44,9 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
+            <Form.Label htmlFor="channelName" hidden>Имя канала</Form.Label>
             <FormControl
+              id="channelName"
               required
               data-testid="input-body"
               name="channel"
