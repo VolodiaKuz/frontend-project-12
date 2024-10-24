@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import resources from '../locales/index';
 import App from '../components/App';
 
-const init = () => {
+const init = () => { // async function
   const i18n = i18next.createInstance();
   const options = {
     resources,

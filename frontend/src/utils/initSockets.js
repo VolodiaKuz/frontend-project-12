@@ -1,9 +1,26 @@
 import { io } from 'socket.io-client';
 import { addMessage } from '../store/messagesSlice.js';
 import { addChannel, removeChannel, renameChannel } from '../store/channelsSlice.js';
+import store from '../store/index.js';
 
-const init = (dispatch) => {
-  // const dispatch = useDispatch();
+const init = () => {
+  const { dispatch } = store;
+
+  // const init = () => { // async function
+  //   const i18n = i18next.createInstance();
+  //   const options = {
+  //     resources,
+  //     fallbackLng: 'ru',
+  //     interpolation: {
+  //       escapeValue: false,
+  //     },
+  //   };
+
+  //   i18n
+  //     .use(initReactI18next)
+  //     .init(options);
+  //   return <App />;
+  // };
   // const message = { id: '1', body: 'new message', channelId: '1', username: 'admin' };
 
   const socket = io();

@@ -11,11 +11,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import store from './store/index.js';
 
 // initSockets();
-const vdom = init();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <Provider store={store}>
-    {vdom}
-  </Provider>,
-);
+const testInit = async () => {
+  const vdom = await init();
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
+    <Provider store={store}>
+      {vdom}
+    </Provider>,
+  );
+};
+
+testInit();
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//   <Provider store={store}>
+//     {}
+//   </Provider>,
+// );

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 // import axios from 'axios';
 
@@ -19,10 +20,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   channels: [
-    { id: 1, name: 'general', removable: false },
-    { id: 2, name: 'random', removable: false },
+    // { id: 1, name: 'general', removable: false },
+    // { id: 2, name: 'random', removable: false },
     // ...test,
+    //
   ],
+  // activeChannel: 1,
 };
 
 const tasksSlice = createSlice({
@@ -43,9 +46,11 @@ const tasksSlice = createSlice({
       const otherChannels = state.channels.filter((ch) => ch.id !== channel.id);
       channelsState.channels = [...otherChannels, channel];
     },
-    fillChannels: (state, { payload: { channels } }) => {
-      const channelsState = state;
-      channelsState.channels = [...channels];
+    fillChannels: (state, { payload: { createdChannels } }) => {
+      // const channelsState = state;
+      // channelsState.channels = [...channels];
+      console.log('log in channels slice =====>', createdChannels);
+      state.channels = [...createdChannels];
     },
   },
 });

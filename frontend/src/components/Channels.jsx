@@ -1,8 +1,11 @@
 import { PlusSquare } from 'react-bootstrap-icons';
 import { Button, Dropdown } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { fillChannels } from '../store/channelsSlice.js';
 
 import AddChannelModal from './AddChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
@@ -108,6 +111,28 @@ const Channels = ({
 }) => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const uploadChannels = async () => {
+      console.log(localStorage.getItem('userId'));
+      if (!localStorage.getItem('userId')) return [];
+      const { token } = JSON.parse(localStorage.getItem('userId'));
+
+      const result = await axios.get('/api/v1/channels', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('result.data ====> ', result.data);
+      const createdChannels = result.data;
+      dispatch(fillChannels({ createdChannels }));
+      return null;
+    };
+    uploadChannels();
+    // handleActiveChannel({ id: 1, name: 'general' }, setActiveChannel, setactiveChannelName);
+    // добавить try/catch и ошибку 401
+  }, [dispatch]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

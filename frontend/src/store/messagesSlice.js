@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -18,9 +19,15 @@ const tasksSlice = createSlice({
       const messagesState = state;
       messagesState.messages = [...state.messages, message];
     },
+    fillMessages: (state, { payload: { createdMessages } }) => {
+      // const channelsState = state;
+      // channelsState.channels = [...channels];
+      console.log('log in messages slice =====>', createdMessages);
+      state.messages = [...createdMessages];
+    },
   },
 });
 
-export const { addMessage } = tasksSlice.actions;
+export const { addMessage, fillMessages } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

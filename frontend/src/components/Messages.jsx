@@ -2,10 +2,11 @@ import { ArrowRight } from 'react-bootstrap-icons';
 import { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import filter from 'leo-profanity';
+import { fillMessages } from '../store/messagesSlice.js';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
@@ -30,10 +31,31 @@ const Messages = ({ activeChannel, activeChannelName }) => {
   // disabled={!formik.isValid}
 
   const messages = useSelector((state) => state.messagesStore.messages);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
   });
+
+  useEffect(() => {
+    const uploadChannels = async () => {
+      console.log(localStorage.getItem('userId'));
+      if (!localStorage.getItem('userId')) return [];
+      const { token } = JSON.parse(localStorage.getItem('userId'));
+
+      const result = await axios.get('/api/v1/messages', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('result.data ====> ', result.data);
+      const createdMessages = result.data;
+      dispatch(fillMessages({ createdMessages }));
+      return null;
+    };
+
+    uploadChannels();
+  }, [dispatch]);
 
   const f = useFormik({
     initialValues: {
@@ -53,15 +75,6 @@ const Messages = ({ activeChannel, activeChannelName }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      // axios.get('/api/v1/channels', {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // }).then((response) => {
-      //   console.log('test =>>>>>>>>>>>>>', response.data);
-      // });
-
       inputRef.current.value = '';
       inputRef.current.focus();
     },

@@ -3,24 +3,15 @@ import { useFormik } from 'formik';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
-
-// const signupSchema = Yup.object().shape({
-//   firstName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   lastName: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   email: Yup.string().email('Invalid email').required('Required'),
-// });
+// import { addToken } from '../store/userSlice.js';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const [authError, setAuthError] = useState(false);
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -35,8 +26,11 @@ const LoginPage = () => {
       try {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        const userId = JSON.parse(localStorage.getItem('userId'));
-        console.log('userId=', userId);
+        const user = JSON.parse(localStorage.getItem('userId'));
+        console.log('userId=', user);
+        // dispatch(addToken({ user }));
+        // const test = useSelector((state) => state.userStore.user);
+        // console.log('test =>>>>>>>', test);
 
         navigate('/');
       } catch (err) {
@@ -73,8 +67,8 @@ const LoginPage = () => {
                         onSubmit={f.handleSubmit}
                       >
                         <h1 className="text-center mb-4">Войти</h1>
-                        <Form.Group className="mb-3" controlId="username">
-                          <Form.Label htmlFor="username">Ваш ник</Form.Label>
+                        <Form.Group className="mb-3">
+                          <Form.Label controlid="username">Ваш ник</Form.Label>
                           <Form.Control
                             type="text"
                             placeholder="Ваш ник"
@@ -84,8 +78,8 @@ const LoginPage = () => {
                             ref={inputRef}
                           />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="password">
-                          <Form.Label htmlFor="password">Пароль</Form.Label>
+                        <Form.Group className="mb-3">
+                          <Form.Label controlid="password">Пароль</Form.Label>
                           <Form.Control
                             type="password"
                             name="password"
