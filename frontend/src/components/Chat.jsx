@@ -11,7 +11,7 @@ const Chat = () => {
   const messages = useSelector((state) => state.messagesStore.messages);
   const navigate = useNavigate();
 
-  const [activeChannel, setActiveChannel] = useState(1);
+  const [activeChannel, setActiveChannel] = useState('1');
   const [activeChannelName, setactiveChannelName] = useState('general');
 
   return (
