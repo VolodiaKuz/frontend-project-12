@@ -30,11 +30,12 @@ const tasksSlice = createSlice({
       state.activeChannelMessagesCount = test.length;
     },
     countMessages: (state, { payload: { count } }) => {
+      console.log('count in messageSlice =>', count);
       state.activeChannelMessagesCount = count;
     },
   },
 });
 
-export const { addMessage, fillMessages } = tasksSlice.actions;
+export const { addMessage, fillMessages, countMessages } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react';
 import filter from 'leo-profanity';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+// import { current } from '@reduxjs/toolkit';
 import { fillChannels, setActive } from '../store/channelsSlice.js';
+import { countMessages } from '../store/messagesSlice.js';
 import store from '../store/index.js';
 
 import AddChannelModal from './AddChannelModal.jsx';
@@ -17,6 +19,10 @@ const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) =>
   setactiveChannelName(channel.name);
   const { dispatch } = store;
   dispatch(setActive({ channel }));
+  const { messages } = store.getState().messagesStore;
+  const test = messages.filter((el) => el.channelId === channel.id);
+  dispatch(countMessages({ count: test.length }));
+  console.log('messages.filter((el)  =>', test);
 };
 
 const renderRemovableChannel = (

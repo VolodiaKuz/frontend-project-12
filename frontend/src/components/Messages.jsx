@@ -41,7 +41,6 @@ const Messages = ({ activeChannel }) => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      console.log(localStorage.getItem('userId'));
       if (!localStorage.getItem('userId')) return [];
       const { token } = JSON.parse(localStorage.getItem('userId'));
 
@@ -50,7 +49,6 @@ const Messages = ({ activeChannel }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('result.data ====> ', result.data);
       const createdMessages = result.data;
       dispatch(fillMessages({ createdMessages }));
       return null;
@@ -66,8 +64,6 @@ const Messages = ({ activeChannel }) => {
     onSubmit: (values) => {
       const { token, username } = JSON.parse(localStorage.getItem('userId'));
 
-      console.log('JSON.parse(localStorage.getItem(userId)) =====>', JSON.parse(localStorage.getItem('userId')));
-
       const newMessage = {
         body: filter.clean(values.message), channelId: activeChannel, username,
       };
@@ -81,10 +77,6 @@ const Messages = ({ activeChannel }) => {
       inputRef.current.focus();
     },
   });
-
-  // const count = 0;
-  console.log('test messages.', messages);
-  console.log('test activeChannelMessagesCount=', activeChannel2);
 
   return (
     <div className="col p-0 h-100">
