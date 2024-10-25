@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import filter from 'leo-profanity';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { fillChannels } from '../store/channelsSlice.js';
+import { fillChannels, setActive } from '../store/channelsSlice.js';
+import store from '../store/index.js';
 
 import AddChannelModal from './AddChannelModal.jsx';
 import RemoveChannelModal from './RemoveChannelModal.jsx';
@@ -14,6 +15,8 @@ import RenameChannelModal from './RenameChannelModal.jsx';
 const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) => {
   setActiveChannel(channel.id);
   setactiveChannelName(channel.name);
+  const { dispatch } = store;
+  dispatch(setActive({ channel }));
 };
 
 const renderRemovableChannel = (

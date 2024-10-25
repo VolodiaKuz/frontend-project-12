@@ -1,31 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-// import axios from 'axios';
-
-// const uploadChannels = async () => {
-//   console.log(localStorage.getItem('userId'));
-//   if (!localStorage.getItem('userId')) return [];
-//   const { token } = JSON.parse(localStorage.getItem('userId'));
-
-//   const result = await axios.get('/api/v1/channels', {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   return result.data;
-// };
-
-// const test = await uploadChannels();
-// console.log('test ===============>', test);
 
 const initialState = {
   channels: [
-    // { id: 1, name: 'general', removable: false },
-    // { id: 2, name: 'random', removable: false },
-    // ...test,
-    //
   ],
-  // activeChannel: 1,
+  activeChannel: { name: 'general', id: '1', count: 0 },
 };
 
 const tasksSlice = createSlice({
@@ -47,10 +26,15 @@ const tasksSlice = createSlice({
       channelsState.channels = [...otherChannels, channel];
     },
     fillChannels: (state, { payload: { createdChannels } }) => {
-      // const channelsState = state;
-      // channelsState.channels = [...channels];
-      console.log('log in channels slice =====>', createdChannels);
       state.channels = [...createdChannels];
+    },
+    setActive: (state, { payload: { channel } }) => {
+      state.activeChannel.name = channel.name;
+      state.activeChannel.id = channel.id;
+    },
+    setMessagesCount: (state, { payload: { count } }) => {
+      console.log('count', count);
+      state.activeChannel.count = count;
     },
   },
 });
@@ -60,6 +44,8 @@ export const {
   removeChannel,
   renameChannel,
   fillChannels,
+  setActive,
+  setMessagesCount,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
+// import store from './index.js';
+// import { setMessagesCount } from './channelsSlice.js';
 
 const initialState = {
   messages: [
@@ -8,6 +10,7 @@ const initialState = {
     // { id: '3', body: 'text 3', channelId: 1, username: 'admin' },
     // { id: '4', body: 'text 4', channelId: 1, username: 'admin' },
   ],
+  activeChannelMessagesCount: 0,
 };
 
 const tasksSlice = createSlice({
@@ -18,12 +21,16 @@ const tasksSlice = createSlice({
       // state.messages = [...state.messages, message];
       const messagesState = state;
       messagesState.messages = [...state.messages, message];
+      const test = current(state).messages.filter((el) => el.channelId === message.channelId);
+      state.activeChannelMessagesCount = test.length;
     },
     fillMessages: (state, { payload: { createdMessages } }) => {
-      // const channelsState = state;
-      // channelsState.channels = [...channels];
-      console.log('log in messages slice =====>', createdMessages);
       state.messages = [...createdMessages];
+      const test = current(state).messages.filter((el) => el.channelId === '1');
+      state.activeChannelMessagesCount = test.length;
+    },
+    countMessages: (state, { payload: { count } }) => {
+      state.activeChannelMessagesCount = count;
     },
   },
 });

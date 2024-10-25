@@ -24,13 +24,15 @@ const renderMessages = (messages, activeChannel) => {
   return messagesHtml;
 };
 
-const Messages = ({ activeChannel, activeChannelName }) => {
+const Messages = ({ activeChannel }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
   // Добавить Yup для отключения кнопки если сооьщение не введено
   // disabled={!formik.isValid}
 
   const messages = useSelector((state) => state.messagesStore.messages);
+  const activeChannel2 = useSelector((state) => state.messagesStore.activeChannelMessagesCount);
+  const channels = useSelector((state) => state.channelsStore);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,7 +82,9 @@ const Messages = ({ activeChannel, activeChannelName }) => {
     },
   });
 
-  const count = 0;
+  // const count = 0;
+  console.log('test messages.', messages);
+  console.log('test activeChannelMessagesCount=', activeChannel2);
 
   return (
     <div className="col p-0 h-100">
@@ -90,10 +94,10 @@ const Messages = ({ activeChannel, activeChannelName }) => {
             <b>
               #
               {' '}
-              {activeChannelName}
+              {channels.activeChannel.name}
             </b>
           </p>
-          <span className="text-muted">{t('chatBox.messages', { count })}</span>
+          <span className="text-muted">{t('chatBox.messages', { count: activeChannel2 })}</span>
         </div>
         <div
           id="messages-box"
