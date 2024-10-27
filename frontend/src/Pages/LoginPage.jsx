@@ -99,6 +99,8 @@ const LoginPage = () => {
                         <span>Нет аккаунта? </span>
                         <a href="/signup">Регистрация</a>
                       </div>
+                      <img src="../assets/test_auth_logo.jpeg" alt="" />
+                      <img src="auth_logo.jpeg" alt="" />
                     </div>
                   </div>
                 </div>
