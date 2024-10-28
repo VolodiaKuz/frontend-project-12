@@ -4,6 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
+import routes from '../utils/routes';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const LoginPage = () => {
       try {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        navigate('/');
+        navigate(routes.mainPagePath());
       } catch (err) {
         // f.setSubmitting(false);
         // f.isSubmitting

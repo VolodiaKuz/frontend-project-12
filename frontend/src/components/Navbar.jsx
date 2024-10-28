@@ -1,6 +1,8 @@
+import routes from '../utils/routes';
+
 const handleExit = (navigate) => () => {
   localStorage.clear();
-  navigate('/login');
+  navigate(routes.loginPagePath());
 };
 
 const Navbar = ({ navigate, homePage }) => {

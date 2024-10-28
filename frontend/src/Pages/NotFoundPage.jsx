@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import routes from '../utils/routes';
 
 const NotFoundPage = () => (
   <div className="h-100 bg-light">
@@ -11,13 +13,13 @@ const NotFoundPage = () => (
               alt="Страница не найдена"
               className="img-fluid h-25"
               src="404.JPG"
-              width="500"
+              // width="500"
             />
             <h1 className="h4 text-muted">Страница не найдена</h1>
             <p className="text-muted">
               Но вы можете перейти
               {' '}
-              <a href="/">на главную страницу</a>
+              <Link to={routes.mainPagePath()}>на главную страницу</Link>
             </p>
           </div>
         </div>

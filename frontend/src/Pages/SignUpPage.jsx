@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import Navbar from '../components/Navbar';
+import routes from '../utils/routes';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string()
@@ -38,7 +39,7 @@ const LoginPage = () => {
       try {
         const response = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
         localStorage.setItem('userId', JSON.stringify(response.data));
-        navigate('/');
+        navigate(routes.mainPagePath());
       } catch (err) {
         f.setSubmitting(false);
         // f.isSubmitting
