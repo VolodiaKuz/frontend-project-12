@@ -24,11 +24,10 @@ const renderMessages = (messages, activeChannel) => {
   return messagesHtml;
 };
 
-const Messages = ({ activeChannel }) => {
+const Messages = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
-  const messages = useSelector((state) => state.messagesStore.messages);
-  const activeChannel2 = useSelector((state) => state.messagesStore.activeChannelMessagesCount);
+  const messagesStore = useSelector((state) => state.messagesStore);
   const channels = useSelector((state) => state.channelsStore);
   const dispatch = useDispatch();
 
@@ -62,7 +61,7 @@ const Messages = ({ activeChannel }) => {
       const { token, username } = JSON.parse(localStorage.getItem('userId'));
 
       const newMessage = {
-        body: filter.clean(values.message), channelId: activeChannel, username,
+        body: filter.clean(values.message), channelId: channels.activeChannel.id, username,
       };
 
       axios.post('/api/v1/messages', newMessage, {
@@ -86,13 +85,13 @@ const Messages = ({ activeChannel }) => {
               {channels.activeChannel.name}
             </b>
           </p>
-          <span className="text-muted">{t('chatBox.messages', { count: activeChannel2 })}</span>
+          <span className="text-muted">{t('chatBox.messages', { count: messagesStore.activeChannelMessagesCount })}</span>
         </div>
         <div
           id="messages-box"
           className="chat-messages overflow-auto px-5"
         >
-          {renderMessages(messages, activeChannel)}
+          {renderMessages(messagesStore.messages, channels.activeChannel.id)}
         </div>
         <div className="mt-auto px-5 py-3">
           <Form
