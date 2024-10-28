@@ -4,14 +4,11 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../components/Navbar';
-// import { useDispatch } from 'react-redux';
-// import { addToken } from '../store/userSlice.js';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const [authError, setAuthError] = useState(false);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -23,18 +20,13 @@ const LoginPage = () => {
       password: '',
     },
     onSubmit: async (values) => {
+      setAuthError(false);
       try {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        const user = JSON.parse(localStorage.getItem('userId'));
-        // console.log('userId=', user);
-        // dispatch(addToken({ user }));
-        // const test = useSelector((state) => state.userStore.user);
-        // console.log('test =>>>>>>>', test);
-
         navigate('/');
       } catch (err) {
-        f.setSubmitting(false);
+        // f.setSubmitting(false);
         // f.isSubmitting
         if (err.response.status === 401) {
           console.log('401 error');
