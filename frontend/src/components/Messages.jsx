@@ -1,12 +1,9 @@
-import { ArrowRight } from 'react-bootstrap-icons';
 import { useEffect, useRef } from 'react';
-import { useFormik } from 'formik';
-import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import filter from 'leo-profanity';
 import { fillMessages } from '../store/messagesSlice.js';
+import SendMessageForm from './SendMessageForm.jsx';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
@@ -25,7 +22,7 @@ const renderMessages = (messages, activeChannel) => {
 };
 
 const Messages = () => {
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { t } = useTranslation();
   const messagesStore = useSelector((state) => state.messagesStore);
   const channels = useSelector((state) => state.channelsStore);
@@ -33,7 +30,7 @@ const Messages = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, [channels.activeChannel]);
 
   useEffect(() => {
     const uploadChannels = async () => {
@@ -52,27 +49,6 @@ const Messages = () => {
 
     uploadChannels();
   }, [dispatch]);
-
-  const f = useFormik({
-    initialValues: {
-      message: '',
-    },
-    onSubmit: (values) => {
-      const { token, username } = JSON.parse(localStorage.getItem('userId'));
-
-      const newMessage = {
-        body: filter.clean(values.message), channelId: channels.activeChannel.id, username,
-      };
-
-      axios.post('/api/v1/messages', newMessage, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      inputRef.current.value = '';
-      inputRef.current.focus();
-    },
-  });
 
   return (
     <div className="col p-0 h-100">
@@ -94,25 +70,7 @@ const Messages = () => {
           {renderMessages(messagesStore.messages, channels.activeChannel.id)}
         </div>
         <div className="mt-auto px-5 py-3">
-          <Form
-            className="py-1 rounded-2"
-            onSubmit={f.handleSubmit}
-          >
-            <InputGroup className="mb-3">
-              <Form.Control
-                name="message"
-                placeholder="Введите сообщение..."
-                aria-label="Новое сообщение"
-                aria-describedby="basic-addon2"
-                onChange={f.handleChange}
-                ref={inputRef}
-              />
-              <Button id="button-addon2" type="submit" disabled={!f.values.message.length > 0}>
-                <ArrowRight />
-                <span className="visually-hidden">Отправить</span>
-              </Button>
-            </InputGroup>
-          </Form>
+          <SendMessageForm inputRef={inputRef} />
         </div>
       </div>
     </div>
