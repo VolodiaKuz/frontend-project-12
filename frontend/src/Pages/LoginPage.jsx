@@ -27,7 +27,7 @@ const LoginPage = () => {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
         const user = JSON.parse(localStorage.getItem('userId'));
-        console.log('userId=', user);
+        // console.log('userId=', user);
         // dispatch(addToken({ user }));
         // const test = useSelector((state) => state.userStore.user);
         // console.log('test =>>>>>>>', test);
@@ -76,6 +76,7 @@ const LoginPage = () => {
                             required
                             onChange={f.handleChange}
                             ref={inputRef}
+                            isInvalid={authError}
                           />
                         </Form.Group>
                         <Form.Group className="mb-3">
