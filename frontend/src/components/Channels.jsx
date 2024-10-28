@@ -4,43 +4,35 @@ import { useState, useEffect } from 'react';
 // import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { current } from '@reduxjs/toolkit';
 import { fillChannels, setActive } from '../store/channelsSlice.js';
 import { countMessages } from '../store/messagesSlice.js';
 import store from '../store/index.js';
+import Modal from './Modal.jsx';
 
-import AddChannelModal from './AddChannelModal.jsx';
-import RemoveChannelModal from './RemoveChannelModal.jsx';
-import RenameChannelModal from './RenameChannelModal.jsx';
-
-const handleActiveChannel = (channel, setActiveChannel, setactiveChannelName) => {
-  setActiveChannel(channel.id);
-  setactiveChannelName(channel.name);
+const handleActiveChannel = (channel) => {
   const { dispatch } = store;
   dispatch(setActive({ channel }));
   const { messages } = store.getState().messagesStore;
   const test = messages.filter((el) => el.channelId === channel.id);
   dispatch(countMessages({ count: test.length }));
-  console.log('messages.filter((el)  =>', test);
 };
 
 const renderRemovableChannel = (
   channel,
-  activeChannel,
-  setActiveChannel,
-  setactiveChannelName,
   setModalInfo,
+  activeChannel,
 ) => {
   const buttonClasses = 'w-100 rounded-0 text-start';
-  const buttonVariant = `${channel.id === activeChannel ? 'secondary' : 'light'}`;
+  const buttonVariant = `${channel.id === activeChannel.id ? 'secondary' : 'light'}`;
 
   return (
     <li key={channel.id}>
       <Dropdown className={buttonClasses}>
         <Button
           variant={buttonVariant}
-          onClick={() => handleActiveChannel(channel, setActiveChannel, setactiveChannelName)}
+          onClick={() => handleActiveChannel(channel)}
         >
           #
           {' '}
@@ -60,23 +52,20 @@ const renderRemovableChannel = (
   );
 };
 
-const renderChannels = (
-  channels,
-  activeChannel,
-  setActiveChannel,
-  setactiveChannelName,
-  setModalInfo,
-) => {
+const RenderChannels = ({ setModalInfo }) => {
+  // const dispatch = useDispatch();
+  const channels = useSelector((state) => state.channelsStore.channels);
+  const activeChannel = useSelector((state) => state.channelsStore.activeChannel);
+  console.log('activeChannel=>', activeChannel);
+
   const channelsHtml = channels.map((channel) => {
-    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.id === activeChannel ? 'btn-secondary' : ''}`;
-    const buttonVariant = `${channel.id === activeChannel ? 'secondary' : 'light'}`;
+    const buttonClasses = `w-100 rounded-0 text-start btn ${channel.id === activeChannel.id ? 'btn-secondary' : ''}`;
+    const buttonVariant = `${channel.id === activeChannel.id ? 'secondary' : 'light'}`;
     if (channel.removable) {
       return renderRemovableChannel(
         channel,
-        activeChannel,
-        setActiveChannel,
-        setactiveChannelName,
         setModalInfo,
+        activeChannel,
       );
     }
     const channelHtml = (
@@ -84,7 +73,7 @@ const renderChannels = (
         <Button
           variant={buttonVariant}
           className={buttonClasses}
-          onClick={() => handleActiveChannel(channel, setActiveChannel, setactiveChannelName)}
+          onClick={() => handleActiveChannel(channel)}
         >
           #
           {' '}
@@ -97,27 +86,7 @@ const renderChannels = (
   return channelsHtml;
 };
 
-const renderModal = ({ modalInfo, hideModal }) => {
-  console.log('it works');
-  if (!modalInfo.type) {
-    return null;
-  }
-
-  switch (modalInfo.type) {
-    case 'add':
-      return <AddChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    case 'remove':
-      return <RemoveChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    case 'rename':
-      return <RenameChannelModal hideModal={hideModal} modalInfo={modalInfo} />;
-    default:
-      return null;
-  }
-};
-
-const Channels = ({
-  channels, activeChannel, setActiveChannel, setactiveChannelName,
-}) => {
+const Channels = () => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const dispatch = useDispatch();
@@ -159,15 +128,9 @@ const Channels = ({
         id="channels-box"
         className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
       >
-        {renderChannels(
-          channels,
-          activeChannel,
-          setActiveChannel,
-          setactiveChannelName,
-          setModalInfo,
-        )}
+        <RenderChannels setModalInfo={setModalInfo} />
       </ul>
-      {renderModal({ modalInfo, hideModal })}
+      <Modal modalInfo={modalInfo} hideModal={hideModal} />
     </div>
   );
 };
