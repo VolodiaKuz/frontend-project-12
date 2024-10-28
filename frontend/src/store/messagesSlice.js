@@ -18,7 +18,6 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     addMessage: (state, { payload: { message } }) => {
-      // state.messages = [...state.messages, message];
       const messagesState = state;
       messagesState.messages = [...state.messages, message];
       const test = current(state).messages.filter((el) => el.channelId === message.channelId);
@@ -30,7 +29,6 @@ const tasksSlice = createSlice({
       state.activeChannelMessagesCount = test.length;
     },
     countMessages: (state, { payload: { count } }) => {
-      console.log('count in messageSlice =>', count);
       state.activeChannelMessagesCount = count;
     },
   },

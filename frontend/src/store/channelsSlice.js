@@ -33,7 +33,6 @@ const tasksSlice = createSlice({
       state.activeChannel.id = channel.id;
     },
     setMessagesCount: (state, { payload: { count } }) => {
-      console.log('count', count);
       state.activeChannel.count = count;
     },
   },

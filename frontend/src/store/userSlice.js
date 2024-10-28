@@ -17,7 +17,6 @@ const userSlice = createSlice({
       userState.username = user.username;
       userState.token = user.token;
       userSlice.user = state;
-      console.log('state in userSlice ===>', state);
     },
   },
 });

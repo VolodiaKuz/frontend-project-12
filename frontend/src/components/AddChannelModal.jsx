@@ -6,6 +6,8 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { setActive } from '../store/channelsSlice.js';
 
 const signupSchema = Yup.object().shape({
   channel: Yup.string()
@@ -15,11 +17,12 @@ const signupSchema = Yup.object().shape({
 });
 
 const ModalAdd = ({ hideModal }) => {
+  const dispatch = useDispatch();
   const inputRef = useRef();
   const notify = () => toast.success('Канал создан');
 
   useEffect(() => {
-    inputRef.current.focus(); // фокус почему-тто не работает
+    inputRef.current.focus();
   });
 
   const f = useFormik({
@@ -27,21 +30,23 @@ const ModalAdd = ({ hideModal }) => {
       channel: '',
     },
     validationSchema: signupSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values);
       console.log('test');
       const { token } = JSON.parse(localStorage.getItem('userId'));
 
       const newChannel = { name: values.channel };
 
-      axios.post('/api/v1/channels', newChannel, {
+      const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
-      // modalInfo.toast();
+      }); // добавить try/catch
       hideModal();
       notify();
+      console.log('newChannelResponse=>', newChannelResponse);
+      const channel = newChannelResponse.data;
+      dispatch(setActive({ channel }));
     },
   });
 
