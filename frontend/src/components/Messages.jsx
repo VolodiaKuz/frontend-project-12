@@ -27,9 +27,6 @@ const renderMessages = (messages, activeChannel) => {
 const Messages = ({ activeChannel }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
-  // Добавить Yup для отключения кнопки если сооьщение не введено
-  // disabled={!formik.isValid}
-
   const messages = useSelector((state) => state.messagesStore.messages);
   const activeChannel2 = useSelector((state) => state.messagesStore.activeChannelMessagesCount);
   const channels = useSelector((state) => state.channelsStore);
@@ -111,7 +108,7 @@ const Messages = ({ activeChannel }) => {
                 onChange={f.handleChange}
                 ref={inputRef}
               />
-              <Button id="button-addon2" type="submit">
+              <Button id="button-addon2" type="submit" disabled={!f.values.message.length > 0}>
                 <ArrowRight />
                 <span className="visually-hidden">Отправить</span>
               </Button>
