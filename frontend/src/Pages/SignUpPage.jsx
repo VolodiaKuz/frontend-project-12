@@ -35,20 +35,14 @@ const LoginPage = () => {
     validationSchema: signupSchema,
     validateOnChange: true,
     onSubmit: async (values) => {
-      console.log('values ===> ', values);
-      console.log('f.errors ===> ', f.errors);
-
       try {
         const response = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
         localStorage.setItem('userId', JSON.stringify(response.data));
-        const userId = JSON.parse(localStorage.getItem('userId'));
-        console.log('userId=', userId);
         navigate('/');
       } catch (err) {
         f.setSubmitting(false);
         // f.isSubmitting
         if (err.response.status === 409) {
-          console.log('409 error');
           setUsernameExist(true);
         }
       }

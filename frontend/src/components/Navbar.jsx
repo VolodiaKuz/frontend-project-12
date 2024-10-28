@@ -1,5 +1,4 @@
 const handleExit = (navigate) => () => {
-  console.log('exit works');
   localStorage.clear();
   navigate('/login');
 };

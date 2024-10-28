@@ -1,15 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, current } from '@reduxjs/toolkit';
-// import store from './index.js';
-// import { setMessagesCount } from './channelsSlice.js';
 
 const initialState = {
-  messages: [
-    // { id: '1', body: 'text message', channelId: 1, username: 'admin' },
-    // { id: '2', body: 'text 2', channelId: 1, username: 'admin' },
-    // { id: '3', body: 'text 3', channelId: 1, username: 'admin' },
-    // { id: '4', body: 'text 4', channelId: 1, username: 'admin' },
-  ],
+  messages: [],
   activeChannelMessagesCount: 0,
 };
 

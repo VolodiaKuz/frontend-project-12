@@ -31,8 +31,6 @@ const ModalAdd = ({ hideModal }) => {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      console.log(values);
-      console.log('test');
       const { token } = JSON.parse(localStorage.getItem('userId'));
 
       const newChannel = { name: values.channel };
@@ -44,7 +42,6 @@ const ModalAdd = ({ hideModal }) => {
       }); // добавить try/catch
       hideModal();
       notify();
-      console.log('newChannelResponse=>', newChannelResponse);
       const channel = newChannelResponse.data;
       dispatch(setActive({ channel }));
     },

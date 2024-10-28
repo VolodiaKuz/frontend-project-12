@@ -47,7 +47,6 @@ const renderRemovableChannel = (
 };
 
 const Channel = ({ setModalInfo }) => {
-  // const dispatch = useDispatch();
   const channels = useSelector((state) => state.channelsStore.channels);
   const activeChannel = useSelector((state) => state.channelsStore.activeChannel);
 

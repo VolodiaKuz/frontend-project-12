@@ -8,22 +8,18 @@ const init = () => {
 
   const socket = io();
   socket.on('newMessage', (payload) => {
-    console.log('test socket.on(\'newMessage\') ===>', payload);
     const message = payload;
     dispatch(addMessage({ message }));
   });
   socket.on('newChannel', (payload) => {
-    console.log('test socket.on(\'newChannel\') ===>', payload);
     const channel = payload;
     dispatch(addChannel({ channel }));
   });
   socket.on('removeChannel', (payload) => {
-    console.log('test socket.on(\'removeChannel\') ===>', payload);
     const channel = payload;
     dispatch(removeChannel({ channel }));
   });
   socket.on('renameChannel', (payload) => {
-    console.log('test socket.on(\'renameChannel\') ===>', payload);
     const channel = payload;
     dispatch(renameChannel({ channel }));
   });

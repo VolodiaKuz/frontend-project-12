@@ -11,7 +11,6 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
-  console.log('channelId', modalInfo);
 
   useEffect(() => {
     inputRef.current.value = modalInfo.item.name;

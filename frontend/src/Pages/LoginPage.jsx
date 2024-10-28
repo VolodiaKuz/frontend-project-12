@@ -29,7 +29,6 @@ const LoginPage = () => {
         // f.setSubmitting(false);
         // f.isSubmitting
         if (err.response.status === 401) {
-          console.log('401 error');
           setAuthError(true);
         }
       }
