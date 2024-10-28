@@ -3,17 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import init from './utils/initI18next.js';
+import initI18next from './utils/initI18next.js';
 import 'react-toastify/dist/ReactToastify.css';
-// import initSockets from './utils/initSockets.js'
-
-// import App from './components/App';
 import store from './store/index.js';
 
-// initSockets();
-
-const testInit = async () => {
-  const vdom = await init();
+const init = async () => {
+  const vdom = await initI18next();
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(
     <Provider store={store}>
@@ -22,11 +17,4 @@ const testInit = async () => {
   );
 };
 
-testInit();
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(
-//   <Provider store={store}>
-//     {}
-//   </Provider>,
-// );
+init();

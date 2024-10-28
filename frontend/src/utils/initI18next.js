@@ -3,8 +3,10 @@ import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import resources from '../locales/index';
 import App from '../components/App';
+import initSockets from './initSockets.js';
 
-const init = () => { // async function
+const init = async () => {
+  initSockets();
   const i18n = i18next.createInstance();
   const options = {
     resources,
@@ -14,7 +16,7 @@ const init = () => { // async function
     },
   };
 
-  i18n
+  await i18n
     .use(initReactI18next)
     .init(options);
   return <App />;
