@@ -23,6 +23,7 @@ const renderMessages = (messages, activeChannel) => {
 
 const Messages = () => {
   const inputRef = useRef(null);
+  const messagesBoxRef = useRef(null);
   const { t } = useTranslation();
   const messagesStore = useSelector((state) => state.messagesStore);
   const channels = useSelector((state) => state.channelsStore);
@@ -31,6 +32,10 @@ const Messages = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, [channels.activeChannel]);
+
+  useEffect(() => {
+    messagesBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  }, [messagesStore.messages]);
 
   useEffect(() => {
     const uploadChannels = async () => {
@@ -66,11 +71,12 @@ const Messages = () => {
         <div
           id="messages-box"
           className="chat-messages overflow-auto px-5"
+          ref={messagesBoxRef}
         >
           {renderMessages(messagesStore.messages, channels.activeChannel.id)}
         </div>
         <div className="mt-auto px-5 py-3">
-          <SendMessageForm inputRef={inputRef} />
+          <SendMessageForm inputRef={inputRef} messagesBoxRef={messagesBoxRef} />
         </div>
       </div>
     </div>

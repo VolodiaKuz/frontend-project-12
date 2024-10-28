@@ -5,9 +5,14 @@ import { useFormik } from 'formik';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { ArrowRight } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const SendMessageForm = ({ inputRef }) => {
+const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
   const channels = useSelector((state) => state.channelsStore);
+  useEffect(() => {
+    messagesBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+  });
+
   const f = useFormik({
     initialValues: {
       message: '',
