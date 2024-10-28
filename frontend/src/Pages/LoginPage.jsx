@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
+// import { useDispatch } from 'react-redux';
 // import { addToken } from '../store/userSlice.js';
 
 const LoginPage = () => {
@@ -38,8 +38,8 @@ const LoginPage = () => {
         // f.isSubmitting
         if (err.response.status === 401) {
           console.log('401 error');
+          setAuthError(true);
         }
-        setAuthError(true);
       }
     },
   });
@@ -86,8 +86,9 @@ const LoginPage = () => {
                             placeholder="Пароль"
                             required
                             onChange={f.handleChange}
+                            isInvalid={authError}
                           />
-                          {authError ? <Alert variant="danger">Неверные имя пользователя или пароль</Alert> : null}
+                          <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
                         </Form.Group>
                         <Button variant="primary" type="submit">
                           Войти
@@ -99,8 +100,6 @@ const LoginPage = () => {
                         <span>Нет аккаунта? </span>
                         <a href="/signup">Регистрация</a>
                       </div>
-                      <img src="../assets/test_auth_logo.jpeg" alt="" />
-                      <img src="auth_logo.jpeg" alt="" />
                     </div>
                   </div>
                 </div>
