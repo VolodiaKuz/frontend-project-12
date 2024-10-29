@@ -1,10 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import cn from 'classnames';
 import Navbar from '../Navbar';
-// import LogInForm from '../components/Forms/LogInForm';
 
-const Container = ({ logInType, children }) => {
+const getSrcPath = (logInType, notFound) => {
+  if (logInType) return 'auth_logo.jpeg';
+  if (notFound) return '404.JPG';
+  return 'signup_logo.png';
+};
+
+const Container = ({ logInType, children, notFound }) => {
   const navigate = useNavigate();
-  const pictureSrc = logInType ? 'auth_logo.jpeg' : 'signup_logo.png';
+  // const pictureSrc = logInType ? 'auth_logo.jpeg' : 'signup_logo.png';
+  const pictureSrc = getSrcPath(logInType, notFound);
+  const divClass = cn('d-flex', 'align-items-center', 'justify-content-center', {
+    'col-12 col-md-6': !notFound,
+  });
+
   const footer = (
     <div className="card-footer p-4">
       <div className="text-center">
@@ -24,16 +35,16 @@ const Container = ({ logInType, children }) => {
               <div className="col-12 col-md-8 col-xxl-6">
                 <div className="card shadow-sm">
                   <div className="card-body row p-5">
-                    <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                    <div className={divClass}>
                       <img
                         src={pictureSrc}
                         className="rounded-circle"
                         alt="Войти"
+                        width={notFound && '250'}
                       />
                     </div>
                     {children}
                   </div>
-                  {/* {footer && logInType} */}
                   {logInType && footer}
                 </div>
               </div>
