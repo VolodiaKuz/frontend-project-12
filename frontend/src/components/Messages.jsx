@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { fillMessages } from '../store/messagesSlice.js';
-import SendMessageForm from './SendMessageForm.jsx';
+import SendMessageForm from './Forms/SendMessageForm.jsx';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
