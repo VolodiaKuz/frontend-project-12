@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { fillChannels } from '../store/channelsSlice.js';
-import Modal from './Modal.jsx';
+import Modal from './Modals/Modal.jsx';
 import Channel from './Channel.jsx';
 
 const Channels = () => {

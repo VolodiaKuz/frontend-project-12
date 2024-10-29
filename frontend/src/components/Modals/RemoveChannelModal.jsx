@@ -2,8 +2,8 @@ import { Button, Modal } from 'react-bootstrap';
 // import { useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { setActive } from '../store/channelsSlice.js';
-import store from '../store/index.js';
+import { setActive } from '../../store/channelsSlice.js';
+import store from '../../store/index.js';
 
 const sendRemoveResponse = (currentChannel, hideModal) => {
   const { dispatch } = store;

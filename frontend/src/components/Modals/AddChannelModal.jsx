@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { setActive } from '../store/channelsSlice.js';
+import { setActive } from '../../store/channelsSlice.js';
 
 const signupSchema = Yup.object().shape({
   channel: Yup.string()
