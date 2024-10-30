@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import axios from 'axios';
 import { fillMessages } from '../store/messagesSlice.js';
 import SendMessageForm from './Forms/SendMessageForm.jsx';
@@ -63,7 +64,7 @@ const Messages = () => {
             <b>
               #
               {' '}
-              {channels.activeChannel.name}
+              {filter.clean(channels.activeChannel.name)}
             </b>
           </p>
           <span className="text-muted">{t('chat.messageCount.messages', { count: messagesStore.activeChannelMessagesCount })}</span>
