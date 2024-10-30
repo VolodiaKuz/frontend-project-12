@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Navbar from './Navbar';
 import loginPicture from '../assets/auth_logo.jpeg';
@@ -13,6 +14,7 @@ const getSrcPath = (logInType, notFound) => {
 
 const Container = ({ logInType, children, notFound }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const pictureSrc = getSrcPath(logInType, notFound);
   const divClass = cn('d-flex', 'align-items-center', 'justify-content-center', {
     'col-12 col-md-6': !notFound,
@@ -21,8 +23,11 @@ const Container = ({ logInType, children, notFound }) => {
   const footer = (
     <div className="card-footer p-4">
       <div className="text-center">
-        <span>Нет аккаунта? </span>
-        <a href="/signup">Регистрация</a>
+        <span>
+          {t('login.newToChat')}
+          {' '}
+        </span>
+        <a href="/signup">{t('login.signup')}</a>
       </div>
     </div>
   );
@@ -41,7 +46,7 @@ const Container = ({ logInType, children, notFound }) => {
                       <img
                         src={pictureSrc}
                         className="rounded-circle"
-                        alt="Войти"
+                        alt={t('login.submit')}
                         width={notFound && '250'}
                       />
                     </div>

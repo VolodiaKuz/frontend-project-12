@@ -10,16 +10,10 @@ const HomePage = () => {
   const navigate = useNavigate();
   const auth = useAuth();
   const dispatch = useDispatch();
-  console.log('test auth =>', auth.loggedIn);
 
   useEffect(() => {
-    // const userId = JSON.parse(localStorage.getItem('userId'));
-    // if (!userId) {
-    //   navigate(routes.loginPagePath());
-    // }
     if (!auth.loggedIn) {
       const userId = JSON.parse(localStorage.getItem('userId'));
-      console.log('userId', userId);
       if (!userId) {
         navigate(routes.loginPagePath());
       } else {

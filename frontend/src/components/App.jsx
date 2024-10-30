@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
 
   const logIn = () => {
     setLoggedIn(true);
-    console.log('test AuthProvider');
   };
   const logOut = () => {
     localStorage.removeItem('userId');

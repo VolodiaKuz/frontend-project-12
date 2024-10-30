@@ -51,13 +51,13 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
       onSubmit={f.handleSubmit}
     >
       <ToastContainer />
-      <h1 className="text-center mb-4">Войти</h1>
+      <h1 className="text-center mb-4">{t('login.submit')}</h1>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="username">Ваш ник</Form.Label>
+        <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
         <Form.Control
           id="username"
           name="username"
-          placeholder="Ваш ник"
+          placeholder={t('login.username')}
           required
           onChange={f.handleChange}
           ref={inputRef}
@@ -65,20 +65,20 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         />
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="password">Пароль</Form.Label>
+        <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
         <Form.Control
           id="password"
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder={t('login.password')}
           required
           onChange={f.handleChange}
           isInvalid={authError}
         />
-        <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
+        <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
       </Form.Group>
       <Button variant="primary" type="submit">
-        Войти
+        {t('login.submit')}
       </Button>
     </Form>
   );

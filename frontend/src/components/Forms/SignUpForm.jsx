@@ -1,26 +1,15 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import routes from '../../utils/routes';
 import useAuth from '../../hooks/index.jsx';
 import { addToken } from '../../store/userSlice.js';
-
-const signupSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(6, 'Не менее 6 символов')
-    .required('Обязательное поле'),
-  confirmPassword: Yup.string().required('Обязательное поле').oneOf([Yup.ref('password'), null], 'Пароли должны совпадать'),
-});
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -29,6 +18,17 @@ const SignUpForm = () => {
   const dispatch = useDispatch();
   const [usernameExist, setUsernameExist] = useState(false);
   const { t } = useTranslation();
+
+  const signupSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('signup.usernameConstraints'))
+      .max(20, t('signup.usernameConstraints'))
+      .required(t('signup.required')),
+    password: Yup.string()
+      .min(6, t('signup.passMin'))
+      .required(t('signup.required')),
+    confirmPassword: Yup.string().required(t('signup.required')).oneOf([Yup.ref('password'), null], t('signup.mustMatch')),
+  });
 
   useEffect(() => {
     inputRef.current.focus();
@@ -69,12 +69,12 @@ const SignUpForm = () => {
       onSubmit={f.handleSubmit}
     >
       <ToastContainer />
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('signup.header')}</h1>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+        <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
         <Form.Control
           id="username"
-          placeholder="Имя пользователя"
+          placeholder={t('signup.username')}
           name="username"
           required
           onChange={f.handleChange}
@@ -87,12 +87,12 @@ const SignUpForm = () => {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="password">Пароль</Form.Label>
+        <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
         <Form.Control
           id="password"
           type="password"
           name="password"
-          placeholder="Пароль"
+          placeholder={t('signup.password')}
           required
           onChange={f.handleChange}
           onBlur={f.handleBlur}
@@ -103,12 +103,12 @@ const SignUpForm = () => {
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
+        <Form.Label htmlFor="confirmPassword">{t('signup.confirm')}</Form.Label>
         <Form.Control
           id="confirmPassword"
           type="password"
           name="confirmPassword"
-          placeholder="Подтвердите пароль"
+          placeholder={t('signup.confirm')}
           required
           onChange={f.handleChange}
           onBlur={f.handleBlur}
@@ -117,10 +117,10 @@ const SignUpForm = () => {
         <Form.Control.Feedback type="invalid">
           {f.errors.confirmPassword}
         </Form.Control.Feedback>
-        {usernameExist ? <Alert variant="danger">Такой пользователь уже существует</Alert> : null}
+        {usernameExist ? <Alert variant="danger">{t('signup.alreadyExists')}</Alert> : null}
       </Form.Group>
       <Button type="submit" variant="primary" className="w-100">
-        Зарегистрироваться
+        {t('signup.submit')}
       </Button>
     </Form>
   );

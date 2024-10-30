@@ -2,6 +2,7 @@
 import axios from 'axios';
 import filter from 'leo-profanity';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { ArrowRight } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ import { useEffect } from 'react';
 const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
   const channels = useSelector((state) => state.channelsStore);
   const user = useSelector((state) => state.userStore);
+  const { t } = useTranslation();
   useEffect(() => {
     messagesBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
   });
@@ -44,14 +46,12 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
         <Form.Control
           name="message"
           placeholder="Введите сообщение..."
-          aria-label="Новое сообщение"
-          aria-describedby="basic-addon2"
           onChange={f.handleChange}
           ref={inputRef}
         />
         <Button id="button-addon2" type="submit" disabled={!f.values.message.length > 0}>
           <ArrowRight />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('chat.send')}</span>
         </Button>
       </InputGroup>
     </Form>
