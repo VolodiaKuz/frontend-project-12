@@ -2,9 +2,12 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import routes from '../../utils/routes';
+import useAuth from '../../hooks/index.jsx';
+import { addToken } from '../../store/userSlice.js';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string()
@@ -20,6 +23,8 @@ const signupSchema = Yup.object().shape({
 const SignUpForm = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const auth = useAuth();
+  const dispatch = useDispatch();
   const [usernameExist, setUsernameExist] = useState(false);
 
   useEffect(() => {
@@ -38,13 +43,18 @@ const SignUpForm = () => {
       try {
         const response = await axios.post('/api/v1/signup', { username: values.username, password: values.password });
         localStorage.setItem('userId', JSON.stringify(response.data));
+        const user = response.data;
+        auth.logIn();
+        dispatch(addToken({ user }));
         navigate(routes.mainPagePath());
       } catch (err) {
         f.setSubmitting(false);
         // f.isSubmitting
         if (err.response.status === 409) {
           setUsernameExist(true);
+          return;
         }
+        throw err;
       }
     },
   });

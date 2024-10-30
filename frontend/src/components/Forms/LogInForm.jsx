@@ -32,7 +32,9 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         // f.isSubmitting
         if (err.response.status === 401) {
           setAuthError(true);
+          return;
         }
+        throw err;
       }
     },
   });
