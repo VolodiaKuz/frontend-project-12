@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setActive } from '../../store/channelsSlice.js';
 
 const signupSchema = Yup.object().shape({
-  channel: Yup.string()
+  name: Yup.string()
     .min(3, 'От 3 до 20 символов')
     .max(20, 'От 3 до 20 символов')
     .required('Обязательное поле'),
@@ -31,17 +31,17 @@ const ModalAdd = ({ hideModal }) => {
 
   const f = useFormik({
     initialValues: {
-      channel: '',
+      name: '',
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
       setChannelExist(false);
-      if (existedChanelsNames.includes(values.channel)) {
+      if (existedChanelsNames.includes(values.name)) {
         setChannelExist(true);
         return;
       }
       const { token } = user;
-      const newChannel = { name: values.channel };
+      const newChannel = { name: values.name };
       const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,11 +62,11 @@ const ModalAdd = ({ hideModal }) => {
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
-            <Form.Label htmlFor="channel">Имя канала</Form.Label>
+            <Form.Label htmlFor="name">Имя канала</Form.Label>
             <FormControl
+              id="name"
+              name="name"
               required
-              data-testid="input-body"
-              name="channel"
               onChange={f.handleChange}
               ref={inputRef}
               isInvalid={channelExist}
