@@ -15,7 +15,7 @@ const ModalAdd = ({ hideModal }) => {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { t } = useTranslation();
-  const notify = () => toast.success(t('modal.created'));
+  const notify = () => toast.success(t('channels.created'));
   const user = useSelector((state) => state.userStore);
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
