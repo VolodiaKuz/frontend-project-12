@@ -54,6 +54,7 @@ const SignUpForm = () => {
       className="col-12 col-md-6 mt-3 mt-md-0"
       onSubmit={f.handleSubmit}
     >
+      <h1 className="text-center mb-4">Регистрация</h1>
       <Form.Group className="mb-3" controlId="username">
         <Form.Label htmlFor="username">Имя пользователя</Form.Label>
         <Form.Control
