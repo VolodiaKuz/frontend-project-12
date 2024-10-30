@@ -27,8 +27,6 @@ const Channels = () => {
         const createdChannels = result.data;
         dispatch(fillChannels({ createdChannels }));
       } catch (err) {
-        // f.setSubmitting(false);
-        // f.isSubmitting
         if (err.response.status === 401) {
           navigate(routes.loginPagePath());
           return null;
@@ -38,8 +36,6 @@ const Channels = () => {
       return null;
     };
     uploadChannels();
-    // handleActiveChannel({ id: 1, name: 'general' }, setActiveChannel, setactiveChannelName);
-    // добавить try/catch и ошибку 401
   }, [dispatch, navigate]);
 
   return (

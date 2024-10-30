@@ -14,7 +14,6 @@ const userSlice = createSlice({
     addToken: (state, { payload: { user } }) => {
       state.token = user.token;
       state.username = user.username;
-      console.log('state in userSlice =>', state);
     },
   },
 });

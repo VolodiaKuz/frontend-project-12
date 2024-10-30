@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 
 const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
   const channels = useSelector((state) => state.channelsStore);
+  const user = useSelector((state) => state.userStore);
   useEffect(() => {
     messagesBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
   });
@@ -18,7 +19,8 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
       message: '',
     },
     onSubmit: (values) => {
-      const { token, username } = JSON.parse(localStorage.getItem('userId'));
+      // const { token, username } = JSON.parse(localStorage.getItem('userId'));
+      const { token, username } = user;
 
       const newMessage = {
         body: filter.clean(values.message), channelId: channels.activeChannel.id, username,
