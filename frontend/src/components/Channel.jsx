@@ -25,7 +25,7 @@ const renderRemovableChannel = (
     <li key={channel.id}>
       <Dropdown className={buttonClasses}>
         <Button
-          className="w-100 text-start text-truncate"
+          className="w-100 text-start text-truncate rounded-0"
           variant={buttonVariant}
           onClick={() => handleActiveChannel(channel)}
         >
