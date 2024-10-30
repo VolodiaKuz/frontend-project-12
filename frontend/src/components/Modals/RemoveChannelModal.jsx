@@ -42,7 +42,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
         <Button variant="secondary" onClick={hideModal}>
           Отменить
         </Button>
-        <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal, user, generalChatMessagesCount)} variant="primary">
+        <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal, user, generalChatMessagesCount)} variant="danger">
           Удалить канал
         </Button>
       </Modal.Footer>
