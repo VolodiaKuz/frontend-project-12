@@ -6,6 +6,14 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+
+const signupSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, 'От 3 до 20 символов')
+    .max(20, 'От 3 до 20 символов')
+    .required('Обязательное поле'),
+});
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const notify = () => toast.success('Канал переименован');
@@ -25,6 +33,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
     initialValues: {
       name: '',
     },
+    validationSchema: signupSchema,
     onSubmit: async (values) => {
       setChannelExist(false);
       if (existedChanelsNames.includes(values.name)) {
@@ -58,11 +67,13 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
               name="name"
               required
               onChange={f.handleChange}
+              onBlur={f.handleBlur}
               ref={inputRef}
-              isInvalid={channelExist}
+              isInvalid={channelExist || f.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              Должно быть уникальным
+              {channelExist && 'Должно быть уникальным'}
+              {f.errors.name}
             </Form.Control.Feedback>
           </FormGroup>
           <br />

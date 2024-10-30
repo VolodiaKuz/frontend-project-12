@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActive } from '../../store/channelsSlice.js';
+import { countMessages } from '../../store/messagesSlice.js';
 
 const signupSchema = Yup.object().shape({
   name: Yup.string()
@@ -51,6 +52,7 @@ const ModalAdd = ({ hideModal }) => {
       notify();
       const channel = newChannelResponse.data;
       dispatch(setActive({ channel }));
+      dispatch(countMessages({ count: 0 }));
     },
   });
 
