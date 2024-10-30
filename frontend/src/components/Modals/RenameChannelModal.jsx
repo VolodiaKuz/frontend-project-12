@@ -23,16 +23,16 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
   const f = useFormik({
     initialValues: {
-      channel: '',
+      name: '',
     },
     onSubmit: async (values) => {
       setChannelExist(false);
-      if (existedChanelsNames.includes(values.channel)) {
+      if (existedChanelsNames.includes(values.name)) {
         setChannelExist(true);
         return;
       }
       const { token } = user;
-      const editedChannel = { name: values.channel };
+      const editedChannel = { name: values.name };
       await axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
