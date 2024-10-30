@@ -69,10 +69,11 @@ const ModalAdd = ({ hideModal }) => {
               required
               onChange={f.handleChange}
               ref={inputRef}
-              isInvalid={channelExist}
+              isInvalid={channelExist || f.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              Должно быть уникальным
+              {channelExist && 'Должно быть уникальным'}
+              {f.errors.name}
             </Form.Control.Feedback>
           </FormGroup>
           <br />
