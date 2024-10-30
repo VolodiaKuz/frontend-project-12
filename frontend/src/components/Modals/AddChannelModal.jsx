@@ -1,7 +1,7 @@
 import {
   Button, Modal, FormGroup, FormControl, Form,
 } from 'react-bootstrap';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -21,6 +21,11 @@ const ModalAdd = ({ hideModal }) => {
   const inputRef = useRef();
   const notify = () => toast.success('Канал создан');
   const user = useSelector((state) => state.userStore);
+  const channels = useSelector((state) => state.channelsStore.channels);
+  console.log('channels=>', channels);
+  const existedChanelsNames = channels.map((ch) => ch.name);
+  console.log('allChanelsNames => ', existedChanelsNames);
+  const [channelExist, setChannelExist] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -32,6 +37,11 @@ const ModalAdd = ({ hideModal }) => {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
+      setChannelExist(false);
+      if (existedChanelsNames.includes(values.channel)) {
+        setChannelExist(true);
+        return;
+      }
       const { token } = user;
       const newChannel = { name: values.channel };
       const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
@@ -61,10 +71,10 @@ const ModalAdd = ({ hideModal }) => {
               name="channel"
               onChange={f.handleChange}
               ref={inputRef}
-              isInvalid={!!f.errors.channel && f.touched.channel}
+              isInvalid={channelExist}
             />
             <Form.Control.Feedback type="invalid">
-              {f.errors.channel}
+              Должно быть уникальным
             </Form.Control.Feedback>
           </FormGroup>
           <br />
