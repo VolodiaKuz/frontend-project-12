@@ -66,7 +66,7 @@ const Messages = () => {
               {channels.activeChannel.name}
             </b>
           </p>
-          <span className="text-muted">{t('chatBox.messages', { count: messagesStore.activeChannelMessagesCount })}</span>
+          <span className="text-muted">{t('chat.messageCount.messages', { count: messagesStore.activeChannelMessagesCount })}</span>
         </div>
         <div
           id="messages-box"
