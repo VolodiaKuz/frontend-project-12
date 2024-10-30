@@ -1,10 +1,10 @@
 import SignUpForm from '../components/Forms/SignUpForm';
-import FormContainer from '../components/Forms/FormContainer';
+import PageContainer from '../components/PageContainer';
 
 const LoginPage = () => (
-  <FormContainer>
+  <PageContainer>
     <SignUpForm />
-  </FormContainer>
+  </PageContainer>
 );
 
 export default LoginPage;

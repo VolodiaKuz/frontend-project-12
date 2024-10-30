@@ -1,8 +1,6 @@
-// import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
-// import Navbar from '../components/Navbar';
 import LogInForm from '../components/Forms/LogInForm';
-import FormContainer from '../components/Forms/FormContainer';
+import PageContainer from '../components/PageContainer';
 
 const LoginPage = () => {
   const inputRef = useRef(null);
@@ -13,13 +11,13 @@ const LoginPage = () => {
   }, [inputRef]);
 
   return (
-    <FormContainer logInType>
+    <PageContainer logInType>
       <LogInForm
         inputRef={inputRef}
         setAuthError={setAuthError}
         authError={authError}
       />
-    </FormContainer>
+    </PageContainer>
   );
 };
 

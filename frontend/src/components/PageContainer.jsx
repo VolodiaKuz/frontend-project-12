@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
-import Navbar from '../Navbar';
+import Navbar from './Navbar';
 
 const getSrcPath = (logInType, notFound) => {
   if (logInType) return 'auth_logo.jpeg';
@@ -10,7 +10,6 @@ const getSrcPath = (logInType, notFound) => {
 
 const Container = ({ logInType, children, notFound }) => {
   const navigate = useNavigate();
-  // const pictureSrc = logInType ? 'auth_logo.jpeg' : 'signup_logo.png';
   const pictureSrc = getSrcPath(logInType, notFound);
   const divClass = cn('d-flex', 'align-items-center', 'justify-content-center', {
     'col-12 col-md-6': !notFound,
