@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VolodiaKuz/frontend-project-12.git"
+    "url": "https://github.com/VolodiaKuz/frontend-project-12.git"
   },
   "author": "VolodiaKuz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/VolodiaKuz/frontend-project-12/issues"
   },
-  "homepage": "https://github.com/VolodiaKuz/frontend-project-12#readme",
+  "homepage": "https://github.com/VolodiaKuz/frontend-project-12",
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4",
     "bootstrap": "^5.3.3",
