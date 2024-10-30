@@ -18,15 +18,14 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
     initialValues: {
       message: '',
     },
-    onSubmit: (values) => {
-      // const { token, username } = JSON.parse(localStorage.getItem('userId'));
+    onSubmit: async (values) => {
       const { token, username } = user;
 
       const newMessage = {
         body: filter.clean(values.message), channelId: channels.activeChannel.id, username,
       };
 
-      axios.post('/api/v1/messages', newMessage, {
+      await axios.post('/api/v1/messages', newMessage, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

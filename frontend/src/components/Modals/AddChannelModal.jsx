@@ -32,16 +32,13 @@ const ModalAdd = ({ hideModal }) => {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      // const { token } = JSON.parse(localStorage.getItem('userId'));
       const { token } = user;
-
       const newChannel = { name: values.channel };
-
       const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }); // добавить try/catch
+      });
       hideModal();
       notify();
       const channel = newChannelResponse.data;

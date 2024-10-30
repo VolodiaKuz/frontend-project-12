@@ -23,12 +23,10 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
     initialValues: {
       channel: '',
     },
-    onSubmit: (values) => {
-      // const { token } = JSON.parse(localStorage.getItem('userId'));
+    onSubmit: async (values) => {
       const { token } = user;
-
       const editedChannel = { name: values.channel };
-      axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
+      await axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

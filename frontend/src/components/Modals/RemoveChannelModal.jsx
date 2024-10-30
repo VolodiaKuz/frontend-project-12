@@ -6,12 +6,12 @@ import { setActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 import store from '../../store/index.js';
 
-const sendRemoveResponse = (currentChannel, hideModal, user, messagesCount) => {
+const sendRemoveResponse = async (currentChannel, hideModal, user, messagesCount) => {
   const { dispatch } = store;
   const notify = () => toast.success('Канал удалён');
   const { token } = user;
 
-  axios.delete(`/api/v1/channels/${currentChannel.id}`, {
+  await axios.delete(`/api/v1/channels/${currentChannel.id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
