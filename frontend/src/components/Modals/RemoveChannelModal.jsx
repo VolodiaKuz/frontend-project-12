@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { setActive } from '../../store/channelsSlice.js';
+import { countMessages } from '../../store/messagesSlice.js';
 import store from '../../store/index.js';
 
-const sendRemoveResponse = (currentChannel, hideModal, user) => {
+const sendRemoveResponse = (currentChannel, hideModal, user, messagesCount) => {
   const { dispatch } = store;
   const notify = () => toast.success('Канал удалён');
-  // const { token } = JSON.parse(localStorage.getItem('userId'));
   const { token } = user;
 
   axios.delete(`/api/v1/channels/${currentChannel.id}`, {
@@ -20,12 +20,15 @@ const sendRemoveResponse = (currentChannel, hideModal, user) => {
   notify();
   const channel = { id: '1', name: 'general' };
   dispatch(setActive({ channel }));
+  dispatch(countMessages({ count: messagesCount }));
   // добавить удаление всех сообщений канала
   // dispatch(deleteChannelMessages(channel));
 };
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const user = useSelector((state) => state.userStore);
+  const { messages } = store.getState().messagesStore;
+  const generalChatMessagesCount = messages.filter((el) => el.channelId === '1').length;
 
   return (
     <Modal show onHide={hideModal} animation={false} centered>
@@ -39,7 +42,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
         <Button variant="secondary" onClick={hideModal}>
           Отменить
         </Button>
-        <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal, user)} variant="primary">
+        <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal, user, generalChatMessagesCount)} variant="primary">
           Удалить канал
         </Button>
       </Modal.Footer>
