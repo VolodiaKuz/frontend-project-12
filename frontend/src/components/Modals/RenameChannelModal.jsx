@@ -1,6 +1,7 @@
 import {
   Button, Modal, FormGroup, FormControl, Form,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
@@ -8,21 +9,22 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-const signupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-});
-
 const ModalRemove = ({ hideModal, modalInfo }) => {
-  const notify = () => toast.success('Канал переименован');
+  const { t } = useTranslation();
+  const notify = () => toast.success(t('channels.renamed'));
   const user = useSelector((state) => state.userStore);
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
   const [channelExist, setChannelExist] = useState(false);
+
+  const signupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, t('modals.min'))
+      .max(20, t('modals.max'))
+      .required(t('modals.required')),
+  });
 
   useEffect(() => {
     inputRef.current.value = modalInfo.item.name;
@@ -56,12 +58,12 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
   return (
     <Modal show onHide={hideModal} animation={false} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.rename')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
-            <Form.Label htmlFor="name">Имя канала</Form.Label>
+            <Form.Label htmlFor="name">{t('modals.channelName')}</Form.Label>
             <FormControl
               id="name"
               name="name"
@@ -72,16 +74,16 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
               isInvalid={channelExist || f.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              {channelExist && 'Должно быть уникальным'}
+              {channelExist && t('modals.uniq')}
               {f.errors.name}
             </Form.Control.Feedback>
           </FormGroup>
           <br />
           <Button variant="secondary" onClick={hideModal}>
-            Отменить
+            {t('modals.cancel')}
           </Button>
           <Button type="submit" variant="primary">
-            Переименовать канал
+            {t('modals.rename')}
           </Button>
         </Form>
       </Modal.Body>
