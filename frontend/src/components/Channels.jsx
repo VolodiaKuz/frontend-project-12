@@ -2,33 +2,45 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fillChannels } from '../store/channelsSlice.js';
 import Modal from './Modals/Modal.jsx';
 import Channel from './Channel.jsx';
+import routes from '../utils/routes';
 
 const Channels = () => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const uploadChannels = async () => {
       if (!localStorage.getItem('userId')) return [];
-      const { token } = JSON.parse(localStorage.getItem('userId'));
-
-      const result = await axios.get('/api/v1/channels', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const createdChannels = result.data;
-      dispatch(fillChannels({ createdChannels }));
+      try {
+        const { token } = JSON.parse(localStorage.getItem('userId'));
+        const result = await axios.get('/api/v1/channels', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const createdChannels = result.data;
+        dispatch(fillChannels({ createdChannels }));
+      } catch (err) {
+        // f.setSubmitting(false);
+        // f.isSubmitting
+        if (err.response.status === 401) {
+          navigate(routes.loginPagePath());
+          return null;
+        }
+        throw err;
+      }
       return null;
     };
     uploadChannels();
     // handleActiveChannel({ id: 1, name: 'general' }, setActiveChannel, setactiveChannelName);
     // добавить try/catch и ошибку 401
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
