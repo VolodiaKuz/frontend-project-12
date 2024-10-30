@@ -65,11 +65,10 @@ const SignUpForm = () => {
       onSubmit={f.handleSubmit}
     >
       <h1 className="text-center mb-4">Регистрация</h1>
-      <Form.Group className="mb-3" controlId="username">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="username">Имя пользователя</Form.Label>
         <Form.Control
           id="username"
-          type="text"
           placeholder="Имя пользователя"
           name="username"
           required
@@ -82,9 +81,10 @@ const SignUpForm = () => {
           {f.errors.username}
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="password">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="password">Пароль</Form.Label>
         <Form.Control
+          id="password"
           type="password"
           name="password"
           placeholder="Пароль"
@@ -97,9 +97,10 @@ const SignUpForm = () => {
           {f.errors.password}
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3" controlId="confirmPassword">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="confirmPassword">Подтвердите пароль</Form.Label>
         <Form.Control
+          id="confirmPassword"
           type="password"
           name="confirmPassword"
           placeholder="Подтвердите пароль"
