@@ -1,11 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import Navbar from './Navbar';
+import loginPicture from '../assets/auth_logo.jpeg';
+import signinPicture from '../assets/signup_logo.png';
+import notfoundPicture from '../assets/404.JPG';
 
 const getSrcPath = (logInType, notFound) => {
-  if (logInType) return 'auth_logo.jpeg';
-  if (notFound) return '404.JPG';
-  return 'signup_logo.png';
+  if (logInType) return loginPicture;
+  if (notFound) return notfoundPicture;
+  return signinPicture;
 };
 
 const Container = ({ logInType, children, notFound }) => {
