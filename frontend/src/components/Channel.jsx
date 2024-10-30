@@ -18,13 +18,14 @@ const renderRemovableChannel = (
   setModalInfo,
   activeChannel,
 ) => {
-  const buttonClasses = 'w-100 rounded-0 text-start';
+  const buttonClasses = 'd-flex rounded-0 text-start';
   const buttonVariant = `${channel.id === activeChannel.id ? 'secondary' : 'light'}`;
 
   return (
     <li key={channel.id}>
       <Dropdown className={buttonClasses}>
         <Button
+          className="w-100 text-start text-truncate"
           variant={buttonVariant}
           onClick={() => handleActiveChannel(channel)}
         >
