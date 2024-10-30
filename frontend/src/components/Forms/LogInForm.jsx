@@ -47,11 +47,11 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
     >
       <h1 className="text-center mb-4">Войти</h1>
       <Form.Group className="mb-3">
-        <Form.Label controlid="username">Ваш ник</Form.Label>
+        <Form.Label htmlFor="username">Ваш ник</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="Ваш ник"
+          id="username"
           name="username"
+          placeholder="Ваш ник"
           required
           onChange={f.handleChange}
           ref={inputRef}
@@ -59,8 +59,9 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         />
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label controlid="password">Пароль</Form.Label>
+        <Form.Label htmlFor="password">Пароль</Form.Label>
         <Form.Control
+          id="password"
           type="password"
           name="password"
           placeholder="Пароль"
