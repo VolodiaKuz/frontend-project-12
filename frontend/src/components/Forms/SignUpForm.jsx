@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form, Alert } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 import routes from '../../utils/routes';
@@ -26,6 +28,7 @@ const SignUpForm = () => {
   const auth = useAuth();
   const dispatch = useDispatch();
   const [usernameExist, setUsernameExist] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -48,12 +51,13 @@ const SignUpForm = () => {
         dispatch(addToken({ user }));
         navigate(routes.mainPagePath());
       } catch (err) {
-        f.setSubmitting(false);
         // f.isSubmitting
         if (err.response.status === 409) {
           setUsernameExist(true);
           return;
         }
+        f.setSubmitting(false);
+        toast.error(t('toastify.error.connectionErr'));
         throw err;
       }
     },
@@ -64,6 +68,7 @@ const SignUpForm = () => {
       className="col-12 col-md-6 mt-3 mt-md-0"
       onSubmit={f.handleSubmit}
     >
+      <ToastContainer />
       <h1 className="text-center mb-4">Регистрация</h1>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="username">Имя пользователя</Form.Label>

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { toast, ToastContainer } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import routes from '../../utils/routes';
 import useAuth from '../../hooks/index.jsx';
 import { addToken } from '../../store/userSlice.js';
@@ -11,6 +13,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
   const navigate = useNavigate();
   const auth = useAuth();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const f = useFormik({
     initialValues: {
@@ -19,6 +22,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
     },
     onSubmit: async (values) => {
       setAuthError(false);
+
       try {
         setAuthError(false);
         const response = await axios.post('/api/v1/login', values);
@@ -35,6 +39,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
           setAuthError(true);
           return;
         }
+        toast.error(t('toastify.error.connectionErr'));
         throw err;
       }
     },
@@ -45,6 +50,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
       className="col-12 col-md-6 mt-3 mt-md-0"
       onSubmit={f.handleSubmit}
     >
+      <ToastContainer />
       <h1 className="text-center mb-4">Войти</h1>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="username">Ваш ник</Form.Label>
