@@ -2,6 +2,7 @@ import {
   Button, Modal, FormGroup, FormControl, Form,
 } from 'react-bootstrap';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -9,13 +10,6 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { setActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
-
-const signupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-});
 
 const ModalAdd = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -25,6 +19,14 @@ const ModalAdd = ({ hideModal }) => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
   const [channelExist, setChannelExist] = useState(false);
+  const { t } = useTranslation();
+
+  const signupSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, t('modal.min'))
+      .max(20, t('modal.max'))
+      .required(t('modal.required')),
+  });
 
   useEffect(() => {
     inputRef.current.focus();

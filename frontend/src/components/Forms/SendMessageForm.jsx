@@ -45,6 +45,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
       <InputGroup className="mb-3">
         <Form.Control
           name="message"
+          aria-label={t('chat.newMessage')}
           placeholder="Введите сообщение..."
           onChange={f.handleChange}
           ref={inputRef}
