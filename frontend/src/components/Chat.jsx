@@ -8,7 +8,7 @@ import Messages from './Messages';
 
 const Chat = () => {
   const channels = useSelector((state) => state.channelsStore.channels);
-  const messages = useSelector((state) => state.messagesStore.messages);
+  const messages = useSelector((state) => state.messagesStore.messages); // удалить!
   const navigate = useNavigate();
 
   const [activeChannel, setActiveChannel] = useState('1');
