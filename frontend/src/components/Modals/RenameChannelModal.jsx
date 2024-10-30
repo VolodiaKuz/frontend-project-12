@@ -1,6 +1,7 @@
 import {
   Button, Modal, FormGroup, FormControl, Form,
 } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -8,6 +9,7 @@ import { toast } from 'react-toastify';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const notify = () => toast.success('Канал переименован');
+  const user = useSelector((state) => state.userStore);
 
   const inputRef = useRef(null);
   const channelId = modalInfo.item.id;
@@ -22,7 +24,8 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
       channel: '',
     },
     onSubmit: (values) => {
-      const { token } = JSON.parse(localStorage.getItem('userId'));
+      // const { token } = JSON.parse(localStorage.getItem('userId'));
+      const { token } = user;
 
       const editedChannel = { name: values.channel };
       axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {

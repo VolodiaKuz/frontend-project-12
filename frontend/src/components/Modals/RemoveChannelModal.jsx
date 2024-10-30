@@ -1,14 +1,15 @@
 import { Button, Modal } from 'react-bootstrap';
-// import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { setActive } from '../../store/channelsSlice.js';
 import store from '../../store/index.js';
 
-const sendRemoveResponse = (currentChannel, hideModal) => {
+const sendRemoveResponse = (currentChannel, hideModal, user) => {
   const { dispatch } = store;
   const notify = () => toast.success('Канал удалён');
-  const { token } = JSON.parse(localStorage.getItem('userId'));
+  // const { token } = JSON.parse(localStorage.getItem('userId'));
+  const { token } = user;
 
   axios.delete(`/api/v1/channels/${currentChannel.id}`, {
     headers: {
@@ -23,23 +24,27 @@ const sendRemoveResponse = (currentChannel, hideModal) => {
   // dispatch(deleteChannelMessages(channel));
 };
 
-const ModalRemove = ({ hideModal, modalInfo }) => (
-  <Modal show onHide={hideModal} animation={false} centered>
-    <Modal.Header closeButton>
-      <Modal.Title>Удалить канал</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <p className="lead">Уверены?</p>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={hideModal}>
-        Отменить
-      </Button>
-      <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal)} variant="primary">
-        Удалить канал
-      </Button>
-    </Modal.Footer>
-  </Modal>
-);
+const ModalRemove = ({ hideModal, modalInfo }) => {
+  const user = useSelector((state) => state.userStore);
+
+  return (
+    <Modal show onHide={hideModal} animation={false} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Удалить канал</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <p className="lead">Уверены?</p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={hideModal}>
+          Отменить
+        </Button>
+        <Button type="submit" onClick={() => sendRemoveResponse(modalInfo.item, hideModal, user)} variant="primary">
+          Удалить канал
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 export default ModalRemove;

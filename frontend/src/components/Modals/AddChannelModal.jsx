@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setActive } from '../../store/channelsSlice.js';
 
 const signupSchema = Yup.object().shape({
@@ -20,6 +20,7 @@ const ModalAdd = ({ hideModal }) => {
   const dispatch = useDispatch();
   const inputRef = useRef();
   const notify = () => toast.success('Канал создан');
+  const user = useSelector((state) => state.userStore);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,7 +32,8 @@ const ModalAdd = ({ hideModal }) => {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      const { token } = JSON.parse(localStorage.getItem('userId'));
+      // const { token } = JSON.parse(localStorage.getItem('userId'));
+      const { token } = user;
 
       const newChannel = { name: values.channel };
 
