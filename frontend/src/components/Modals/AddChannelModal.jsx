@@ -14,18 +14,18 @@ import { countMessages } from '../../store/messagesSlice.js';
 const ModalAdd = ({ hideModal }) => {
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const notify = () => toast.success('Канал создан');
+  const { t } = useTranslation();
+  const notify = () => toast.success(t('modal.created'));
   const user = useSelector((state) => state.userStore);
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
   const [channelExist, setChannelExist] = useState(false);
-  const { t } = useTranslation();
 
   const signupSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, t('modal.min'))
-      .max(20, t('modal.max'))
-      .required(t('modal.required')),
+      .min(3, t('modals.min'))
+      .max(20, t('modals.max'))
+      .required(t('modals.required')),
   });
 
   useEffect(() => {
@@ -61,12 +61,12 @@ const ModalAdd = ({ hideModal }) => {
   return (
     <Modal show onHide={hideModal} animation={false} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.add')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={f.handleSubmit}>
           <FormGroup>
-            <Form.Label htmlFor="name">Имя канала</Form.Label>
+            <Form.Label htmlFor="name">{t('modals.channelName')}</Form.Label>
             <FormControl
               id="name"
               name="name"
@@ -76,16 +76,16 @@ const ModalAdd = ({ hideModal }) => {
               isInvalid={channelExist || f.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              {channelExist && 'Должно быть уникальным'}
+              {channelExist && t('modals.uniq')}
               {f.errors.name}
             </Form.Control.Feedback>
           </FormGroup>
           <br />
           <Button variant="secondary" onClick={hideModal}>
-            Отменить
+            {t('modals.cancel')}
           </Button>
           <Button type="submit" variant="primary">
-            Добавить канал
+            {t('modals.add')}
           </Button>
         </Form>
       </Modal.Body>
