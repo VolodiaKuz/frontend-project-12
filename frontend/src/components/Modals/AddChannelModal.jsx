@@ -22,9 +22,7 @@ const ModalAdd = ({ hideModal }) => {
   const notify = () => toast.success('Канал создан');
   const user = useSelector((state) => state.userStore);
   const channels = useSelector((state) => state.channelsStore.channels);
-  console.log('channels=>', channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
-  console.log('allChanelsNames => ', existedChanelsNames);
   const [channelExist, setChannelExist] = useState(false);
 
   useEffect(() => {
