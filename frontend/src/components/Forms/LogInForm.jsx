@@ -20,6 +20,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
     onSubmit: async (values) => {
       setAuthError(false);
       try {
+        setAuthError(false);
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
         console.log('response.data=>', response.data);
