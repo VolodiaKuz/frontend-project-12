@@ -2,10 +2,15 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import routes from '../../utils/routes';
+import useAuth from '../../hooks/index.jsx';
+import { addToken } from '../../store/userSlice.js';
 
 const LogInForm = ({ inputRef, setAuthError, authError }) => {
   const navigate = useNavigate();
+  const auth = useAuth();
+  const dispatch = useDispatch();
 
   const f = useFormik({
     initialValues: {
@@ -17,6 +22,10 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
       try {
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
+        console.log('response.data=>', response.data);
+        auth.logIn();
+        const user = response.data;
+        dispatch(addToken({ user }));
         navigate(routes.mainPagePath());
       } catch (err) {
         // f.setSubmitting(false);

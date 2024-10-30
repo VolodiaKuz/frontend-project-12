@@ -12,11 +12,9 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addToken: (state, { payload: { user } }) => {
-      // state.messages = [...state.messages, message];
-      const userState = state;
-      userState.username = user.username;
-      userState.token = user.token;
-      userSlice.user = state;
+      state.token = user.token;
+      state.username = user.username;
+      console.log('state in userSlice =>', state);
     },
   },
 });

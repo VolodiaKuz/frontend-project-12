@@ -5,14 +5,11 @@ import { ToastContainer } from 'react-toastify';
 import Navbar from './Navbar';
 import Channels from './Channels';
 import Messages from './Messages';
-// import useAuth from '../hooks/index.jsx';
 
 const Chat = () => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
   const navigate = useNavigate();
-  // const auth = useAuth();
-  // auth.logIn();
 
   const [activeChannel, setActiveChannel] = useState('1');
   const [activeChannelName, setactiveChannelName] = useState('general');
