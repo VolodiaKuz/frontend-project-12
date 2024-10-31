@@ -1,16 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/index.jsx';
 import routes from '../utils/routes';
 
-const handleExit = (navigate) => () => {
+const handleExit = (navigate, auth) => () => {
   localStorage.clear();
+  auth.logOut();
   navigate(routes.loginPagePath());
 };
 
 const Navbar = ({ navigate, homePage }) => {
   const { t } = useTranslation();
+  const auth = useAuth();
+
   const exitButton = (
-    <button type="button" className="btn btn-primary" onClick={handleExit(navigate)}>
+    <button type="button" className="btn btn-primary" onClick={handleExit(navigate, auth)}>
       {t('logout')}
     </button>
   );
