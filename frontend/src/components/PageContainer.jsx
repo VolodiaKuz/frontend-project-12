@@ -1,10 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Navbar from './Navbar';
 import loginPicture from '../assets/auth_logo.jpeg';
 import signinPicture from '../assets/signup_logo.png';
 import notfoundPicture from '../assets/404.JPG';
+import routes from '../utils/routes';
 
 const getSrcPath = (logInType, notFound) => {
   if (logInType) return loginPicture;
@@ -27,7 +28,7 @@ const Container = ({ logInType, children, notFound }) => {
           {t('login.newToChat')}
           {' '}
         </span>
-        <a href="/signup">{t('login.signup')}</a>
+        <Link to={routes.signUpPagePath()}>{t('login.signup')}</Link>
       </div>
     </div>
   );
