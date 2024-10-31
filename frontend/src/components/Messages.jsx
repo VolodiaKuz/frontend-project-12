@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { animateScroll } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -35,7 +36,7 @@ const Messages = () => {
   }, [channels.activeChannel]);
 
   useEffect(() => {
-    messagesBoxRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    animateScroll.scrollToBottom({ containerId: 'messages-box', delay: 0, duration: 0 });
   }, [messagesStore.messages]);
 
   useEffect(() => {

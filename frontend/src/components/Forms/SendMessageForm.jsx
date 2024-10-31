@@ -27,11 +27,16 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
         body: filter.clean(values.message), channelId: channels.activeChannel.id, username,
       };
 
-      await axios.post('/api/v1/messages', newMessage, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      try {
+        await axios.post('/api/v1/messages', newMessage, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      f.resetForm();
       inputRef.current.value = '';
       inputRef.current.focus();
     },
@@ -50,7 +55,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
           onChange={f.handleChange}
           ref={inputRef}
         />
-        <Button id="button-addon2" type="submit" disabled={!f.values.message.length > 0}>
+        <Button id="button-addon2" type="submit" disabled={f.values.message === ''}>
           <ArrowRight />
           <span className="visually-hidden">{t('chat.send')}</span>
         </Button>

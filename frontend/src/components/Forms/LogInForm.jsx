@@ -77,7 +77,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         />
         <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" disabled={f.isSubmitting}>
         {t('login.submit')}
       </Button>
     </Form>

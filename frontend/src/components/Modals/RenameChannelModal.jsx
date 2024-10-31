@@ -3,7 +3,7 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -17,13 +17,13 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
   const channelId = modalInfo.item.id;
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
-  const [channelExist, setChannelExist] = useState(false);
 
   const signupSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('modals.min'))
       .max(20, t('modals.max'))
-      .required(t('modals.required')),
+      .required(t('modals.required'))
+      .notOneOf([...existedChanelsNames, null], t('modals.uniq')),
   });
 
   useEffect(() => {
@@ -37,11 +37,6 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      setChannelExist(false);
-      if (existedChanelsNames.includes(values.name)) {
-        setChannelExist(true);
-        return;
-      }
       const { token } = user;
       const editedChannel = { name: values.name };
       await axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
@@ -71,10 +66,9 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
               onChange={f.handleChange}
               onBlur={f.handleBlur}
               ref={inputRef}
-              isInvalid={channelExist || f.errors.name}
+              isInvalid={f.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              {channelExist && t('modals.uniq')}
               {f.errors.name}
             </Form.Control.Feedback>
           </FormGroup>
