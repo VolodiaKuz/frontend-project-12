@@ -27,14 +27,11 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         setAuthError(false);
         const response = await axios.post('/api/v1/login', values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        console.log('response.data=>', response.data);
         auth.logIn();
         const user = response.data;
         dispatch(addToken({ user }));
         navigate(routes.mainPagePath());
       } catch (err) {
-        // f.setSubmitting(false);
-        // f.isSubmitting
         if (err.response.status === 401) {
           setAuthError(true);
           return;

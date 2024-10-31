@@ -45,16 +45,21 @@ const ModalAdd = ({ hideModal }) => {
       }
       const { token } = user;
       const newChannel = { name: values.name };
-      const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      hideModal();
-      notify();
-      const channel = newChannelResponse.data;
-      dispatch(setActive({ channel }));
-      dispatch(countMessages({ count: 0 }));
+
+      try {
+        const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        hideModal();
+        notify();
+        const channel = newChannelResponse.data;
+        dispatch(setActive({ channel }));
+        dispatch(countMessages({ count: 0 }));
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
 

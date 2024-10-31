@@ -51,7 +51,6 @@ const SignUpForm = () => {
         dispatch(addToken({ user }));
         navigate(routes.mainPagePath());
       } catch (err) {
-        // f.isSubmitting
         if (err.response.status === 409) {
           setUsernameExist(true);
           return;
