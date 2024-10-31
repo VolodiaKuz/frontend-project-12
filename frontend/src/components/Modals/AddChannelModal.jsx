@@ -84,7 +84,7 @@ const ModalAdd = ({ hideModal }) => {
           <Button variant="secondary" onClick={hideModal}>
             {t('modals.cancel')}
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" disabled={f.isSubmitting}>
             {t('modals.add')}
           </Button>
         </Form>

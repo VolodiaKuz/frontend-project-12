@@ -119,7 +119,7 @@ const SignUpForm = () => {
         </Form.Control.Feedback>
         {usernameExist ? <Alert variant="danger">{t('signup.alreadyExists')}</Alert> : null}
       </Form.Group>
-      <Button type="submit" variant="primary" className="w-100">
+      <Button type="submit" variant="primary" className="w-100" disabled={f.isSubmitting}>
         {t('signup.submit')}
       </Button>
     </Form>
