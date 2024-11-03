@@ -1,7 +1,13 @@
+const host = '/api/v1';
+
 const routes = {
-  mainPagePath: () => '/',
-  loginPagePath: () => '/login',
-  signUpPagePath: () => '/signup',
+  mainPage: () => '/',
+  loginPage: () => '/login',
+  signUpPage: () => '/signup',
+  page404: () => '*',
+  channels: () => [host, 'channels'].join('/'),
+  editChannel: (id) => [host, 'channels', id].join('/'),
+  messages: () => [host, 'messages'].join('/'),
 };
 
 export default routes;

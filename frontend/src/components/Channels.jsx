@@ -30,7 +30,7 @@ const Channels = () => {
         dispatch(fillChannels({ createdChannels }));
       } catch (err) {
         if (err.response.status === 401) {
-          navigate(routes.loginPagePath());
+          navigate(routes.loginPage());
           return null;
         }
         throw err;

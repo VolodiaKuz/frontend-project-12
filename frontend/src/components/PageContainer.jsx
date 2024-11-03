@@ -28,7 +28,7 @@ const Container = ({ logInType, children, notFound }) => {
           {t('login.newToChat')}
           {' '}
         </span>
-        <Link to={routes.signUpPagePath()}>{t('login.signup')}</Link>
+        <Link to={routes.signUpPage()}>{t('login.signup')}</Link>
       </div>
     </div>
   );

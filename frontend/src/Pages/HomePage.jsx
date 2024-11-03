@@ -15,7 +15,7 @@ const HomePage = () => {
     if (!auth.loggedIn) {
       const userId = JSON.parse(localStorage.getItem('userId'));
       if (!userId) {
-        navigate(routes.loginPagePath());
+        navigate(routes.loginPage());
       } else {
         auth.logIn();
         const user = userId;

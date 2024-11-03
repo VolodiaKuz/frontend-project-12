@@ -49,7 +49,7 @@ const SignUpForm = () => {
         const user = response.data;
         auth.logIn();
         dispatch(addToken({ user }));
-        navigate(routes.mainPagePath());
+        navigate(routes.mainPage());
       } catch (err) {
         if (err.response.status === 409) {
           setUsernameExist(true);

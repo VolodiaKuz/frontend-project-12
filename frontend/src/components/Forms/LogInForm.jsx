@@ -30,7 +30,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         auth.logIn();
         const user = response.data;
         dispatch(addToken({ user }));
-        navigate(routes.mainPagePath());
+        navigate(routes.mainPage());
       } catch (err) {
         if (err.response.status === 401) {
           setAuthError(true);

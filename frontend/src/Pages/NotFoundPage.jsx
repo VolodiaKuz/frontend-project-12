@@ -12,7 +12,7 @@ const NotFoundPage = () => {
       <p className="text-muted d-flex align-items-center justify-content-center">
         {t('notFound.message')}
       </p>
-      <Link to={routes.mainPagePath()} className="d-flex align-items-center justify-content-center">{t('notFound.linkText')}</Link>
+      <Link to={routes.mainPage()} className="d-flex align-items-center justify-content-center">{t('notFound.linkText')}</Link>
     </PageContainer>
   );
 };

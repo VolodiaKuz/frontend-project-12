@@ -6,7 +6,7 @@ import routes from '../utils/routes';
 const handleExit = (navigate, auth) => () => {
   localStorage.clear();
   auth.logOut();
-  navigate(routes.loginPagePath());
+  navigate(routes.loginPage());
 };
 
 const Navbar = ({ navigate, homePage }) => {
@@ -21,7 +21,7 @@ const Navbar = ({ navigate, homePage }) => {
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
-        <Link to={routes.mainPagePath()} className="navbar-brand">{t('hexletChat')}</Link>
+        <Link to={routes.mainPage()} className="navbar-brand">{t('hexletChat')}</Link>
         {homePage && exitButton}
       </div>
     </nav>
