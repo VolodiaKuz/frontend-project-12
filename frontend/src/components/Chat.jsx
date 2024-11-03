@@ -1,18 +1,13 @@
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
+
 import Navbar from './Navbar';
 import Channels from './Channels';
 import Messages from './Messages';
 
 const Chat = () => {
-  const channels = useSelector((state) => state.channelsStore.channels);
-  const messages = useSelector((state) => state.messagesStore.messages); // удалить!
   const navigate = useNavigate();
-
-  const [activeChannel, setActiveChannel] = useState('1');
-  const [activeChannelName, setactiveChannelName] = useState('general');
 
   return (
     <div className="h-100 bg-light">
@@ -23,17 +18,8 @@ const Chat = () => {
             <Navbar navigate={navigate} homePage />
             <div className="container h-100 my-4 overflow-hidden rounded shadow">
               <div className="row h-100 bg-white flex-md-row">
-                <Channels
-                  channels={channels}
-                  activeChannel={activeChannel}
-                  setActiveChannel={setActiveChannel}
-                  setactiveChannelName={setactiveChannelName}
-                />
-                <Messages
-                  messages={messages}
-                  activeChannel={activeChannel}
-                  activeChannelName={activeChannelName}
-                />
+                <Channels />
+                <Messages />
               </div>
             </div>
           </div>
