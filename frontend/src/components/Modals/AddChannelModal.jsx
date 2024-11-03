@@ -59,8 +59,14 @@ const ModalAdd = ({ hideModal }) => {
         const channel = newChannelResponse.data;
         dispatch(setActive({ channel }));
         dispatch(countMessages({ count: 0 }));
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        if (err.code === 'ERR_NETWORK') {
+          console.log('Network Error', err);
+          toast.error(t('errors.network'));
+          return;
+        }
+        console.log('Unknown Error', err);
+        toast.error(t('errors.unknown'));
       }
     },
   });

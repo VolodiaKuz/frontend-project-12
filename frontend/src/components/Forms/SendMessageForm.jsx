@@ -36,9 +36,14 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-      } catch (error) {
-        console.log(error);
-        toast.error(t('toastify.error.connectionErr'));
+      } catch (err) {
+        if (err.code === 'ERR_NETWORK') {
+          console.log('Network Error', err);
+          toast.error(t('errors.network'));
+          return;
+        }
+        console.log('Unknown Error', err);
+        toast.error(t('errors.unknown'));
       }
       f.resetForm();
       inputRef.current.value = '';
