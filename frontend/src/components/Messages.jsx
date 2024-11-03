@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { useEffect, useRef } from 'react';
 import { animateScroll } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,12 +59,11 @@ const Messages = () => {
         dispatch(fillMessages({ createdMessages }));
       } catch (err) {
         if (err.response.status === 401) {
+          console.log(err);
           navigate(routes.loginPage());
-          return null;
         }
         throw err;
       }
-      return null;
     };
 
     uploadChannels();

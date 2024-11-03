@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import cn from 'classnames';
 import Navbar from './Navbar';
+
 import loginPicture from '../assets/auth_logo.jpeg';
 import signinPicture from '../assets/signup_logo.png';
 import notfoundPicture from '../assets/404.JPG';

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -31,12 +32,11 @@ const Channels = () => {
         dispatch(fillChannels({ createdChannels }));
       } catch (err) {
         if (err.response.status === 401) {
+          console.log(err);
           navigate(routes.loginPage());
-          return null;
         }
         throw err;
       }
-      return null;
     };
     uploadChannels();
   }, [dispatch, navigate]);

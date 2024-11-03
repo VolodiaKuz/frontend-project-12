@@ -13,13 +13,14 @@ const tasksSlice = createSlice({
     addMessage: (state, { payload: { message } }) => {
       const messagesState = state;
       messagesState.messages = [...state.messages, message];
-      const test = current(state).messages.filter((el) => el.channelId === message.channelId);
-      state.activeChannelMessagesCount = test.length;
+      const activeChannelMessages = current(state)
+        .messages.filter((el) => el.channelId === message.channelId);
+      state.activeChannelMessagesCount = activeChannelMessages.length;
     },
     fillMessages: (state, { payload: { createdMessages } }) => {
       state.messages = [...createdMessages];
-      const test = current(state).messages.filter((el) => el.channelId === '1');
-      state.activeChannelMessagesCount = test.length;
+      const activeChannelMessages = current(state).messages.filter((el) => el.channelId === '1');
+      state.activeChannelMessagesCount = activeChannelMessages.length;
     },
     countMessages: (state, { payload: { count } }) => {
       state.activeChannelMessagesCount = count;
