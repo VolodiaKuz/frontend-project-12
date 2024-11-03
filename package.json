@@ -20,10 +20,6 @@
   },
   "homepage": "https://github.com/VolodiaKuz/frontend-project-12",
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4",
-    "bootstrap": "^5.3.3",
-    "react-bootstrap-icons": "^1.11.4",
-    "react-router-dom": "^6.26.2",
-    "yarn": "^1.22.22"
+    "@hexlet/chat-server": "^2.0.4"
   }
 }
