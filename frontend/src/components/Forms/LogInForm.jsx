@@ -33,12 +33,13 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         dispatch(addToken({ user }));
         navigate(routes.mainPage());
       } catch (err) {
-        if (err.response.status === 401) {
-          setAuthError(true);
+        if (err.code === 'ERR_NETWORK') {
+          console.log('Network Error', err);
+          toast.error(t('errors.network'));
           return;
         }
-        toast.error(t('toastify.error.connectionErr'));
-        throw err;
+        console.log('Unknown Error', err);
+        toast.error(t('errors.unknown'));
       }
     },
   });

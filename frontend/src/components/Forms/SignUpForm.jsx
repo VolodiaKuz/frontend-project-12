@@ -55,13 +55,17 @@ const SignUpForm = () => {
         dispatch(addToken({ user }));
         navigate(routes.mainPage());
       } catch (err) {
+        if (err.code === 'ERR_NETWORK') {
+          console.log('Network Error', err);
+          toast.error(t('errors.network'));
+          return;
+        }
         if (err.response.status === 409) {
           setUsernameExist(true);
           return;
         }
-        f.setSubmitting(false);
-        toast.error(t('toastify.error.connectionErr'));
-        throw err;
+        console.log('Unknown Error', err);
+        toast.error(t('errors.unknown'));
       }
     },
   });

@@ -7,6 +7,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { ArrowRight } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 import routes from '../../utils/routes';
 
@@ -37,6 +38,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
         });
       } catch (error) {
         console.log(error);
+        toast.error(t('toastify.error.connectionErr'));
       }
       f.resetForm();
       inputRef.current.value = '';
