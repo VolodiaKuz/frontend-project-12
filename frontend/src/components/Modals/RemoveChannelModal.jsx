@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+
+import routes from '../../utils/routes';
 import { setActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 import store from '../../store/index.js';
@@ -23,12 +25,12 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
     setIsSubmitting(true);
 
     try {
-      await axios.delete(`/api/v1/channels/${currentChannel.id}`, {
+      await axios.delete(routes.editChannel(currentChannel.id), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      await axios.delete(`/api/v1/messages/${currentChannel.id}`, {
+      await axios.delete(routes.editMessages(currentChannel.id), {
         headers: {
           Authorization: `Bearer ${token}`,
         },

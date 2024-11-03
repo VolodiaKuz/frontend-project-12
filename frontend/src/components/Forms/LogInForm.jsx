@@ -5,6 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
 import routes from '../../utils/routes';
 import useAuth from '../../hooks/index.jsx';
 import { addToken } from '../../store/userSlice.js';
@@ -25,7 +26,7 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
 
       try {
         setAuthError(false);
-        const response = await axios.post('/api/v1/login', values);
+        const response = await axios.post(routes.login(), values);
         localStorage.setItem('userId', JSON.stringify(response.data));
         auth.logIn();
         const user = response.data;

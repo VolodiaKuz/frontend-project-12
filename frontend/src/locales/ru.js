@@ -39,6 +39,7 @@ const ru = {
     chat: {
       send: 'Отправить',
       newMessage: 'Новое сообщение',
+      newMessagePlaceholder: 'Введите сообщение...',
       messageCount: {
         messages_one: '{{count}} сообщение',
         messages_few: '{{count}} сообщения',

@@ -8,6 +8,8 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+
+import routes from '../../utils/routes';
 import { setActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 
@@ -47,7 +49,7 @@ const ModalAdd = ({ hideModal }) => {
       const newChannel = { name: values.name };
 
       try {
-        const newChannelResponse = await axios.post('/api/v1/channels', newChannel, {
+        const newChannelResponse = await axios.post(routes.channels(), newChannel, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

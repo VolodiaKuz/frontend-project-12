@@ -8,6 +8,8 @@ import { ArrowRight } from 'react-bootstrap-icons';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
+import routes from '../../utils/routes';
+
 const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
   const channels = useSelector((state) => state.channelsStore);
   const user = useSelector((state) => state.userStore);
@@ -28,7 +30,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
       };
 
       try {
-        await axios.post('/api/v1/messages', newMessage, {
+        await axios.post(routes.messages(), newMessage, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -51,7 +53,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
         <Form.Control
           name="message"
           aria-label={t('chat.newMessage')}
-          placeholder="Введите сообщение..."
+          placeholder={t('chat.newMessagePlaceholder')}
           onChange={f.handleChange}
           ref={inputRef}
         />

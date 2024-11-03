@@ -9,6 +9,8 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
+import routes from '../../utils/routes';
+
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const { t } = useTranslation();
   const notify = () => toast.success(t('channels.renamed'));
@@ -41,7 +43,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
       const editedChannel = { name: values.name };
 
       try {
-        await axios.patch(`/api/v1/channels/${channelId}`, editedChannel, {
+        await axios.patch(routes.editChannel(channelId), editedChannel, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
