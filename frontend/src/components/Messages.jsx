@@ -2,10 +2,13 @@ import { useEffect, useRef } from 'react';
 import { animateScroll } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import filter from 'leo-profanity';
 import axios from 'axios';
+
 import { fillMessages } from '../store/messagesSlice.js';
 import SendMessageForm from './Forms/SendMessageForm.jsx';
+import routes from '../utils/routes';
 
 const renderMessages = (messages, activeChannel) => {
   const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
@@ -30,6 +33,7 @@ const Messages = () => {
   const messagesStore = useSelector((state) => state.messagesStore);
   const channels = useSelector((state) => state.channelsStore);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -44,18 +48,26 @@ const Messages = () => {
       if (!localStorage.getItem('userId')) return [];
       const { token } = JSON.parse(localStorage.getItem('userId'));
 
-      const result = await axios.get('/api/v1/messages', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const createdMessages = result.data;
-      dispatch(fillMessages({ createdMessages }));
+      try {
+        const result = await axios.get('/api/v1/messages', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const createdMessages = result.data;
+        dispatch(fillMessages({ createdMessages }));
+      } catch (err) {
+        if (err.response.status === 401) {
+          navigate(routes.loginPage());
+          return null;
+        }
+        throw err;
+      }
       return null;
     };
 
     uploadChannels();
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <div className="col p-0 h-100">
