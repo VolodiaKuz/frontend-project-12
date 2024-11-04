@@ -65,7 +65,6 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
           {t('modals.cancel')}
         </Button>
         <Button
-          type="submit"
           onClick={handleRemove}
           variant="danger"
           disabled={isSubmitting}

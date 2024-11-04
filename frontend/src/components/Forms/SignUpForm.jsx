@@ -62,6 +62,7 @@ const SignUpForm = () => {
         }
         if (err.response.status === 409) {
           setUsernameExist(true);
+          inputRef.current.select();
           return;
         }
         console.log('Unknown Error', err);

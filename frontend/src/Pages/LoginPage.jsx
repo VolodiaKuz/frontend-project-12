@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import loginPicture from '../assets/auth_logo.jpeg';
@@ -8,13 +7,7 @@ import PageContainer from '../components/PageContainer';
 import LoginFooter from '../components/LoginFooter';
 
 const LoginPage = () => {
-  const inputRef = useRef(null);
-  const [authError, setAuthError] = useState(false);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, [inputRef]);
 
   return (
     <PageContainer>
@@ -26,11 +19,7 @@ const LoginPage = () => {
             alt={t('login.submit')}
           />
         </div>
-        <LogInForm
-          inputRef={inputRef}
-          setAuthError={setAuthError}
-          authError={authError}
-        />
+        <LogInForm />
       </div>
       <LoginFooter />
     </PageContainer>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
+import { useRef, useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -10,11 +11,17 @@ import routes from '../../utils/routes';
 import useAuth from '../../hooks/index.jsx';
 import { addToken } from '../../store/userSlice.js';
 
-const LogInForm = ({ inputRef, setAuthError, authError }) => {
+const LogInForm = () => {
   const navigate = useNavigate();
   const auth = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const inputRef = useRef(null);
+  const [authError, setAuthError] = useState(false);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [inputRef]);
 
   const f = useFormik({
     initialValues: {
@@ -25,7 +32,6 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
       setAuthError(false);
 
       try {
-        setAuthError(false);
         const response = await axios.post(routes.login(), values);
         localStorage.setItem('userId', JSON.stringify(response.data));
         auth.logIn();
@@ -36,6 +42,12 @@ const LogInForm = ({ inputRef, setAuthError, authError }) => {
         if (err.code === 'ERR_NETWORK') {
           console.log('Network Error', err);
           toast.error(t('errors.network'));
+          return;
+        }
+        if (err.status === 401) {
+          console.log('Unauthorized Error', err);
+          setAuthError(true);
+          inputRef.current.select();
           return;
         }
         console.log('Unknown Error', err);
