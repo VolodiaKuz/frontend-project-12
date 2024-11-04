@@ -2,8 +2,9 @@
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { animateScroll } from 'react-scroll';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { fillChannels } from '../store/channelsSlice.js';
@@ -17,6 +18,11 @@ const Channels = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const channels = useSelector((state) => state.channelsStore.channels);
+
+  useEffect(() => {
+    animateScroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
+  }, [channels]);
 
   useEffect(() => {
     const uploadChannels = async () => {
@@ -35,7 +41,6 @@ const Channels = () => {
           console.log(err);
           navigate(routes.loginPage());
         }
-        throw err;
       }
     };
     uploadChannels();

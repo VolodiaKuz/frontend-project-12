@@ -62,7 +62,6 @@ const Messages = () => {
           console.log(err);
           navigate(routes.loginPage());
         }
-        throw err;
       }
     };
 
