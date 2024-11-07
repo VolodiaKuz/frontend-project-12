@@ -12,33 +12,18 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     addChannel: (state, { payload: { channel } }) => {
-      const channelsState = state; // убрать это , потому что правила линтера отключено
-      channelsState.channels = [...state.channels, channel];
+      state.channels = [...state.channels, channel];
     },
     removeChannel: (state, { payload: { channel } }) => {
-      const channelsState = state;
       const newChannelsList = state.channels.filter((ch) => ch.id !== channel.id);
-      channelsState.channels = [...newChannelsList];
+      state.channels = [...newChannelsList];
     },
     renameChannel: (state, { payload: { channel } }) => {
-      const channelsState = state;
       const otherChannels = state.channels.filter((ch) => ch.id !== channel.id);
-      channelsState.channels = [...otherChannels, channel];
+      state.channels = [...otherChannels, channel];
     },
     fillChannels: (state, { payload: { createdChannels } }) => {
       state.channels = [...createdChannels];
-    },
-    // setActive: (state, { payload: { channel } }) => {
-    //   state.activeChannel.name = channel.name;
-    //   state.activeChannel.id = channel.id;
-    // },
-    // setDefaultChannelActive: (state) => {
-    //   const defaultChannel = current(state).channels.filter((ch) => ch.id === '1')[0];
-    //   state.activeChannel.name = defaultChannel.name;
-    //   state.activeChannel.id = defaultChannel.id;
-    // },
-    setMessagesCount: (state, { payload: { count } }) => {
-      state.activeChannel.count = count;
     },
   },
 });
