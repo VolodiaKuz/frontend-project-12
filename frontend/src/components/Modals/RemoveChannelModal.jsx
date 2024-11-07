@@ -6,13 +6,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import routes from '../../utils/routes';
-import { setDefaultChannelActive } from '../../store/channelsSlice.js';
+import { setDefaultChannelActive } from '../../store/userSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 import store from '../../store/index.js';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const currentChannel = modalInfo.item;
   const user = useSelector((state) => state.userStore);
+  const channels = useSelector((state) => state.channelsStore);
   const { messages } = store.getState().messagesStore;
   const messagesCount = messages.filter((el) => el.channelId === '1').length;
   const { t } = useTranslation();
@@ -47,7 +48,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
     hideModal();
     notify();
-    dispatch(setDefaultChannelActive());
+    dispatch(setDefaultChannelActive(channels));
     dispatch(countMessages({ count: messagesCount }));
   };
 

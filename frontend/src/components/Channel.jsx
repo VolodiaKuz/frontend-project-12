@@ -5,11 +5,11 @@ import { useSelector } from 'react-redux';
 
 import { countMessages } from '../store/messagesSlice.js';
 import store from '../store/index.js';
-import { setActive } from '../store/channelsSlice.js';
+import { setActiveChannel } from '../store/userSlice.js';
 
 const handleActiveChannel = (channel) => {
   const { dispatch } = store;
-  dispatch(setActive({ channel }));
+  dispatch(setActiveChannel({ channel }));
   const { messages } = store.getState().messagesStore;
   const channelMessages = messages.filter((el) => el.channelId === channel.id);
   dispatch(countMessages({ count: channelMessages.length }));
@@ -52,7 +52,7 @@ const renderRemovableChannel = (
 
 const Channel = ({ setModalInfo }) => {
   const channels = useSelector((state) => state.channelsStore.channels);
-  const activeChannel = useSelector((state) => state.channelsStore.activeChannel);
+  const activeChannel = useSelector((state) => state.userStore.activeChannel);
   const { t } = useTranslation();
 
   const channelsHtml = channels.map((channel) => {

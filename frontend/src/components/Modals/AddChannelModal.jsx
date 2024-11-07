@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
 import routes from '../../utils/routes';
-import { setActive } from '../../store/channelsSlice.js';
+import { setActiveChannel } from '../../store/userSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 
 const ModalAdd = ({ hideModal }) => {
@@ -57,7 +57,7 @@ const ModalAdd = ({ hideModal }) => {
         hideModal();
         notify();
         const channel = newChannelResponse.data;
-        dispatch(setActive({ channel }));
+        dispatch(setActiveChannel({ channel }));
         dispatch(countMessages({ count: 0 }));
       } catch (err) {
         if (err.code === 'ERR_NETWORK') {
