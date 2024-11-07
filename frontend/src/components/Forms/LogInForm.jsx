@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../utils/routes';
-import useAuth from '../../hooks/index.jsx';
+import useAuth from '../../auth/authHook.jsx';
 import { addToken } from '../../store/userSlice.js';
 
 const LogInForm = () => {

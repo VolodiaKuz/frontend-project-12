@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import routes from '../../utils/routes';
-import useAuth from '../../hooks/index.jsx';
+import useAuth from '../../auth/authHook.jsx';
 import { addToken } from '../../store/userSlice.js';
 
 const SignUpForm = () => {
