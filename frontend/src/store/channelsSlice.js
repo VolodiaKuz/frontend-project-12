@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
   channels: [
@@ -32,6 +32,11 @@ const tasksSlice = createSlice({
       state.activeChannel.name = channel.name;
       state.activeChannel.id = channel.id;
     },
+    setDefaultChannelActive: (state) => {
+      const defaultChannel = current(state).channels.filter((ch) => ch.id === '1')[0];
+      state.activeChannel.name = defaultChannel.name;
+      state.activeChannel.id = defaultChannel.id;
+    },
     setMessagesCount: (state, { payload: { count } }) => {
       state.activeChannel.count = count;
     },
@@ -44,6 +49,7 @@ export const {
   renameChannel,
   fillChannels,
   setActive,
+  setDefaultChannelActive,
   setMessagesCount,
 } = tasksSlice.actions;
 

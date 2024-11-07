@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import routes from '../../utils/routes';
-import { setActive } from '../../store/channelsSlice.js';
+import { setDefaultChannelActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 import store from '../../store/index.js';
 
@@ -47,8 +47,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
 
     hideModal();
     notify();
-    const channel = { id: '1', name: 'general' };
-    dispatch(setActive({ channel }));
+    dispatch(setDefaultChannelActive());
     dispatch(countMessages({ count: messagesCount }));
   };
 
