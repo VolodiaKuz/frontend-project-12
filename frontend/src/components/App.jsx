@@ -6,7 +6,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 import useAuth from '../auth/authHook.jsx';
 import LoginPage from '../Pages/LoginPage';
@@ -20,18 +20,31 @@ import { addToken } from '../store/userSlice.js';
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!auth.loggedIn) {
-      const userId = JSON.parse(localStorage.getItem('userId'));
-      if (!userId) {
-        return <Navigate to="/login" />;
-      }
-      auth.logIn();
-      const user = userId;
-      dispatch(addToken({ user }));
+  // useEffect(() => {
+  //   if (!auth.loggedIn) {
+  //     const userId = JSON.parse(localStorage.getItem('userId'));
+  //     if (!userId) {
+  //       // return <Navigate to="/login" />;
+  //       navigate(routes.loginPage());
+  //     } else {
+  //       auth.logIn();
+  //       const user = userId;
+  //       dispatch(addToken({ user }));
+  //     }
+  //   }
+  // });
+
+  if (!auth.loggedIn) {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+    if (!userId) {
+      return <Navigate to="/login" />;
     }
-  });
+    auth.logIn();
+    const user = userId;
+    dispatch(addToken({ user }));
+  }
 
   return children;
   // return (
