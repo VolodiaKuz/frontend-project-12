@@ -4,14 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 // import { useSelector } from 'react-redux';
 
 const initialState = {
-  //
   // username: 'admin',
   // token: 'smkkskdcmksc5',
   // activeChannel: 'general',
-  // messagesCount: 0,
-  // isAuth: true,
-  // activeChannelMessagesCount: 0,
-  //
+  // isAuth: true, => этого ключа  нет
   // activeChannel: { name: 'general', id: '1', count: 0 },
   activeChannel: { name: 'general', id: '1', count: 0 },
 };

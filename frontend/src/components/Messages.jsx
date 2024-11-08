@@ -32,7 +32,6 @@ const Messages = () => {
   const messagesBoxRef = useRef(null);
   const { t } = useTranslation();
   const messagesStore = useSelector((state) => state.messagesStore);
-  // const channels = useSelector((state) => state.channelsStore);
   const userStore = useSelector((state) => state.userStore);
   const dispatch = useDispatch();
   const navigate = useNavigate();
