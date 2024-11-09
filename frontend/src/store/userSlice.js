@@ -31,11 +31,17 @@ const userSlice = createSlice({
       state.activeChannel.name = defaultChannel.name;
       state.activeChannel.id = defaultChannel.id;
     },
-    logIn: (state, { payload: { count } }) => {
-      state.activeChannelMessagesCount = count;
+    logIn: (state, action) => {
+      const { token, username } = action.payload;
+      state.username = username;
+      state.token = token;
+      state.isAuth = true;
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
     },
-    logOut: (state, { payload: { count } }) => {
-      state.activeChannelMessagesCount = count;
+    logOut: (state) => {
+      state.isAuth = false;
+      localStorage.clear();
     },
   },
 });
@@ -46,5 +52,7 @@ export const {
   setActiveChannel,
   setDefaultChannelActive,
   setMessagesCount,
+  logIn,
+  logOut,
 } = userSlice.actions;
 export default userSlice.reducer;

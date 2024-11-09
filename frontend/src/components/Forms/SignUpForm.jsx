@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -44,6 +44,7 @@ const SignUpForm = () => {
     validationSchema: signupSchema,
     validateOnChange: true,
     onSubmit: async (values) => {
+      setUsernameExist(false);
       try {
         const response = await axios.post(
           routes.signup(),
@@ -88,7 +89,7 @@ const SignUpForm = () => {
           onChange={f.handleChange}
           onBlur={f.handleBlur}
           ref={inputRef}
-          isInvalid={!!f.errors.username && f.touched.username}
+          isInvalid={(!!f.errors.username && f.touched.username) || usernameExist}
         />
         <Form.Control.Feedback type="invalid">
           {f.errors.username}
@@ -104,7 +105,7 @@ const SignUpForm = () => {
           required
           onChange={f.handleChange}
           onBlur={f.handleBlur}
-          isInvalid={!!f.errors.password && f.touched.password}
+          isInvalid={(!!f.errors.password && f.touched.password) || usernameExist}
         />
         <Form.Control.Feedback type="invalid">
           {f.errors.password}
@@ -120,13 +121,12 @@ const SignUpForm = () => {
           required
           onChange={f.handleChange}
           onBlur={f.handleBlur}
-          isInvalid={!!f.errors.confirmPassword && f.touched.confirmPassword || usernameExist}
+          isInvalid={(!!f.errors.confirmPassword && f.touched.confirmPassword) || usernameExist}
         />
         <Form.Control.Feedback type="invalid">
-          {f.errors.confirmPassword}
-          {/* {} */}
+          {/* {f.errors.confirmPassword} */}
+          {usernameExist ? t('signup.alreadyExists') : f.errors.confirmPassword}
         </Form.Control.Feedback>
-        {usernameExist ? <Alert variant="danger">{t('signup.alreadyExists')}</Alert> : null}
       </Form.Group>
       <Button type="submit" variant="primary" className="w-100" disabled={f.isSubmitting}>
         {t('signup.submit')}
