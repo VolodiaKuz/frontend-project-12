@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, current } from '@reduxjs/toolkit';
 // import store from './index.js';
 // import { useSelector } from 'react-redux';
 
@@ -31,13 +31,14 @@ const userSlice = createSlice({
       state.activeChannel.name = defaultChannel.name;
       state.activeChannel.id = defaultChannel.id;
     },
-    logIn: (state, action) => {
-      const { token, username } = action.payload;
-      state.username = username;
-      state.token = token;
+    logIn: (state, { payload: { user } }) => {
+      console.log('userSlice logIn action.user =>', user);
+      state.username = user.username;
+      state.token = user.token;
       state.isAuth = true;
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', username);
+      localStorage.setItem('token', user.token);
+      localStorage.setItem('username', user.username);
+      console.log('state', current(state));
     },
     logOut: (state) => {
       state.isAuth = false;

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 import routes from '../../utils/routes';
 import useAuth from '../../auth/authHook.jsx';
-import { addToken } from '../../store/userSlice.js';
+import { addToken, logIn } from '../../store/userSlice.js';
 
 const LogInForm = () => {
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const LogInForm = () => {
         auth.logIn();
         const user = response.data;
         dispatch(addToken({ user }));
+        dispatch(logIn({ user }));
         navigate(routes.mainPage());
       } catch (err) {
         if (err.code === 'ERR_NETWORK') {
