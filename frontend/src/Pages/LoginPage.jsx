@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
 import loginPicture from '../assets/auth_logo.jpeg';
-
 import LogInForm from '../components/Forms/LogInForm';
 import PageContainer from '../components/PageContainer';
 import LoginFooter from '../components/LoginFooter';

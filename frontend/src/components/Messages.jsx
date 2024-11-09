@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { useEffect, useRef } from 'react';
 import { animateScroll } from 'react-scroll';
 import { useSelector, useDispatch } from 'react-redux';
@@ -46,11 +45,10 @@ const Messages = () => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      if (!localStorage.getItem('userId')) return [];
       const { token } = JSON.parse(localStorage.getItem('userId'));
 
       try {
-        const result = await axios.get('/api/v1/messages', {
+        const result = await axios.get(routes.messages(), {
           headers: {
             Authorization: `Bearer ${token}`,
           },

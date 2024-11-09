@@ -9,6 +9,8 @@ const initialState = {
   // activeChannel: 'general',
   // isAuth: true, => этого ключа  нет
   // activeChannel: { name: 'general', id: '1', count: 0 },
+  // username: localStorage.getItem('username') || null
+  // token: localStorage.getItem('token') || null
   activeChannel: { name: 'general', id: '1', count: 0 },
 };
 
@@ -29,7 +31,10 @@ const userSlice = createSlice({
       state.activeChannel.name = defaultChannel.name;
       state.activeChannel.id = defaultChannel.id;
     },
-    countMessages: (state, { payload: { count } }) => {
+    logIn: (state, { payload: { count } }) => {
+      state.activeChannelMessagesCount = count;
+    },
+    logOut: (state, { payload: { count } }) => {
       state.activeChannelMessagesCount = count;
     },
   },

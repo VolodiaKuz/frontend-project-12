@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,10 +25,10 @@ const Channels = () => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      if (!localStorage.getItem('userId')) return [];
+      // if (!localStorage.getItem('userId')) return []; //убрать
       try {
         const { token } = JSON.parse(localStorage.getItem('userId'));
-        const result = await axios.get('/api/v1/channels', {
+        const result = await axios.get(routes.channels(), {
           headers: {
             Authorization: `Bearer ${token}`,
           },

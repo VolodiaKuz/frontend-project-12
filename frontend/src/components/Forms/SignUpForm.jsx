@@ -120,10 +120,11 @@ const SignUpForm = () => {
           required
           onChange={f.handleChange}
           onBlur={f.handleBlur}
-          isInvalid={!!f.errors.confirmPassword && f.touched.confirmPassword}
+          isInvalid={!!f.errors.confirmPassword && f.touched.confirmPassword || usernameExist}
         />
         <Form.Control.Feedback type="invalid">
           {f.errors.confirmPassword}
+          {/* {} */}
         </Form.Control.Feedback>
         {usernameExist ? <Alert variant="danger">{t('signup.alreadyExists')}</Alert> : null}
       </Form.Group>

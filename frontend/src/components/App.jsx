@@ -37,6 +37,7 @@ const PrivateRoute = ({ children }) => {
   // });
 
   if (!auth.loggedIn) {
+  // if (!userSlice.isAuth) {
     const userId = JSON.parse(localStorage.getItem('userId'));
     if (!userId) {
       return <Navigate to="/login" />;

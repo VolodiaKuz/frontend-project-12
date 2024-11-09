@@ -1,6 +1,7 @@
 import React from 'react';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
+
 import resources from '../locales/index';
 import App from '../components/App.jsx';
 import initSockets from './initSockets.js';
