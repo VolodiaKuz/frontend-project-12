@@ -32,7 +32,6 @@ const userSlice = createSlice({
       state.activeChannel.id = defaultChannel.id;
     },
     logIn: (state, { payload: { user } }) => {
-      console.log('userSlice logIn action.user =>', user);
       state.username = user.username;
       state.token = user.token;
       state.isAuth = true;
@@ -42,7 +41,10 @@ const userSlice = createSlice({
     },
     logOut: (state) => {
       state.isAuth = false;
+      state.username = null;
+      state.token = null;
       localStorage.clear();
+      console.log('state after logout', current(state));
     },
   },
 });

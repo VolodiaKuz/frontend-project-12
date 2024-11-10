@@ -1,21 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import useAuth from '../auth/authHook.jsx';
+import { logOut } from '../store/userSlice.js';
 import routes from '../utils/routes';
 
-const handleExit = (navigate, auth) => () => {
+const handleExit = (navigate, dispatch) => () => {
   localStorage.clear();
-  auth.logOut();
+  dispatch(logOut());
   navigate(routes.loginPage());
 };
 
 const Navbar = ({ navigate, homePage }) => {
   const { t } = useTranslation();
-  const auth = useAuth();
+  const dispatch = useDispatch();
 
   const exitButton = (
-    <button type="button" className="btn btn-primary" onClick={handleExit(navigate, auth)}>
+    <button type="button" className="btn btn-primary" onClick={handleExit(navigate, dispatch)}>
       {t('logout')}
     </button>
   );
