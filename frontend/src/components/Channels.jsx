@@ -19,6 +19,7 @@ const Channels = () => {
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channelsStore.channels);
   const userStore = useSelector((state) => state.userStore);
+  const { token } = userStore;
 
   useEffect(() => {
     animateScroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
@@ -27,7 +28,6 @@ const Channels = () => {
   useEffect(() => {
     const uploadChannels = async () => {
       try {
-        const { token } = userStore;
         const result = await axios.get(routes.channels(), {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ const Channels = () => {
       }
     };
     uploadChannels();
-  }, [dispatch, navigate, userStore]);
+  }, [dispatch, navigate, token]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

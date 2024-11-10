@@ -34,6 +34,7 @@ const Messages = () => {
   const userStore = useSelector((state) => state.userStore);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { token } = userStore;
 
   useEffect(() => {
     inputRef.current.focus();
@@ -45,8 +46,6 @@ const Messages = () => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      const { token } = userStore;
-
       try {
         const result = await axios.get(routes.messages(), {
           headers: {
@@ -64,7 +63,7 @@ const Messages = () => {
     };
 
     uploadChannels();
-  }, [dispatch, navigate, userStore]);
+  }, [dispatch, navigate, token]);
 
   return (
     <div className="col p-0 h-100">

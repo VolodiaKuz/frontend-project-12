@@ -3,16 +3,16 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import { useSelector } from 'react-redux';
 
-import { countMessages } from '../store/messagesSlice.js';
 import store from '../store/index.js';
+import { countMessages } from '../store/messagesSlice.js';
 import { setActiveChannel } from '../store/userSlice.js';
 
 const handleActiveChannel = (channel) => {
   const { dispatch } = store;
-  dispatch(setActiveChannel({ channel }));
   const { messages } = store.getState().messagesStore;
   const channelMessages = messages.filter((el) => el.channelId === channel.id);
   dispatch(countMessages({ count: channelMessages.length }));
+  dispatch(setActiveChannel({ channel }));
 };
 
 const renderRemovableChannel = (
