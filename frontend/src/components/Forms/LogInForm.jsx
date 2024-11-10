@@ -31,7 +31,6 @@ const LogInForm = () => {
 
       try {
         const response = await axios.post(routes.login(), values);
-        localStorage.setItem('userId', JSON.stringify(response.data));
         const user = response.data;
         dispatch(logIn({ user }));
         navigate(routes.mainPage());

@@ -18,6 +18,7 @@ const Channels = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const channels = useSelector((state) => state.channelsStore.channels);
+  const userStore = useSelector((state) => state.userStore);
 
   useEffect(() => {
     animateScroll.scrollToBottom({ containerId: 'channels-box', delay: 0, duration: 0 });
@@ -25,9 +26,8 @@ const Channels = () => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      // if (!localStorage.getItem('userId')) return []; //убрать
       try {
-        const { token } = JSON.parse(localStorage.getItem('userId')); // изменить
+        const { token } = userStore;
         const result = await axios.get(routes.channels(), {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ const Channels = () => {
       }
     };
     uploadChannels();
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, userStore]);
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

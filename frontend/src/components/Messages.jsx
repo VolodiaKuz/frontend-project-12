@@ -45,7 +45,7 @@ const Messages = () => {
 
   useEffect(() => {
     const uploadChannels = async () => {
-      const { token } = JSON.parse(localStorage.getItem('userId'));
+      const { token } = userStore;
 
       try {
         const result = await axios.get(routes.messages(), {
@@ -64,7 +64,7 @@ const Messages = () => {
     };
 
     uploadChannels();
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, userStore]);
 
   return (
     <div className="col p-0 h-100">

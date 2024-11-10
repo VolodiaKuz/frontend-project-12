@@ -38,10 +38,8 @@ const userSlice = createSlice({
 });
 
 export const {
-  countMessages,
   setActiveChannel,
   setDefaultChannelActive,
-  setMessagesCount,
   logIn,
   logOut,
 } = userSlice.actions;

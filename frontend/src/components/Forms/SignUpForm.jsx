@@ -48,7 +48,6 @@ const SignUpForm = () => {
           routes.signup(),
           { username: values.username, password: values.password },
         );
-        localStorage.setItem('userId', JSON.stringify(response.data));
         const user = response.data;
         dispatch(logIn({ user }));
         navigate(routes.mainPage());
@@ -121,7 +120,6 @@ const SignUpForm = () => {
           isInvalid={(!!f.errors.confirmPassword && f.touched.confirmPassword) || usernameExist}
         />
         <Form.Control.Feedback type="invalid">
-          {/* {f.errors.confirmPassword} */}
           {usernameExist ? t('signup.alreadyExists') : f.errors.confirmPassword}
         </Form.Control.Feedback>
       </Form.Group>

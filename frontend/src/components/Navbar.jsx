@@ -6,7 +6,6 @@ import { logOut } from '../store/userSlice.js';
 import routes from '../utils/routes';
 
 const handleExit = (navigate, dispatch) => () => {
-  localStorage.clear();
   dispatch(logOut());
   navigate(routes.loginPage());
 };
