@@ -8,12 +8,12 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import routes from '../../utils/routes';
-import useAuth from '../../auth/authHook.jsx';
+// import useAuth from '../../auth/authHook.jsx';
 import { addToken, logIn } from '../../store/userSlice.js';
 
 const LogInForm = () => {
   const navigate = useNavigate();
-  const auth = useAuth();
+  // const auth = useAuth();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const inputRef = useRef(null);
@@ -34,7 +34,7 @@ const LogInForm = () => {
       try {
         const response = await axios.post(routes.login(), values);
         localStorage.setItem('userId', JSON.stringify(response.data));
-        auth.logIn();
+        // auth.logIn();
         const user = response.data;
         dispatch(addToken({ user }));
         dispatch(logIn({ user }));

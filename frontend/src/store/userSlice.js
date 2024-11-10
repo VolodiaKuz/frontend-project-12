@@ -7,10 +7,10 @@ const initialState = {
   // username: 'admin',
   // token: 'smkkskdcmksc5',
   // activeChannel: 'general',
-  // isAuth: true, => этого ключа  нет
   // activeChannel: { name: 'general', id: '1', count: 0 },
-  // username: localStorage.getItem('username') || null
-  // token: localStorage.getItem('token') || null
+  isAuth: !!localStorage.getItem('token'),
+  username: localStorage.getItem('username') || null,
+  token: localStorage.getItem('token') || null,
   activeChannel: { name: 'general', id: '1', count: 0 },
 };
 

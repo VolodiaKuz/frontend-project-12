@@ -27,7 +27,7 @@ const Channels = () => {
     const uploadChannels = async () => {
       // if (!localStorage.getItem('userId')) return []; //убрать
       try {
-        const { token } = JSON.parse(localStorage.getItem('userId'));
+        const { token } = JSON.parse(localStorage.getItem('userId')); // изменить
         const result = await axios.get(routes.channels(), {
           headers: {
             Authorization: `Bearer ${token}`,

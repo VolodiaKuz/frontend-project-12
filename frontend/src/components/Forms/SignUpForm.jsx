@@ -9,13 +9,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as Yup from 'yup';
 
 import routes from '../../utils/routes';
-import useAuth from '../../auth/authHook.jsx';
-import { addToken } from '../../store/userSlice.js';
+import { addToken, logIn } from '../../store/userSlice.js';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  const auth = useAuth();
   const dispatch = useDispatch();
   const [usernameExist, setUsernameExist] = useState(false);
   const { t } = useTranslation();
@@ -52,8 +50,9 @@ const SignUpForm = () => {
         );
         localStorage.setItem('userId', JSON.stringify(response.data));
         const user = response.data;
-        auth.logIn();
+        // auth.logIn();
         dispatch(addToken({ user }));
+        dispatch(logIn({ user })); // удалить
         navigate(routes.mainPage());
       } catch (err) {
         if (err.code === 'ERR_NETWORK') {

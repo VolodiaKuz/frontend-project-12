@@ -15,7 +15,7 @@ import HomePage from '../Pages/HomePage';
 import NotFoundPage from '../Pages/NotFoundPage';
 import routes from '../utils/routes';
 import AuthProvider from '../auth/AuthProvider.jsx';
-import { addToken } from '../store/userSlice.js';
+import { addToken, logIn } from '../store/userSlice.js';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
@@ -42,9 +42,10 @@ const PrivateRoute = ({ children }) => {
     if (!userId) {
       return <Navigate to="/login" />;
     }
-    auth.logIn();
+    // auth.logIn();
     const user = userId;
-    dispatch(addToken({ user }));
+    dispatch(logIn({ user }));
+    dispatch(addToken({ user })); // удалить
   }
 
   return children;
