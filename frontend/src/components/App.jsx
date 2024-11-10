@@ -5,53 +5,19 @@ import {
   Route,
   Navigate,
 } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import useAuth from '../auth/authHook.jsx';
 import LoginPage from '../Pages/LoginPage';
 import SignUpPage from '../Pages/SignUpPage.jsx';
 import HomePage from '../Pages/HomePage';
 import NotFoundPage from '../Pages/NotFoundPage';
 import routes from '../utils/routes';
 import AuthProvider from '../auth/AuthProvider.jsx';
-import { addToken, logIn } from '../store/userSlice.js';
 
 const PrivateRoute = ({ children }) => {
-  const auth = useAuth();
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!auth.loggedIn) {
-  //     const userId = JSON.parse(localStorage.getItem('userId'));
-  //     if (!userId) {
-  //       // return <Navigate to="/login" />;
-  //       navigate(routes.loginPage());
-  //     } else {
-  //       auth.logIn();
-  //       const user = userId;
-  //       dispatch(addToken({ user }));
-  //     }
-  //   }
-  // });
-
-  if (!auth.loggedIn) {
-  // if (!userSlice.isAuth) {
-    const userId = JSON.parse(localStorage.getItem('userId'));
-    if (!userId) {
-      return <Navigate to="/login" />;
-    }
-    // auth.logIn();
-    const user = userId;
-    dispatch(logIn({ user }));
-    dispatch(addToken({ user })); // удалить
-  }
-
+  const userSlice = useSelector((state) => state.userStore);
+  if (!userSlice.isAuth) return <Navigate to="/login" />;
   return children;
-  // return (
-  //   auth.loggedIn ? children : <Navigate to="/login" />
-  // );
 };
 
 const App = () => (
