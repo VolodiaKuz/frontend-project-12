@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import React, { useEffect, useRef, useState } from 'react';
@@ -73,7 +73,6 @@ const SignUpForm = () => {
       className="col-12 col-md-6 mt-3 mt-md-0"
       onSubmit={f.handleSubmit}
     >
-      <ToastContainer />
       <h1 className="text-center mb-4">{t('signup.header')}</h1>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>

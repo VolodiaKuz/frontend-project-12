@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
 
 import Navbar from '../components/Navbar';
 import Channels from '../components/Channels';
@@ -11,7 +10,6 @@ const HomePage = () => {
 
   return (
     <div className="h-100 bg-light">
-      <ToastContainer />
       <div className="h-100">
         <div className="h-100" id="chat">
           <div className="d-flex flex-column h-100">
@@ -23,7 +21,6 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className="Toastify" />
         </div>
       </div>
     </div>

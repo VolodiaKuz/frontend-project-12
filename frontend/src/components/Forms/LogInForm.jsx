@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useRef, useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
 import { Button, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -57,7 +57,6 @@ const LogInForm = () => {
       className="col-12 col-md-6 mt-3 mt-md-0"
       onSubmit={f.handleSubmit}
     >
-      <ToastContainer />
       <h1 className="text-center mb-4">{t('login.submit')}</h1>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
