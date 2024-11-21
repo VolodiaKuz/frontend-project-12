@@ -45,7 +45,7 @@ const Messages = () => {
   }, [messagesStore.messages]);
 
   useEffect(() => {
-    const uploadChannels = async () => {
+    const uploadMeassges = async () => {
       try {
         const result = await axios.get(routes.messages(), {
           headers: {
@@ -62,7 +62,7 @@ const Messages = () => {
       }
     };
 
-    uploadChannels();
+    uploadMeassges();
   }, [dispatch, navigate, token]);
 
   return (

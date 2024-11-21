@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import {
   BrowserRouter,
   Routes,
@@ -14,8 +13,8 @@ import NotFoundPage from '../Pages/NotFoundPage';
 import routes from '../utils/routes';
 
 const PrivateRoute = ({ children }) => {
-  const userSlice = useSelector((state) => state.userStore);
-  if (!userSlice.isAuth) return <Navigate to="/login" />;
+  const { isAuth } = useSelector((state) => state.userStore);
+  if (!isAuth) return <Navigate to={routes.loginPage()} />;
   return children;
 };
 
