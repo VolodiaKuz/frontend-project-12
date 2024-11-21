@@ -10,21 +10,18 @@ import { fillMessages } from '../store/messagesSlice.js';
 import SendMessageForm from './Forms/SendMessageForm.jsx';
 import routes from '../utils/routes';
 
-const renderMessages = (messages, activeChannel) => {
-  const currentChannelMessages = messages.filter((message) => message.channelId === activeChannel);
-  const messagesHtml = currentChannelMessages.map((message) => {
-    const messageHtml = (
+const renderMessages = (messages, activeChannel) => (
+  messages
+    .filter((message) => message.channelId === activeChannel)
+    .map((message) => (
       <div className="text-break mb-2" key={message.id}>
         <b>{message.username}</b>
         :
         {' '}
         {message.body}
       </div>
-    );
-    return messageHtml;
-  });
-  return messagesHtml;
-};
+    ))
+);
 
 const Messages = () => {
   const inputRef = useRef(null);
