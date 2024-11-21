@@ -34,7 +34,8 @@ const Messages = () => {
   const { token } = userStore;
 
   useEffect(() => {
-    inputRef.current.focus();
+    setTimeout(() => inputRef.current.focus());
+    // inputRef.current.focus();
   }, [userStore.activeChannel]);
 
   useEffect(() => {
