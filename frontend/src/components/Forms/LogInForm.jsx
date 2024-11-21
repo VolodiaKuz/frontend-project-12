@@ -68,6 +68,7 @@ const LogInForm = () => {
           onChange={f.handleChange}
           ref={inputRef}
           isInvalid={authError}
+          value={f.values.username}
         />
       </Form.Group>
       <Form.Group className="mb-3">
@@ -80,6 +81,7 @@ const LogInForm = () => {
           required
           onChange={f.handleChange}
           isInvalid={authError}
+          value={f.values.password}
         />
         <Form.Control.Feedback type="invalid">{t('login.authFailed')}</Form.Control.Feedback>
       </Form.Group>

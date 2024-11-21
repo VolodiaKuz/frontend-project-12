@@ -85,6 +85,7 @@ const SignUpForm = () => {
           onBlur={f.handleBlur}
           ref={inputRef}
           isInvalid={(!!f.errors.username && f.touched.username) || usernameExist}
+          value={f.values.username}
         />
         <Form.Control.Feedback type="invalid">
           {f.errors.username}
@@ -101,6 +102,7 @@ const SignUpForm = () => {
           onChange={f.handleChange}
           onBlur={f.handleBlur}
           isInvalid={(!!f.errors.password && f.touched.password) || usernameExist}
+          value={f.values.password}
         />
         <Form.Control.Feedback type="invalid">
           {f.errors.password}
@@ -117,6 +119,7 @@ const SignUpForm = () => {
           onChange={f.handleChange}
           onBlur={f.handleBlur}
           isInvalid={(!!f.errors.confirmPassword && f.touched.confirmPassword) || usernameExist}
+          value={f.values.confirmPassword}
         />
         <Form.Control.Feedback type="invalid">
           {usernameExist ? t('signup.alreadyExists') : f.errors.confirmPassword}

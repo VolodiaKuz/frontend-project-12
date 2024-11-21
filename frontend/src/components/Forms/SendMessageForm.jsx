@@ -63,6 +63,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
           placeholder={t('chat.newMessagePlaceholder')}
           onChange={f.handleChange}
           ref={inputRef}
+          value={f.values.message}
         />
         <Button id="button-addon2" type="submit" disabled={f.values.message === ''}>
           <ArrowRight />

@@ -87,6 +87,7 @@ const ModalAdd = ({ hideModal }) => {
               onChange={f.handleChange}
               ref={inputRef}
               isInvalid={channelExist || f.errors.name}
+              value={f.values.name}
             />
             <Form.Control.Feedback type="invalid">
               {channelExist && t('modals.uniq')}

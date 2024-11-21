@@ -80,6 +80,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
               onBlur={f.handleBlur}
               ref={inputRef}
               isInvalid={f.errors.name}
+              value={f.values.name}
             />
             <Form.Control.Feedback type="invalid">
               {f.errors.name}
