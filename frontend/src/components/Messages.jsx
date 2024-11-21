@@ -35,7 +35,6 @@ const Messages = () => {
 
   useEffect(() => {
     setTimeout(() => inputRef.current.focus());
-    // inputRef.current.focus();
   }, [userStore.activeChannel]);
 
   useEffect(() => {

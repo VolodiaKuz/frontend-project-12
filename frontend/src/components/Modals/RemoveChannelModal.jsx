@@ -1,6 +1,6 @@
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -8,16 +8,15 @@ import { toast } from 'react-toastify';
 import routes from '../../utils/routes';
 import { setDefaultChannelActive } from '../../store/userSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
-import store from '../../store/index.js';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {
   const currentChannel = modalInfo.item;
   const user = useSelector((state) => state.userStore);
   const channels = useSelector((state) => state.channelsStore);
-  const { messages } = store.getState().messagesStore;
+  const { messages } = useSelector((state) => state.messagesStore);
   const messagesCount = messages.filter((el) => el.channelId === '1').length;
   const { t } = useTranslation();
-  const { dispatch } = store;
+  const dispatch = useDispatch();
   const notify = () => toast.success(t('channels.removed'));
   const { token } = user;
   const [isSubmitting, setIsSubmitting] = useState(false);
