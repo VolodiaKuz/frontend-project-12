@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { logOut } from '../store/userSlice.js';
@@ -10,9 +10,10 @@ const handleExit = (navigate, dispatch) => () => {
   navigate(routes.loginPage());
 };
 
-const Navbar = ({ navigate, homePage }) => {
+const Navbar = ({ homePage }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const exitButton = (
     <button type="button" className="btn btn-primary" onClick={handleExit(navigate, dispatch)}>
