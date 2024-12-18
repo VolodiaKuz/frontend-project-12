@@ -17,7 +17,7 @@ const userSlice = createSlice({
       state.activeChannel.id = channel.id;
     },
     setDefaultChannelActive: (state, { payload: { channels } }) => {
-      const defaultChannel = channels.filter((ch) => ch.id === '1')[0];
+      const defaultChannel = channels.find((ch) => ch.id === '1')[0];
       state.activeChannel.name = defaultChannel.name;
       state.activeChannel.id = defaultChannel.id;
     },
