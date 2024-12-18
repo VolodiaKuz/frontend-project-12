@@ -5,17 +5,12 @@ const initialState = {
   isAuth: !!localStorage.getItem('token'),
   username: localStorage.getItem('username') || null,
   token: localStorage.getItem('token') || null,
-  activeChannel: { name: 'general', id: '1', count: 0 },
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setActiveChannel: (state, { payload: { channel } }) => {
-      state.activeChannel.name = channel.name;
-      state.activeChannel.id = channel.id;
-    },
     setDefaultChannelActive: (state, { payload: { channels } }) => {
       const defaultChannel = channels.find((ch) => ch.id === '1')[0];
       state.activeChannel.name = defaultChannel.name;
@@ -38,7 +33,6 @@ const userSlice = createSlice({
 });
 
 export const {
-  setActiveChannel,
   setDefaultChannelActive,
   logIn,
   logOut,

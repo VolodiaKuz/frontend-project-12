@@ -4,12 +4,12 @@ import filter from 'leo-profanity';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { countMessages } from '../store/messagesSlice.js';
-import { setActiveChannel } from '../store/userSlice.js';
+import { setActiveChannel } from '../store/channelsSlice.js';
 
 const Channel = ({ setModalInfo }) => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const messages = useSelector((state) => state.messagesStore.messages);
-  const activeChannel = useSelector((state) => state.userStore.activeChannel);
+  const activeChannel = useSelector((state) => state.channelsStore.activeChannel);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 

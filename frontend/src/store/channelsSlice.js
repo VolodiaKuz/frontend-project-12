@@ -25,6 +25,10 @@ const tasksSlice = createSlice({
     fillChannels: (state, { payload: { createdChannels } }) => {
       state.channels = [...createdChannels];
     },
+    setActiveChannel: (state, { payload: { channel } }) => {
+      state.activeChannel.name = channel.name;
+      state.activeChannel.id = channel.id;
+    },
   },
 });
 
@@ -33,6 +37,7 @@ export const {
   removeChannel,
   renameChannel,
   fillChannels,
+  setActiveChannel,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

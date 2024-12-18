@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import routes from '../../utils/routes';
 
 const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
-  const userStore = useSelector((state) => state.userStore);
+  const channelsStore = useSelector((state) => state.channelsStore);
   const user = useSelector((state) => state.userStore);
   const { t } = useTranslation();
   useEffect(() => {
@@ -27,7 +27,7 @@ const SendMessageForm = ({ inputRef, messagesBoxRef }) => {
       const { token, username } = user;
 
       const newMessage = {
-        body: filter.clean(values.message), channelId: userStore.activeChannel.id, username,
+        body: filter.clean(values.message), channelId: channelsStore.activeChannel.id, username,
       };
 
       try {

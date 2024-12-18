@@ -10,7 +10,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
 import routes from '../../utils/routes';
-import { setActiveChannel } from '../../store/userSlice.js';
+import { setActiveChannel } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 
 const ModalAdd = ({ hideModal }) => {

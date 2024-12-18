@@ -28,6 +28,7 @@ const Messages = () => {
   const messagesBoxRef = useRef(null);
   const { t } = useTranslation();
   const messagesStore = useSelector((state) => state.messagesStore);
+  const channelsStore = useSelector((state) => state.channelsStore);
   const userStore = useSelector((state) => state.userStore);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Messages = () => {
 
   useEffect(() => {
     setTimeout(() => inputRef.current.focus());
-  }, [userStore.activeChannel]);
+  }, [channelsStore.activeChannel]);
 
   useEffect(() => {
     animateScroll.scrollToBottom({ containerId: 'messages-box', delay: 0, duration: 0 });
@@ -70,7 +71,7 @@ const Messages = () => {
             <b>
               #
               {' '}
-              {filter.clean(userStore.activeChannel.name)}
+              {filter.clean(channelsStore.activeChannel.name)}
             </b>
           </p>
           <span className="text-muted">{t('chat.messageCount.messages', { count: messagesStore.activeChannelMessagesCount })}</span>
@@ -80,7 +81,7 @@ const Messages = () => {
           className="chat-messages overflow-auto px-5"
           ref={messagesBoxRef}
         >
-          {renderMessages(messagesStore.messages, userStore.activeChannel.id)}
+          {renderMessages(messagesStore.messages, channelsStore.activeChannel.id)}
         </div>
         <div className="mt-auto px-5 py-3">
           <SendMessageForm inputRef={inputRef} messagesBoxRef={messagesBoxRef} />
