@@ -20,7 +20,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
   const channels = useSelector((state) => state.channelsStore.channels);
   const existedChanelsNames = channels.map((ch) => ch.name);
 
-  const signupSchema = Yup.object().shape({
+  const renameChannelSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('modals.min'))
       .max(20, t('modals.max'))
@@ -37,7 +37,7 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: signupSchema,
+    validationSchema: renameChannelSchema,
     onSubmit: async (values) => {
       const { token } = user;
       const editedChannel = { name: values.name };

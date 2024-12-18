@@ -23,7 +23,7 @@ const ModalAdd = ({ hideModal }) => {
   const existedChanelsNames = channels.map((ch) => ch.name);
   const [channelExist, setChannelExist] = useState(false);
 
-  const signupSchema = Yup.object().shape({
+  const addChannelSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, t('modals.min'))
       .max(20, t('modals.max'))
@@ -38,7 +38,7 @@ const ModalAdd = ({ hideModal }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: signupSchema,
+    validationSchema: addChannelSchema,
     onSubmit: async (values) => {
       setChannelExist(false);
       if (existedChanelsNames.includes(values.name)) {
