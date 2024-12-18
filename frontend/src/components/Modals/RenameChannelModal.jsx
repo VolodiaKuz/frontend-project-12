@@ -29,13 +29,12 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
   });
 
   useEffect(() => {
-    inputRef.current.value = modalInfo.item.name;
     inputRef.current.focus();
-  }, [inputRef, modalInfo.item.name]);
+  }, [inputRef]);
 
   const f = useFormik({
     initialValues: {
-      name: '',
+      name: modalInfo.item.name,
     },
     validationSchema: renameChannelSchema,
     onSubmit: async (values) => {
@@ -77,7 +76,6 @@ const ModalRemove = ({ hideModal, modalInfo }) => {
               name="name"
               required
               onChange={f.handleChange}
-              onBlur={f.handleBlur}
               ref={inputRef}
               isInvalid={f.errors.name}
               value={f.values.name}
