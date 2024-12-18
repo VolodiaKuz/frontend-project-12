@@ -33,9 +33,6 @@ export const {
   removeChannel,
   renameChannel,
   fillChannels,
-  setActive,
-  setDefaultChannelActive,
-  setMessagesCount,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
