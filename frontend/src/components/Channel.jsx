@@ -14,8 +14,6 @@ const Channel = ({ setModalInfo }) => {
   const dispatch = useDispatch();
 
   const handleActiveChannel = (channel) => {
-    // const { dispatch } = store;
-    // const { messages } = store.getState().messagesStore;
     const channelMessages = messages.filter((el) => el.channelId === channel.id);
     dispatch(countMessages({ count: channelMessages.length }));
     dispatch(setActiveChannel({ channel }));

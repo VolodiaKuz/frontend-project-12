@@ -40,7 +40,7 @@ const Messages = () => {
 
   useEffect(() => {
     animateScroll.scrollToBottom({ containerId: 'messages-box', delay: 0, duration: 0 });
-  }, [messagesStore.messages]);
+  }, [messagesStore.messages.length]);
 
   useEffect(() => {
     const uploadMeassges = async () => {

@@ -32,7 +32,7 @@ const ModalAdd = ({ hideModal }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-  });
+  }, []);
 
   const f = useFormik({
     initialValues: {
