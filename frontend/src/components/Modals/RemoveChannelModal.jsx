@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import routes from '../../utils/routes';
-import { setDefaultChannelActive } from '../../store/userSlice.js';
+import { setDefaultChannelActive } from '../../store/channelsSlice.js';
 import { countMessages } from '../../store/messagesSlice.js';
 
 const ModalRemove = ({ hideModal, modalInfo }) => {

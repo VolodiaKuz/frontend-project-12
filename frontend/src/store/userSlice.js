@@ -11,11 +11,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setDefaultChannelActive: (state, { payload: { channels } }) => {
-      const defaultChannel = channels.find((ch) => ch.id === '1')[0];
-      state.activeChannel.name = defaultChannel.name;
-      state.activeChannel.id = defaultChannel.id;
-    },
     logIn: (state, { payload: { user } }) => {
       state.username = user.username;
       state.token = user.token;
@@ -33,7 +28,6 @@ const userSlice = createSlice({
 });
 
 export const {
-  setDefaultChannelActive,
   logIn,
   logOut,
 } = userSlice.actions;
