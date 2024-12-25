@@ -5,6 +5,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import LoginPage from '../Pages/LoginPage';
 import SignUpPage from '../Pages/SignUpPage.jsx';
@@ -19,21 +20,24 @@ const PrivateRoute = ({ children }) => {
 };
 
 const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route
-        path={routes.mainPage()}
-        element={(
-          <PrivateRoute>
-            <HomePage />
-          </PrivateRoute>
-        )}
-      />
-      <Route path={routes.loginPage()} element={<LoginPage />} />
-      <Route path={routes.signUpPage()} element={<SignUpPage />} />
-      <Route path={routes.page404()} element={<NotFoundPage />} />
-    </Routes>
-  </BrowserRouter>
+  <>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path={routes.mainPage()}
+          element={(
+            <PrivateRoute>
+              <HomePage />
+            </PrivateRoute>
+          )}
+        />
+        <Route path={routes.loginPage()} element={<LoginPage />} />
+        <Route path={routes.signUpPage()} element={<SignUpPage />} />
+        <Route path={routes.page404()} element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+    <ToastContainer />
+  </>
 );
 
 export default App;
